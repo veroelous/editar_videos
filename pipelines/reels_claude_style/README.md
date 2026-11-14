@@ -16,3 +16,5 @@ Eles rodam em sequência sobre `brutos/edit/` (os caminhos estão fixos no topo 
 Para outro vídeo, o que muda é o roteiro gráfico em `compose.py` (`CARDS`, `PHRASES`, `HEROES`, funções `card_*` e `ui_*`) e as listas `DROP`/`PUNCH` em `cut.py`. Todos os tempos saem dos índices das palavras (`S(i)`, `SS(i)`, `SE(i)`), então um recorte novo não quebra a sincronia.
 
 Dependências: ffmpeg, Python 3 com `sherpa-onnx soundfile rembg[cpu] pillow numpy`, e a fonte Inter / Inter Display.
+
+Limite de entrega: o vídeo final deve ter no máximo 380 MiB (ver `CLAUDE.md` na raiz). Reels de até ~3 min com CRF 18–21 já ficam bem abaixo.

@@ -13,3 +13,12 @@ Usado no EBO de Gálatas 6:7-10 (gravação do Google Meet, 62 min → 30:32 min
 | 7 | `shorts.py <n>` | Cortes verticais 1080×1920: título, vídeo recortado no rosto, legenda progressiva e cartão "estudo completo no YouTube" |
 
 A detecção de layout do Meet (`layout4fps.json`) é gerada a 4 fps a partir das faixas pretas laterais. Os textos dos versículos (ARA) ficam no dicionário `V` do `compose_long.py`.
+
+## Limite de entrega
+O arquivo entregue deve ter no máximo 380 MiB (ver `CLAUDE.md`). Depois do concat, gere a versão final com 2 passes:
+```
+DUR=$(ffprobe -v error -show_entries format=duration -of csv=p=0 master.mp4)
+VK=$(python3 -c "print(int(380*8388.608/$DUR - 128))")
+ffmpeg -y -i master.mp4 -c:v libx264 -preset medium -b:v ${VK}k -pass 1 -an -f null /dev/null
+ffmpeg -y -i master.mp4 -c:v libx264 -preset medium -b:v ${VK}k -maxrate $((VK*2))k -bufsize $((VK*4))k -pass 2 -c:a aac -b:a 128k -movflags +faststart final.mp4
+```
