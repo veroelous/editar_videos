@@ -12,3 +12,6 @@ node_modules/
 
 # Video editing session outputs (see .claude/skills/video-use/SKILL.md)
 edit/
+
+# Raw footage (large)
+brutos/
