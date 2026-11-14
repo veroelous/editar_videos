@@ -5,9 +5,9 @@ Formato: talking head (criador sentado, fundo de parede creme) com **motion desi
 Tese do vídeo: "esse vídeo foi editado por IA". A própria edição serve de prova: cada tipo de elemento gráfico aparece *enquanto* é citado.
 
 Imagens de referência nesta pasta:
-- `frames/sheet_0..4.png`: contact sheet a 2 fps (o vídeo inteiro em 5 imagens)
-- `detail/*.png`: tiras a 10 fps de cada momento-chave, e `detail/x_cut*.png` com os cortes frame a frame (30 fps)
-- `detail/spectrum.png`, `detail/spec_end.png`: espectrograma do áudio
+- `frames/sheet_0..4.jpg`: contact sheet a 2 fps (o vídeo inteiro em 5 imagens)
+- `detail/*.jpg`: tiras a 10 fps de cada momento-chave, e `detail/x_cut*.jpg` com os cortes frame a frame (30 fps)
+- `detail/spectrum.jpg`, `detail/spec_end.jpg`: espectrograma do áudio
 
 ---
 
@@ -41,8 +41,8 @@ São 14 beats em 29 s, cerca de **2 s por beat**.
 - **Cerca de 16 planos em 29 s**, média de **1,8 s por plano**. Algum elemento gráfico novo surge a cada **0,3–0,5 s** (cada palavra da legenda conta).
 - **Cutaways em tela cheia a cada 3–5 s** (4,1 / 7,4 / 17,9 / 21,0 / 22,2 / 25,9 s) quebram o padrão visual. **A voz continua por cima** de todos eles: o áudio nunca é cortado, só a imagem.
 - **Punch-in de ênfase.** Em 10,4–12,4 s o rosto fica cerca de 15 % maior ("eu não abri nenhum programa"). Ele volta ao enquadramento aberto no corte seguinte. Use punch-in só na frase mais importante do trecho.
-- **Glitch de 1 frame num jump cut** (2,13 s, ver `detail/x_cut2.png`): um único frame com a faixa superior repetida verticalmente (um "slide" vertical com tiling e blur) esconde o pulo de enquadramento.
-- **Higiene de texto no corte.** O texto antigo some **no frame exato do corte**, e o novo aparece **1–2 frames depois** (ver `detail/x_cut10.png`). Nunca sobra texto velho sobre imagem nova.
+- **Glitch de 1 frame num jump cut** (2,13 s, ver `detail/x_cut2.jpg`): um único frame com a faixa superior repetida verticalmente (um "slide" vertical com tiling e blur) esconde o pulo de enquadramento.
+- **Higiene de texto no corte.** O texto antigo some **no frame exato do corte**, e o novo aparece **1–2 frames depois** (ver `detail/x_cut10.jpg`). Nunca sobra texto velho sobre imagem nova.
 - **Palavra interrompida como transição.** "você precisa saber o que quer mostr–" é cortado no meio da palavra direto para o cartão azul "a ideia sempre foi sua". O gráfico completa o pensamento.
 
 ---
