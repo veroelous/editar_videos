@@ -15,3 +15,6 @@ edit/
 
 # Raw footage (large)
 brutos/
+
+# Vídeos de referência de terceiros (manter só a análise e os quadros)
+referencias/nelmoricalde_meet/ref.mp4

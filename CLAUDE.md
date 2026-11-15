@@ -9,8 +9,24 @@
 - Masters intermediários podem ser maiores, mas ficam só em `brutos/` (fora do git) e nunca são o arquivo entregue.
 - Confira o tamanho (`ls -l`) antes de enviar. Se passar de 380 MiB, recodifique; não tente enviar.
 
+## Padrões de edição (usar por padrão nas próximas edições)
+- Biblioteca de efeitos: `pipelines/efeitos/fx.py` (ver o README da pasta). Combina as duas referências.
+- **Reels:**
+  - legenda `caption2` (duas camadas, entrada com desfoque), no peito, com as **mãos passando na frente** (`HandMasker`);
+  - título do gancho com `kinetic_title`;
+  - listas com `number_badge`, seções com `example_template` + `shrink_to_card`;
+  - CTA "Comenta PALAVRA" com `kinetic_title` + `comment_card`;
+  - "plim" (`chime`) nas revelações.
+- **YouTube longo:**
+  - painéis laterais podem usar `glass_panel` (vidro) no lugar do painel creme opaco;
+  - versículos e demonstrações no layout `example_template` (16:9 adaptado);
+  - etiqueta de seção persistente (`section_tag`).
+- Paletas: `PAL_EBO` (creme/preto/azul #2B6BFB) para o EBO; `PAL_TECH` (azul-marinho, laranja, creme) para conteúdo de tecnologia.
+
 ## Onde ficam as coisas
 - `referencias/reels_claude/ANALISE.md`: estilo de edição de referência (reels).
+- `referencias/nelmoricalde_meet/ANALISE.md`: estilo "tech premium" (vidro, desfoque, template Exemplo N, badges, CTA de comentário).
+- `pipelines/efeitos/`: biblioteca de efeitos reutilizável + demo.
 - `pipelines/reels_claude_style/`: pipeline de reels vertical.
 - `pipelines/youtube_longo/`: pipeline de vídeo longo 16:9 + cortes verticais.
 - `brutos/`: vídeos brutos e saídas de edição (ignorado pelo git).

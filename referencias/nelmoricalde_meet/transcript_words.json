@@ -1,0 +1,2209 @@
+{
+ "words": [
+  {
+   "text": "Tudo",
+   "start": 0.0,
+   "end": 0.24
+  },
+  {
+   "text": "que",
+   "start": 0.4,
+   "end": 0.52
+  },
+  {
+   "text": "você",
+   "start": 0.56,
+   "end": 0.68
+  },
+  {
+   "text": "sempre",
+   "start": 0.8,
+   "end": 0.92
+  },
+  {
+   "text": "quis",
+   "start": 1.12,
+   "end": 1.36
+  },
+  {
+   "text": "no",
+   "start": 1.44,
+   "end": 1.56
+  },
+  {
+   "text": "Google",
+   "start": 1.6,
+   "end": 1.84
+  },
+  {
+   "text": "Meet",
+   "start": 1.92,
+   "end": 2.16
+  },
+  {
+   "text": "acabou",
+   "start": 2.32,
+   "end": 2.72
+  },
+  {
+   "text": "de",
+   "start": 2.72,
+   "end": 2.84
+  },
+  {
+   "text": "chegar.",
+   "start": 2.88,
+   "end": 3.28
+  },
+  {
+   "text": "E",
+   "start": 3.36,
+   "end": 3.48
+  },
+  {
+   "text": "quem",
+   "start": 3.52,
+   "end": 3.76
+  },
+  {
+   "text": "trouxe",
+   "start": 3.84,
+   "end": 4.32
+  },
+  {
+   "text": "foi",
+   "start": 4.48,
+   "end": 4.6
+  },
+  {
+   "text": "o",
+   "start": 4.8,
+   "end": 4.88
+  },
+  {
+   "text": "Cloud.",
+   "start": 4.88,
+   "end": 5.44
+  },
+  {
+   "text": "E",
+   "start": 5.52,
+   "end": 5.64
+  },
+  {
+   "text": "pra",
+   "start": 5.68,
+   "end": 5.8
+  },
+  {
+   "text": "mim",
+   "start": 5.84,
+   "end": 6.0
+  },
+  {
+   "text": "é",
+   "start": 6.0,
+   "end": 6.12
+  },
+  {
+   "text": "a",
+   "start": 6.16,
+   "end": 6.24
+  },
+  {
+   "text": "melhor",
+   "start": 6.24,
+   "end": 6.4
+  },
+  {
+   "text": "atualização",
+   "start": 6.48,
+   "end": 7.2
+  },
+  {
+   "text": "até",
+   "start": 7.2,
+   "end": 7.32
+  },
+  {
+   "text": "hoje.",
+   "start": 7.44,
+   "end": 7.76
+  },
+  {
+   "text": "Cloud",
+   "start": 7.92,
+   "end": 8.32
+  },
+  {
+   "text": "lançou",
+   "start": 8.48,
+   "end": 8.88
+  },
+  {
+   "text": "o",
+   "start": 8.96,
+   "end": 9.08
+  },
+  {
+   "text": "Cloud",
+   "start": 9.12,
+   "end": 9.52
+  },
+  {
+   "text": "Meetings.",
+   "start": 9.68,
+   "end": 10.24
+  },
+  {
+   "text": "Ele",
+   "start": 10.32,
+   "end": 10.44
+  },
+  {
+   "text": "entra",
+   "start": 10.56,
+   "end": 10.8
+  },
+  {
+   "text": "na",
+   "start": 10.8,
+   "end": 10.92
+  },
+  {
+   "text": "sua",
+   "start": 10.96,
+   "end": 11.08
+  },
+  {
+   "text": "chamada",
+   "start": 11.2,
+   "end": 11.52
+  },
+  {
+   "text": "como",
+   "start": 11.52,
+   "end": 11.64
+  },
+  {
+   "text": "mais",
+   "start": 11.68,
+   "end": 11.8
+  },
+  {
+   "text": "um",
+   "start": 11.92,
+   "end": 12.04
+  },
+  {
+   "text": "participante.",
+   "start": 12.08,
+   "end": 12.8
+  },
+  {
+   "text": "Normal.",
+   "start": 12.88,
+   "end": 13.36
+  },
+  {
+   "text": "Escuta",
+   "start": 13.52,
+   "end": 13.84
+  },
+  {
+   "text": "tudo",
+   "start": 14.08,
+   "end": 14.2
+  },
+  {
+   "text": "e",
+   "start": 14.32,
+   "end": 14.44
+  },
+  {
+   "text": "trabalha",
+   "start": 14.48,
+   "end": 14.8
+  },
+  {
+   "text": "enquanto",
+   "start": 14.96,
+   "end": 15.28
+  },
+  {
+   "text": "você",
+   "start": 15.28,
+   "end": 15.4
+  },
+  {
+   "text": "ainda",
+   "start": 15.52,
+   "end": 15.76
+  },
+  {
+   "text": "está",
+   "start": 15.76,
+   "end": 15.88
+  },
+  {
+   "text": "conversando",
+   "start": 16.0,
+   "end": 16.4
+  },
+  {
+   "text": "com",
+   "start": 16.48,
+   "end": 16.6
+  },
+  {
+   "text": "os",
+   "start": 16.64,
+   "end": 16.76
+  },
+  {
+   "text": "participantes.",
+   "start": 16.8,
+   "end": 17.52
+  },
+  {
+   "text": "E",
+   "start": 17.6,
+   "end": 17.72
+  },
+  {
+   "text": "olha",
+   "start": 17.76,
+   "end": 18.0
+  },
+  {
+   "text": "que",
+   "start": 18.0,
+   "end": 18.12
+  },
+  {
+   "text": "dá",
+   "start": 18.16,
+   "end": 18.32
+  },
+  {
+   "text": "pra",
+   "start": 18.32,
+   "end": 18.44
+  },
+  {
+   "text": "fazer",
+   "start": 18.48,
+   "end": 18.6
+  },
+  {
+   "text": "com",
+   "start": 18.64,
+   "end": 18.76
+  },
+  {
+   "text": "ele",
+   "start": 18.8,
+   "end": 18.92
+  },
+  {
+   "text": "lá",
+   "start": 18.96,
+   "end": 19.08
+  },
+  {
+   "text": "dentro.",
+   "start": 19.12,
+   "end": 19.44
+  },
+  {
+   "text": "Primeiro,",
+   "start": 19.445,
+   "end": 20.005
+  },
+  {
+   "text": "se",
+   "start": 20.165,
+   "end": 20.285
+  },
+  {
+   "text": "a",
+   "start": 20.325,
+   "end": 20.445
+  },
+  {
+   "text": "ata",
+   "start": 20.485,
+   "end": 20.725
+  },
+  {
+   "text": "acabou,",
+   "start": 20.965,
+   "end": 21.365
+  },
+  {
+   "text": "ele",
+   "start": 21.445,
+   "end": 21.565
+  },
+  {
+   "text": "anota",
+   "start": 21.605,
+   "end": 21.925
+  },
+  {
+   "text": "tudo",
+   "start": 22.085,
+   "end": 22.205
+  },
+  {
+   "text": "sozinho.",
+   "start": 22.325,
+   "end": 22.805
+  },
+  {
+   "text": "Ele",
+   "start": 22.805,
+   "end": 22.925
+  },
+  {
+   "text": "faz",
+   "start": 23.045,
+   "end": 23.165
+  },
+  {
+   "text": "um",
+   "start": 23.285,
+   "end": 23.365
+  },
+  {
+   "text": "resumo",
+   "start": 23.365,
+   "end": 23.685
+  },
+  {
+   "text": "das",
+   "start": 24.005,
+   "end": 24.125
+  },
+  {
+   "text": "decisões,",
+   "start": 24.325,
+   "end": 24.805
+  },
+  {
+   "text": "quem",
+   "start": 24.885,
+   "end": 25.125
+  },
+  {
+   "text": "ficou",
+   "start": 25.125,
+   "end": 25.365
+  },
+  {
+   "text": "com",
+   "start": 25.365,
+   "end": 25.485
+  },
+  {
+   "text": "cada",
+   "start": 25.525,
+   "end": 25.645
+  },
+  {
+   "text": "tarefa,",
+   "start": 25.765,
+   "end": 26.165
+  },
+  {
+   "text": "quem",
+   "start": 26.165,
+   "end": 26.325
+  },
+  {
+   "text": "vai",
+   "start": 26.325,
+   "end": 26.445
+  },
+  {
+   "text": "ser",
+   "start": 26.485,
+   "end": 26.605
+  },
+  {
+   "text": "responsável.",
+   "start": 26.645,
+   "end": 27.285
+  },
+  {
+   "text": "Dois,",
+   "start": 27.445,
+   "end": 28.005
+  },
+  {
+   "text": "você",
+   "start": 28.085,
+   "end": 28.205
+  },
+  {
+   "text": "pede",
+   "start": 28.325,
+   "end": 28.645
+  },
+  {
+   "text": "em",
+   "start": 28.805,
+   "end": 28.925
+  },
+  {
+   "text": "voz",
+   "start": 28.965,
+   "end": 29.205
+  },
+  {
+   "text": "alta.",
+   "start": 29.285,
+   "end": 29.525
+  },
+  {
+   "text": "Cláudio,",
+   "start": 29.605,
+   "end": 30.085
+  },
+  {
+   "text": "monta",
+   "start": 30.085,
+   "end": 30.325
+  },
+  {
+   "text": "o",
+   "start": 30.405,
+   "end": 30.485
+  },
+  {
+   "text": "cronograma",
+   "start": 30.485,
+   "end": 30.965
+  },
+  {
+   "text": "disso.",
+   "start": 31.045,
+   "end": 31.445
+  },
+  {
+   "text": "E",
+   "start": 31.445,
+   "end": 31.565
+  },
+  {
+   "text": "ele",
+   "start": 31.605,
+   "end": 31.725
+  },
+  {
+   "text": "vai",
+   "start": 31.765,
+   "end": 31.885
+  },
+  {
+   "text": "montar",
+   "start": 31.925,
+   "end": 32.165
+  },
+  {
+   "text": "na",
+   "start": 32.245,
+   "end": 32.365
+  },
+  {
+   "text": "hora,",
+   "start": 32.405,
+   "end": 32.805
+  },
+  {
+   "text": "na",
+   "start": 32.885,
+   "end": 33.005
+  },
+  {
+   "text": "frente",
+   "start": 33.045,
+   "end": 33.285
+  },
+  {
+   "text": "de",
+   "start": 33.365,
+   "end": 33.445
+  },
+  {
+   "text": "todo",
+   "start": 33.445,
+   "end": 33.565
+  },
+  {
+   "text": "mundo.",
+   "start": 33.605,
+   "end": 33.845
+  },
+  {
+   "text": "Três,",
+   "start": 34.005,
+   "end": 34.405
+  },
+  {
+   "text": "brinquedos",
+   "start": 34.565,
+   "end": 35.685
+  },
+  {
+   "text": "na",
+   "start": 35.685,
+   "end": 35.805
+  },
+  {
+   "text": "chuva",
+   "start": 35.845,
+   "end": 36.245
+  },
+  {
+   "text": "de",
+   "start": 36.405,
+   "end": 36.525
+  },
+  {
+   "text": "ideias",
+   "start": 36.565,
+   "end": 36.885
+  },
+  {
+   "text": "da",
+   "start": 37.125,
+   "end": 37.205
+  },
+  {
+   "text": "sua",
+   "start": 37.205,
+   "end": 37.325
+  },
+  {
+   "text": "equipe.",
+   "start": 37.365,
+   "end": 37.685
+  },
+  {
+   "text": "Vai",
+   "start": 37.897,
+   "end": 38.017
+  },
+  {
+   "text": "abrir",
+   "start": 38.137,
+   "end": 38.377
+  },
+  {
+   "text": "um",
+   "start": 38.457,
+   "end": 38.537
+  },
+  {
+   "text": "whiteboard,",
+   "start": 38.537,
+   "end": 39.177
+  },
+  {
+   "text": "né?",
+   "start": 39.177,
+   "end": 39.337
+  },
+  {
+   "text": "Que",
+   "start": 39.337,
+   "end": 39.417
+  },
+  {
+   "text": "é",
+   "start": 39.417,
+   "end": 39.497
+  },
+  {
+   "text": "um",
+   "start": 39.497,
+   "end": 39.577
+  },
+  {
+   "text": "quadro",
+   "start": 39.577,
+   "end": 39.897
+  },
+  {
+   "text": "branco.",
+   "start": 39.897,
+   "end": 40.217
+  },
+  {
+   "text": "O",
+   "start": 40.297,
+   "end": 40.377
+  },
+  {
+   "text": "time",
+   "start": 40.377,
+   "end": 40.497
+  },
+  {
+   "text": "vai",
+   "start": 40.617,
+   "end": 40.737
+  },
+  {
+   "text": "jogando",
+   "start": 40.777,
+   "end": 41.017
+  },
+  {
+   "text": "as",
+   "start": 41.097,
+   "end": 41.177
+  },
+  {
+   "text": "ideias",
+   "start": 41.177,
+   "end": 41.417
+  },
+  {
+   "text": "e",
+   "start": 41.417,
+   "end": 41.537
+  },
+  {
+   "text": "ele",
+   "start": 41.577,
+   "end": 41.657
+  },
+  {
+   "text": "vai",
+   "start": 41.657,
+   "end": 41.737
+  },
+  {
+   "text": "começar",
+   "start": 41.737,
+   "end": 41.977
+  },
+  {
+   "text": "a",
+   "start": 41.977,
+   "end": 42.097
+  },
+  {
+   "text": "organizar",
+   "start": 42.137,
+   "end": 42.457
+  },
+  {
+   "text": "do",
+   "start": 42.617,
+   "end": 42.737
+  },
+  {
+   "text": "mais",
+   "start": 42.857,
+   "end": 42.977
+  },
+  {
+   "text": "fácil",
+   "start": 43.097,
+   "end": 43.417
+  },
+  {
+   "text": "para",
+   "start": 43.577,
+   "end": 43.697
+  },
+  {
+   "text": "o",
+   "start": 43.737,
+   "end": 43.817
+  },
+  {
+   "text": "mais",
+   "start": 43.817,
+   "end": 43.937
+  },
+  {
+   "text": "difícil.",
+   "start": 44.057,
+   "end": 44.537
+  },
+  {
+   "text": "4.",
+   "start": 44.697,
+   "end": 45.097
+  },
+  {
+   "text": "Bater",
+   "start": 45.257,
+   "end": 45.497
+  },
+  {
+   "text": "uma",
+   "start": 45.737,
+   "end": 45.817
+  },
+  {
+   "text": "dúvida",
+   "start": 45.817,
+   "end": 46.137
+  },
+  {
+   "text": "no",
+   "start": 46.217,
+   "end": 46.297
+  },
+  {
+   "text": "meio",
+   "start": 46.297,
+   "end": 46.457
+  },
+  {
+   "text": "da",
+   "start": 46.457,
+   "end": 46.577
+  },
+  {
+   "text": "conversa?",
+   "start": 46.617,
+   "end": 47.097
+  },
+  {
+   "text": "Pergunta",
+   "start": 47.257,
+   "end": 47.497
+  },
+  {
+   "text": "para",
+   "start": 47.657,
+   "end": 47.737
+  },
+  {
+   "text": "o",
+   "start": 47.737,
+   "end": 47.817
+  },
+  {
+   "text": "Cláudio.",
+   "start": 47.817,
+   "end": 48.217
+  },
+  {
+   "text": "Cláudio.",
+   "start": 48.217,
+   "end": 48.617
+  },
+  {
+   "text": "Muita",
+   "start": 48.697,
+   "end": 48.937
+  },
+  {
+   "text": "gente",
+   "start": 49.017,
+   "end": 49.177
+  },
+  {
+   "text": "gasto",
+   "start": 49.257,
+   "end": 49.577
+  },
+  {
+   "text": "mesmo",
+   "start": 49.657,
+   "end": 49.777
+  },
+  {
+   "text": "nisso",
+   "start": 49.897,
+   "end": 50.137
+  },
+  {
+   "text": "no",
+   "start": 50.137,
+   "end": 50.257
+  },
+  {
+   "text": "ano",
+   "start": 50.297,
+   "end": 50.417
+  },
+  {
+   "text": "passado.",
+   "start": 50.457,
+   "end": 50.857
+  },
+  {
+   "text": "Ele",
+   "start": 51.017,
+   "end": 51.137
+  },
+  {
+   "text": "vai",
+   "start": 51.257,
+   "end": 51.377
+  },
+  {
+   "text": "pegar",
+   "start": 51.497,
+   "end": 51.817
+  },
+  {
+   "text": "ferramentas",
+   "start": 51.897,
+   "end": 52.377
+  },
+  {
+   "text": "que",
+   "start": 52.457,
+   "end": 52.577
+  },
+  {
+   "text": "tem",
+   "start": 52.617,
+   "end": 52.737
+  },
+  {
+   "text": "conectadas",
+   "start": 52.857,
+   "end": 53.337
+  },
+  {
+   "text": "no",
+   "start": 53.497,
+   "end": 53.617
+  },
+  {
+   "text": "teu",
+   "start": 53.657,
+   "end": 53.817
+  },
+  {
+   "text": "sistema",
+   "start": 53.897,
+   "end": 54.017
+  },
+  {
+   "text": "e",
+   "start": 54.297,
+   "end": 54.417
+  },
+  {
+   "text": "vai",
+   "start": 54.457,
+   "end": 54.577
+  },
+  {
+   "text": "responder",
+   "start": 54.617,
+   "end": 54.857
+  },
+  {
+   "text": "ali",
+   "start": 54.937,
+   "end": 55.057
+  },
+  {
+   "text": "no",
+   "start": 55.177,
+   "end": 55.257
+  },
+  {
+   "text": "chat.",
+   "start": 55.257,
+   "end": 55.737
+  },
+  {
+   "text": "5.",
+   "start": 55.817,
+   "end": 56.217
+  },
+  {
+   "text": "E",
+   "start": 56.539,
+   "end": 56.659
+  },
+  {
+   "text": "esse",
+   "start": 56.859,
+   "end": 56.979
+  },
+  {
+   "text": "é",
+   "start": 57.179,
+   "end": 57.299
+  },
+  {
+   "text": "o",
+   "start": 57.419,
+   "end": 57.539
+  },
+  {
+   "text": "melhor",
+   "start": 57.579,
+   "end": 57.899
+  },
+  {
+   "text": "de",
+   "start": 58.059,
+   "end": 58.179
+  },
+  {
+   "text": "todas.",
+   "start": 58.299,
+   "end": 58.699
+  },
+  {
+   "text": "Reunião",
+   "start": 58.859,
+   "end": 59.259
+  },
+  {
+   "text": "de",
+   "start": 59.259,
+   "end": 59.339
+  },
+  {
+   "text": "venda.",
+   "start": 59.339,
+   "end": 59.659
+  },
+  {
+   "text": "O",
+   "start": 59.739,
+   "end": 59.819
+  },
+  {
+   "text": "cliente",
+   "start": 59.819,
+   "end": 59.979
+  },
+  {
+   "text": "solta,",
+   "start": 60.059,
+   "end": 60.539
+  },
+  {
+   "text": "tá",
+   "start": 60.539,
+   "end": 60.659
+  },
+  {
+   "text": "caro,",
+   "start": 60.779,
+   "end": 61.179
+  },
+  {
+   "text": "preciso",
+   "start": 61.259,
+   "end": 61.579
+  },
+  {
+   "text": "ainda",
+   "start": 61.659,
+   "end": 61.819
+  },
+  {
+   "text": "pensar.",
+   "start": 61.899,
+   "end": 62.219
+  },
+  {
+   "text": "O",
+   "start": 62.299,
+   "end": 62.379
+  },
+  {
+   "text": "Claudio",
+   "start": 62.379,
+   "end": 62.779
+  },
+  {
+   "text": "vai",
+   "start": 62.779,
+   "end": 62.859
+  },
+  {
+   "text": "anotar",
+   "start": 62.859,
+   "end": 63.179
+  },
+  {
+   "text": "cada",
+   "start": 63.259,
+   "end": 63.379
+  },
+  {
+   "text": "objeção",
+   "start": 63.419,
+   "end": 63.819
+  },
+  {
+   "text": "e",
+   "start": 63.899,
+   "end": 64.019
+  },
+  {
+   "text": "o",
+   "start": 64.059,
+   "end": 64.139
+  },
+  {
+   "text": "cliente",
+   "start": 64.139,
+   "end": 64.379
+  },
+  {
+   "text": "não",
+   "start": 64.459,
+   "end": 64.579
+  },
+  {
+   "text": "vê",
+   "start": 64.699,
+   "end": 64.859
+  },
+  {
+   "text": "nada",
+   "start": 64.939,
+   "end": 65.059
+  },
+  {
+   "text": "disso",
+   "start": 65.179,
+   "end": 65.339
+  },
+  {
+   "text": "na",
+   "start": 65.419,
+   "end": 65.539
+  },
+  {
+   "text": "hora.",
+   "start": 65.579,
+   "end": 65.899
+  },
+  {
+   "text": "Agora",
+   "start": 65.899,
+   "end": 66.059
+  },
+  {
+   "text": "acabou",
+   "start": 66.139,
+   "end": 66.539
+  },
+  {
+   "text": "a",
+   "start": 66.619,
+   "end": 66.699
+  },
+  {
+   "text": "chamada,",
+   "start": 66.699,
+   "end": 67.019
+  },
+  {
+   "text": "você",
+   "start": 67.099,
+   "end": 67.219
+  },
+  {
+   "text": "pergunta",
+   "start": 67.339,
+   "end": 67.659
+  },
+  {
+   "text": "quais",
+   "start": 67.899,
+   "end": 68.219
+  },
+  {
+   "text": "foram",
+   "start": 68.299,
+   "end": 68.539
+  },
+  {
+   "text": "as",
+   "start": 68.539,
+   "end": 68.659
+  },
+  {
+   "text": "objeções",
+   "start": 68.699,
+   "end": 69.099
+  },
+  {
+   "text": "e",
+   "start": 69.259,
+   "end": 69.379
+  },
+  {
+   "text": "como",
+   "start": 69.419,
+   "end": 69.539
+  },
+  {
+   "text": "eu",
+   "start": 69.659,
+   "end": 69.739
+  },
+  {
+   "text": "respondo",
+   "start": 69.739,
+   "end": 70.059
+  },
+  {
+   "text": "cada",
+   "start": 70.139,
+   "end": 70.259
+  },
+  {
+   "text": "uma",
+   "start": 70.379,
+   "end": 70.499
+  },
+  {
+   "text": "delas.",
+   "start": 70.539,
+   "end": 70.859
+  },
+  {
+   "text": "E",
+   "start": 70.939,
+   "end": 71.059
+  },
+  {
+   "text": "já",
+   "start": 71.179,
+   "end": 71.299
+  },
+  {
+   "text": "manda",
+   "start": 71.419,
+   "end": 71.659
+  },
+  {
+   "text": "a",
+   "start": 71.819,
+   "end": 71.939
+  },
+  {
+   "text": "proposta",
+   "start": 72.059,
+   "end": 72.459
+  },
+  {
+   "text": "para",
+   "start": 72.539,
+   "end": 72.619
+  },
+  {
+   "text": "o",
+   "start": 72.619,
+   "end": 72.739
+  },
+  {
+   "text": "teu",
+   "start": 72.779,
+   "end": 72.939
+  },
+  {
+   "text": "cliente",
+   "start": 72.939,
+   "end": 73.179
+  },
+  {
+   "text": "com",
+   "start": 73.259,
+   "end": 73.379
+  },
+  {
+   "text": "tudo",
+   "start": 73.419,
+   "end": 73.539
+  },
+  {
+   "text": "respondido.",
+   "start": 73.659,
+   "end": 74.139
+  },
+  {
+   "text": "E",
+   "start": 74.276,
+   "end": 74.396
+  },
+  {
+   "text": "quando",
+   "start": 74.516,
+   "end": 74.636
+  },
+  {
+   "text": "a",
+   "start": 74.756,
+   "end": 74.836
+  },
+  {
+   "text": "chamada",
+   "start": 74.836,
+   "end": 75.076
+  },
+  {
+   "text": "termina,",
+   "start": 75.156,
+   "end": 75.636
+  },
+  {
+   "text": "fica",
+   "start": 75.636,
+   "end": 75.956
+  },
+  {
+   "text": "tudo",
+   "start": 76.036,
+   "end": 76.156
+  },
+  {
+   "text": "numa",
+   "start": 76.276,
+   "end": 76.516
+  },
+  {
+   "text": "única",
+   "start": 76.676,
+   "end": 76.916
+  },
+  {
+   "text": "página.",
+   "start": 76.916,
+   "end": 77.396
+  },
+  {
+   "text": "Dá",
+   "start": 77.476,
+   "end": 77.716
+  },
+  {
+   "text": "pra",
+   "start": 77.796,
+   "end": 77.916
+  },
+  {
+   "text": "perguntar",
+   "start": 78.036,
+   "end": 78.356
+  },
+  {
+   "text": "depois",
+   "start": 78.436,
+   "end": 78.676
+  },
+  {
+   "text": "o",
+   "start": 78.916,
+   "end": 79.036
+  },
+  {
+   "text": "que",
+   "start": 79.076,
+   "end": 79.196
+  },
+  {
+   "text": "o",
+   "start": 79.236,
+   "end": 79.316
+  },
+  {
+   "text": "cliente",
+   "start": 79.316,
+   "end": 79.556
+  },
+  {
+   "text": "pediu",
+   "start": 79.716,
+   "end": 79.956
+  },
+  {
+   "text": "mesmo",
+   "start": 80.036,
+   "end": 80.156
+  },
+  {
+   "text": "naquela",
+   "start": 80.276,
+   "end": 80.596
+  },
+  {
+   "text": "reunião?",
+   "start": 80.596,
+   "end": 81.156
+  },
+  {
+   "text": "Ele",
+   "start": 81.316,
+   "end": 81.436
+  },
+  {
+   "text": "vai",
+   "start": 81.556,
+   "end": 81.676
+  },
+  {
+   "text": "lá",
+   "start": 81.796,
+   "end": 81.916
+  },
+  {
+   "text": "buscar",
+   "start": 82.036,
+   "end": 82.276
+  },
+  {
+   "text": "a",
+   "start": 82.356,
+   "end": 82.436
+  },
+  {
+   "text": "transcrição,",
+   "start": 82.436,
+   "end": 83.076
+  },
+  {
+   "text": "tudo",
+   "start": 83.076,
+   "end": 83.196
+  },
+  {
+   "text": "que",
+   "start": 83.316,
+   "end": 83.396
+  },
+  {
+   "text": "foi",
+   "start": 83.396,
+   "end": 83.516
+  },
+  {
+   "text": "dito",
+   "start": 83.556,
+   "end": 83.716
+  },
+  {
+   "text": "e",
+   "start": 83.796,
+   "end": 83.876
+  },
+  {
+   "text": "vai",
+   "start": 83.876,
+   "end": 83.996
+  },
+  {
+   "text": "trazer",
+   "start": 84.036,
+   "end": 84.276
+  },
+  {
+   "text": "para",
+   "start": 84.436,
+   "end": 84.556
+  },
+  {
+   "text": "você",
+   "start": 84.596,
+   "end": 84.716
+  },
+  {
+   "text": "de",
+   "start": 84.756,
+   "end": 84.836
+  },
+  {
+   "text": "novo,",
+   "start": 84.836,
+   "end": 85.156
+  },
+  {
+   "text": "e",
+   "start": 85.236,
+   "end": 85.356
+  },
+  {
+   "text": "você",
+   "start": 85.396,
+   "end": 85.516
+  },
+  {
+   "text": "ainda",
+   "start": 85.636,
+   "end": 85.796
+  },
+  {
+   "text": "pode",
+   "start": 85.876,
+   "end": 85.996
+  },
+  {
+   "text": "transformar",
+   "start": 86.116,
+   "end": 86.436
+  },
+  {
+   "text": "num",
+   "start": 86.516,
+   "end": 86.636
+  },
+  {
+   "text": "artefato,",
+   "start": 86.756,
+   "end": 87.316
+  },
+  {
+   "text": "que",
+   "start": 87.396,
+   "end": 87.476
+  },
+  {
+   "text": "é",
+   "start": 87.476,
+   "end": 87.556
+  },
+  {
+   "text": "o",
+   "start": 87.556,
+   "end": 87.636
+  },
+  {
+   "text": "melhor",
+   "start": 87.636,
+   "end": 87.876
+  },
+  {
+   "text": "de",
+   "start": 87.876,
+   "end": 87.996
+  },
+  {
+   "text": "tudo.",
+   "start": 88.036,
+   "end": 88.356
+  },
+  {
+   "text": "Agora,",
+   "start": 88.436,
+   "end": 88.836
+  },
+  {
+   "text": "alguns",
+   "start": 88.916,
+   "end": 89.236
+  },
+  {
+   "text": "avisos",
+   "start": 89.316,
+   "end": 89.796
+  },
+  {
+   "text": "que",
+   "start": 89.956,
+   "end": 90.076
+  },
+  {
+   "text": "é",
+   "start": 90.116,
+   "end": 90.236
+  },
+  {
+   "text": "importante,",
+   "start": 90.356,
+   "end": 90.836
+  },
+  {
+   "text": "né?",
+   "start": 90.836,
+   "end": 91.076
+  },
+  {
+   "text": "Nessa",
+   "start": 91.076,
+   "end": 91.316
+  },
+  {
+   "text": "situação",
+   "start": 91.556,
+   "end": 91.876
+  },
+  {
+   "text": "do",
+   "start": 91.956,
+   "end": 92.076
+  },
+  {
+   "text": "Claudio.",
+   "start": 92.116,
+   "end": 92.756
+  },
+  {
+   "text": "Primeiro,",
+   "start": 92.793,
+   "end": 93.433
+  },
+  {
+   "text": "ele",
+   "start": 93.593,
+   "end": 93.713
+  },
+  {
+   "text": "ainda",
+   "start": 93.913,
+   "end": 94.313
+  },
+  {
+   "text": "está",
+   "start": 94.473,
+   "end": 94.593
+  },
+  {
+   "text": "em",
+   "start": 94.713,
+   "end": 94.833
+  },
+  {
+   "text": "fase",
+   "start": 94.873,
+   "end": 95.193
+  },
+  {
+   "text": "de",
+   "start": 95.273,
+   "end": 95.393
+  },
+  {
+   "text": "teste",
+   "start": 95.433,
+   "end": 95.673
+  },
+  {
+   "text": "em",
+   "start": 95.833,
+   "end": 95.953
+  },
+  {
+   "text": "beta.",
+   "start": 95.993,
+   "end": 96.553
+  },
+  {
+   "text": "Dois,",
+   "start": 96.633,
+   "end": 97.113
+  },
+  {
+   "text": "ele",
+   "start": 97.273,
+   "end": 97.393
+  },
+  {
+   "text": "só",
+   "start": 97.593,
+   "end": 97.753
+  },
+  {
+   "text": "funciona",
+   "start": 97.833,
+   "end": 98.233
+  },
+  {
+   "text": "por",
+   "start": 98.313,
+   "end": 98.433
+  },
+  {
+   "text": "enquanto",
+   "start": 98.473,
+   "end": 98.713
+  },
+  {
+   "text": "no",
+   "start": 98.793,
+   "end": 98.873
+  },
+  {
+   "text": "Google",
+   "start": 98.873,
+   "end": 99.193
+  },
+  {
+   "text": "Meet,",
+   "start": 99.273,
+   "end": 99.673
+  },
+  {
+   "text": "mas",
+   "start": 99.673,
+   "end": 99.793
+  },
+  {
+   "text": "por",
+   "start": 99.913,
+   "end": 100.033
+  },
+  {
+   "text": "enquanto.",
+   "start": 100.073,
+   "end": 100.553
+  },
+  {
+   "text": "E",
+   "start": 100.633,
+   "end": 100.753
+  },
+  {
+   "text": "três,",
+   "start": 100.873,
+   "end": 101.273
+  },
+  {
+   "text": "só",
+   "start": 101.353,
+   "end": 101.673
+  },
+  {
+   "text": "nos",
+   "start": 101.673,
+   "end": 101.793
+  },
+  {
+   "text": "planos",
+   "start": 101.913,
+   "end": 102.233
+  },
+  {
+   "text": "empresariais,",
+   "start": 102.313,
+   "end": 103.033
+  },
+  {
+   "text": "que",
+   "start": 103.033,
+   "end": 103.153
+  },
+  {
+   "text": "é",
+   "start": 103.193,
+   "end": 103.313
+  },
+  {
+   "text": "no",
+   "start": 103.353,
+   "end": 103.473
+  },
+  {
+   "text": "Teams",
+   "start": 103.513,
+   "end": 103.913
+  },
+  {
+   "text": "e",
+   "start": 104.073,
+   "end": 104.193
+  },
+  {
+   "text": "no",
+   "start": 104.313,
+   "end": 104.433
+  },
+  {
+   "text": "Enterprise.",
+   "start": 104.633,
+   "end": 105.433
+  },
+  {
+   "text": "E",
+   "start": 105.513,
+   "end": 105.633
+  },
+  {
+   "text": "já",
+   "start": 105.673,
+   "end": 105.793
+  },
+  {
+   "text": "avisa",
+   "start": 105.833,
+   "end": 106.073
+  },
+  {
+   "text": "todo",
+   "start": 106.233,
+   "end": 106.353
+  },
+  {
+   "text": "mundo",
+   "start": 106.473,
+   "end": 106.593
+  },
+  {
+   "text": "antes,",
+   "start": 106.713,
+   "end": 107.033
+  },
+  {
+   "text": "porque",
+   "start": 107.033,
+   "end": 107.153
+  },
+  {
+   "text": "ele",
+   "start": 107.353,
+   "end": 107.473
+  },
+  {
+   "text": "transcreve",
+   "start": 107.593,
+   "end": 108.233
+  },
+  {
+   "text": "totalmente",
+   "start": 108.393,
+   "end": 108.793
+  },
+  {
+   "text": "a",
+   "start": 109.033,
+   "end": 109.153
+  },
+  {
+   "text": "conversa.",
+   "start": 109.273,
+   "end": 109.993
+  },
+  {
+   "text": "E",
+   "start": 110.036,
+   "end": 110.156
+  },
+  {
+   "text": "no",
+   "start": 110.196,
+   "end": 110.316
+  },
+  {
+   "text": "meu",
+   "start": 110.356,
+   "end": 110.476
+  },
+  {
+   "text": "ponto",
+   "start": 110.516,
+   "end": 110.756
+  },
+  {
+   "text": "de",
+   "start": 110.756,
+   "end": 110.876
+  },
+  {
+   "text": "vista,",
+   "start": 110.916,
+   "end": 111.316
+  },
+  {
+   "text": "logo",
+   "start": 111.476,
+   "end": 111.796
+  },
+  {
+   "text": "logo",
+   "start": 111.956,
+   "end": 112.276
+  },
+  {
+   "text": "ele",
+   "start": 112.676,
+   "end": 112.796
+  },
+  {
+   "text": "vai",
+   "start": 112.916,
+   "end": 113.036
+  },
+  {
+   "text": "conversar",
+   "start": 113.236,
+   "end": 113.716
+  },
+  {
+   "text": "com",
+   "start": 113.796,
+   "end": 113.916
+  },
+  {
+   "text": "você",
+   "start": 113.956,
+   "end": 114.076
+  },
+  {
+   "text": "em",
+   "start": 114.196,
+   "end": 114.316
+  },
+  {
+   "text": "tempo",
+   "start": 114.356,
+   "end": 114.476
+  },
+  {
+   "text": "real",
+   "start": 114.676,
+   "end": 114.796
+  },
+  {
+   "text": "durante",
+   "start": 115.236,
+   "end": 115.356
+  },
+  {
+   "text": "o",
+   "start": 115.876,
+   "end": 115.996
+  },
+  {
+   "text": "meet.",
+   "start": 116.116,
+   "end": 116.676
+  },
+  {
+   "text": "E",
+   "start": 116.756,
+   "end": 116.876
+  },
+  {
+   "text": "tem",
+   "start": 116.916,
+   "end": 117.036
+  },
+  {
+   "text": "uma",
+   "start": 117.076,
+   "end": 117.196
+  },
+  {
+   "text": "quebra",
+   "start": 117.316,
+   "end": 117.556
+  },
+  {
+   "text": "de",
+   "start": 117.636,
+   "end": 117.716
+  },
+  {
+   "text": "objeções",
+   "start": 117.716,
+   "end": 118.116
+  },
+  {
+   "text": "em",
+   "start": 118.196,
+   "end": 118.316
+  },
+  {
+   "text": "reuniões",
+   "start": 118.356,
+   "end": 118.676
+  },
+  {
+   "text": "de",
+   "start": 118.756,
+   "end": 118.836
+  },
+  {
+   "text": "vendas,",
+   "start": 118.836,
+   "end": 119.316
+  },
+  {
+   "text": "muitas",
+   "start": 119.396,
+   "end": 119.716
+  },
+  {
+   "text": "vezes,",
+   "start": 119.796,
+   "end": 120.276
+  },
+  {
+   "text": "possivelmente,",
+   "start": 120.276,
+   "end": 120.996
+  },
+  {
+   "text": "vão",
+   "start": 121.156,
+   "end": 121.396
+  },
+  {
+   "text": "acontecer",
+   "start": 121.476,
+   "end": 122.036
+  },
+  {
+   "text": "em",
+   "start": 122.276,
+   "end": 122.396
+  },
+  {
+   "text": "tempo",
+   "start": 122.516,
+   "end": 122.636
+  },
+  {
+   "text": "real.",
+   "start": 122.836,
+   "end": 123.236
+  },
+  {
+   "text": "Escreve",
+   "start": 123.396,
+   "end": 123.796
+  },
+  {
+   "text": "o",
+   "start": 123.796,
+   "end": 123.876
+  },
+  {
+   "text": "que",
+   "start": 123.876,
+   "end": 123.956
+  },
+  {
+   "text": "eu",
+   "start": 123.956,
+   "end": 124.036
+  },
+  {
+   "text": "tô",
+   "start": 124.036,
+   "end": 124.196
+  },
+  {
+   "text": "te",
+   "start": 124.196,
+   "end": 124.276
+  },
+  {
+   "text": "falando.",
+   "start": 124.276,
+   "end": 124.516
+  },
+  {
+   "text": "E",
+   "start": 124.596,
+   "end": 124.716
+  },
+  {
+   "text": "pra",
+   "start": 124.756,
+   "end": 124.876
+  },
+  {
+   "text": "ligar",
+   "start": 124.916,
+   "end": 125.156
+  },
+  {
+   "text": "isso,",
+   "start": 125.236,
+   "end": 125.476
+  },
+  {
+   "text": "são",
+   "start": 125.476,
+   "end": 125.596
+  },
+  {
+   "text": "só",
+   "start": 125.716,
+   "end": 125.876
+  },
+  {
+   "text": "quatro",
+   "start": 125.876,
+   "end": 126.036
+  },
+  {
+   "text": "cliques.",
+   "start": 126.036,
+   "end": 126.436
+  },
+  {
+   "text": "Comenta,",
+   "start": 126.516,
+   "end": 126.916
+  },
+  {
+   "text": "Claudio,",
+   "start": 126.916,
+   "end": 127.316
+  },
+  {
+   "text": "que",
+   "start": 127.316,
+   "end": 127.436
+  },
+  {
+   "text": "eu",
+   "start": 127.476,
+   "end": 127.556
+  },
+  {
+   "text": "te",
+   "start": 127.556,
+   "end": 127.636
+  },
+  {
+   "text": "envio",
+   "start": 127.636,
+   "end": 127.876
+  },
+  {
+   "text": "o",
+   "start": 127.956,
+   "end": 128.036
+  },
+  {
+   "text": "passo",
+   "start": 128.036,
+   "end": 128.196
+  },
+  {
+   "text": "a",
+   "start": 128.276,
+   "end": 128.356
+  },
+  {
+   "text": "passo",
+   "start": 128.356,
+   "end": 128.596
+  },
+  {
+   "text": "oficial",
+   "start": 128.756,
+   "end": 129.076
+  },
+  {
+   "text": "da",
+   "start": 129.156,
+   "end": 129.236
+  },
+  {
+   "text": "Antropic.",
+   "start": 129.236,
+   "end": 129.876
+  },
+  {
+   "text": "E",
+   "start": 129.971,
+   "end": 130.091
+  },
+  {
+   "text": "se",
+   "start": 130.131,
+   "end": 130.251
+  },
+  {
+   "text": "você",
+   "start": 130.291,
+   "end": 130.411
+  },
+  {
+   "text": "quer",
+   "start": 130.451,
+   "end": 130.571
+  },
+  {
+   "text": "aprender",
+   "start": 130.611,
+   "end": 130.851
+  },
+  {
+   "text": "a",
+   "start": 131.011,
+   "end": 131.091
+  },
+  {
+   "text": "fazer",
+   "start": 131.091,
+   "end": 131.211
+  },
+  {
+   "text": "essas",
+   "start": 131.251,
+   "end": 131.491
+  },
+  {
+   "text": "animações",
+   "start": 131.491,
+   "end": 131.891
+  },
+  {
+   "text": "que",
+   "start": 131.971,
+   "end": 132.091
+  },
+  {
+   "text": "passaram",
+   "start": 132.211,
+   "end": 132.531
+  },
+  {
+   "text": "aqui,",
+   "start": 132.691,
+   "end": 133.011
+  },
+  {
+   "text": "o",
+   "start": 133.171,
+   "end": 133.291
+  },
+  {
+   "text": "link",
+   "start": 133.411,
+   "end": 133.731
+  },
+  {
+   "text": "está",
+   "start": 133.971,
+   "end": 134.091
+  },
+  {
+   "text": "junto",
+   "start": 134.211,
+   "end": 134.451
+  },
+  {
+   "text": "na",
+   "start": 134.611,
+   "end": 134.731
+  },
+  {
+   "text": "mesma",
+   "start": 134.771,
+   "end": 135.011
+  },
+  {
+   "text": "mensagem.",
+   "start": 135.091,
+   "end": 135.891
+  }
+ ]
+}
