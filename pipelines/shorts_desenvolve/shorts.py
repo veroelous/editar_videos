@@ -11,7 +11,7 @@ import fx
 from fx import F, eo, pr, back
 
 SID = sys.argv[1]
-D = "/home/user/editar_videos/brutos/desenvolve"; E = f"{D}/edit"; SRC = f"{D}/bruto.mp4"
+D = os.environ.get("PROJ", "/home/user/editar_videos/brutos/desenvolve"); E = f"{D}/edit"; SRC = f"{D}/bruto.mp4"
 OUTD = f"{D}/shorts"; os.makedirs(OUTD, exist_ok=True); WK = f"{E}/{SID}"; os.makedirs(WK, exist_ok=True)
 MODELS = "/tmp/claude-0/-home-user-editar-videos/0ca601e2-5ead-5526-97c2-0a2240f4e1d5/scratchpad/models"
 W, H, FPS = 1080, 1920, 30
@@ -131,7 +131,7 @@ for fi in range(NFR):
     # CTA final
     if t >= T_SPEECH - 0.1:
         fx.kinetic_title(ui, "assista o vídeo", "COMPLETO", t, T_SPEECH - 0.1, W / 2, 170, PAL, size=120, color=PAL["cream"], kicker_scale=0.34)
-        fx.comment_card(ui, HANDLE, [(T_SPEECH + 0.5, "Por que você diz SIM quando queria dizer NÃO?", None)], t, T_SPEECH + 0.3, 110, 1480, PAL, w=860, avatar_col=PAL["accent"])
+        fx.comment_card(ui, HANDLE, [(T_SPEECH + 0.5, P.get("video_titulo", "Por que você diz SIM quando queria dizer NÃO?"), None)], t, T_SPEECH + 0.3, 110, 1480, PAL, w=860, avatar_col=PAL["accent"])
     frame.alpha_composite(ui)
     enc.stdin.write(frame.convert("RGB").tobytes())
 enc.stdin.close(); enc.wait(); dec.terminate()
