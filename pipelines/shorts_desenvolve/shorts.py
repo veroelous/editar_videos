@@ -20,6 +20,8 @@ P = json.load(open(f"{E}/shorts_plan.json"))[SID]
 WS = json.load(open(f"{E}/transcripts/bruto.json"))["words"]
 FACES = json.load(open(f"{E}/faces.json"))
 GAP, PRE, POST, TAIL = 0.35, 0.06, 0.10, 2.4
+HANDLE = P.get("handle", "CanalDesenvolveMais")
+TAIL_ONLY = os.environ.get("TAIL_ONLY") == "1"   # re-renderiza só o CTA final e emenda no video.mp4 existente
 
 # ------------------------------------------------------------------ 1. corte
 ranges = []
@@ -101,12 +103,14 @@ def draw_card(frame, layer, t, t0, t1, lines):
 # ------------------------------------------------------------------ 4. render
 HM = fx.HandMasker(MODELS, video=True)
 dec = subprocess.Popen(["ffmpeg", "-v", "error", "-i", f"{WK}/base.mov", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
+F0 = int((T_SPEECH - 0.6) * FPS) if TAIL_ONLY else 0
 enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
-                        "-c:v", "libx264", "-preset", "medium", "-crf", "19", "-pix_fmt", "yuv420p", f"{WK}/video.mp4"], stdin=subprocess.PIPE)
+                        "-c:v", "libx264", "-preset", "medium", "-crf", "19", "-pix_fmt", "yuv420p", f"{WK}/{'tail' if TAIL_ONLY else 'video'}.mp4"], stdin=subprocess.PIPE)
 NFR = int(round(TOTAL * FPS))
 for fi in range(NFR):
     b = dec.stdout.read(W * H * 3)
     if len(b) < W * H * 3: break
+    if fi < F0: continue
     t = fi / FPS; src = Image.frombytes("RGB", (W, H), b); frame = src.convert("RGBA")
     # camada no espaço: legenda em 2 camadas no peito (as mãos passam na frente)
     in_card = any(c0 <= t < c1 + 0.3 for c0, c1, _ in CARDS)
@@ -127,10 +131,15 @@ for fi in range(NFR):
     # CTA final
     if t >= T_SPEECH - 0.1:
         fx.kinetic_title(ui, "assista o vídeo", "COMPLETO", t, T_SPEECH - 0.1, W / 2, 170, PAL, size=120, color=PAL["cream"], kicker_scale=0.34)
-        fx.comment_card(ui, "desenvolvemais", [(T_SPEECH + 0.5, "Por que você diz SIM quando queria dizer NÃO?", None)], t, T_SPEECH + 0.3, 110, 1480, PAL, w=860, avatar_col=PAL["accent"])
+        fx.comment_card(ui, HANDLE, [(T_SPEECH + 0.5, "Por que você diz SIM quando queria dizer NÃO?", None)], t, T_SPEECH + 0.3, 110, 1480, PAL, w=860, avatar_col=PAL["accent"])
     frame.alpha_composite(ui)
     enc.stdin.write(frame.convert("RGB").tobytes())
 enc.stdin.close(); enc.wait(); dec.terminate()
+if TAIL_ONLY:   # emenda: quadros [0,F0) do vídeo anterior + cauda nova
+    os.replace(f"{WK}/video.mp4", f"{WK}/video_old.mp4")
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", f"{WK}/video_old.mp4", "-i", f"{WK}/tail.mp4", "-filter_complex",
+                    f"[0:v]trim=end_frame={F0},setpts=PTS-STARTPTS[a];[1:v]setpts=PTS-STARTPTS[b];[a][b]concat=n=2:v=1:a=0[v]",
+                    "-map", "[v]", "-c:v", "libx264", "-preset", "medium", "-crf", "19", "-pix_fmt", "yuv420p", f"{WK}/video.mp4"], check=True)
 # áudio: voz + plim nos cards/badges
 v, sr = sf.read(f"{WK}/voice.wav", dtype="float32")
 def add(sig, at, db):
