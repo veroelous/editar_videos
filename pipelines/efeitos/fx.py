@@ -327,3 +327,153 @@ class HandMasker:
         skin = Image.fromarray(((cat == 2) * 255).astype(np.uint8)).resize((W, H), Image.BILINEAR)   # 2 = pele do corpo
         m = Image.fromarray(np.minimum(np.asarray(poly), np.asarray(skin)))
         return m.filter(ImageFilter.GaussianBlur(soft))
+
+# ================================================================ referência 3 (nelmoricalde_chatgpt)
+PAL_GOLD = dict(bg=(14, 12, 30), ink=(255, 255, 255), accent=(245, 197, 66), cream=(245, 197, 66), glow=(94, 230, 200), muted=(170, 170, 185))
+
+def y_flip(img, k):
+    """Giro no eixo Y (cartão/celular virando). k 0..1: 0 = de frente, 0.5 = de lado (invisível), 1 = de frente de novo.
+    Use para trocar o conteúdo: desenhe o conteúdo antigo quando k<0.5 e o novo quando k>=0.5."""
+    w, h = img.size; c = abs(math.cos(math.pi * k)); nw = max(2, int(w * c))
+    sq = img.resize((nw, h), Image.BICUBIC)
+    # leve perspectiva: o lado que se afasta encolhe na vertical
+    persp = 0.12 * (1 - c); out = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    coeffs = _persp_coeffs([(0, 0), (nw, 0), (nw, h), (0, h)],
+                           [(0, h * persp), (nw, 0), (nw, h), (0, h * (1 - persp))] if k < 0.5 else [(0, 0), (nw, h * persp), (nw, h * (1 - persp)), (0, h)])
+    sq = sq.transform((nw, h), Image.PERSPECTIVE, coeffs, Image.BICUBIC)
+    out.alpha_composite(sq, ((w - nw) // 2, 0)); return out
+
+def _persp_coeffs(src, dst):
+    A = []; B = []
+    for (x, y), (u, v) in zip(dst, src):
+        A += [[x, y, 1, 0, 0, 0, -u * x, -u * y], [0, 0, 0, x, y, 1, -v * x, -v * y]]; B += [u, v]
+    return np.linalg.solve(np.array(A, float), np.array(B, float)).tolist()
+
+def phone_mockup(screen_rgba, w=420, tilt=0.0):
+    """Celular com moldura escura, cantos arredondados, ilha e brilho. screen_rgba é redimensionada para a tela."""
+    h = int(w * 2.05); r = int(w * 0.16); bz = int(w * 0.035)
+    im = Image.new("RGBA", (w + 60, h + 60), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.rounded_rectangle([30, 44, w + 30, h + 44], radius=r, fill=(0, 0, 0, 130)); im = im.filter(ImageFilter.GaussianBlur(16)); d = ImageDraw.Draw(im)
+    d.rounded_rectangle([30, 30, w + 30, h + 30], radius=r, fill=(28, 28, 34, 255), outline=(120, 120, 135, 255), width=3)
+    sw, sh = w - 2 * bz, h - 2 * bz; scr = screen_rgba.convert("RGBA").resize((sw, sh), Image.BICUBIC)
+    m = Image.new("L", (sw, sh), 0); ImageDraw.Draw(m).rounded_rectangle([0, 0, sw - 1, sh - 1], radius=r - bz, fill=255)
+    im.paste(scr, (30 + bz, 30 + bz), m)
+    d.rounded_rectangle([30 + w / 2 - w * 0.14, 30 + bz + 14, 30 + w / 2 + w * 0.14, 30 + bz + 14 + w * 0.07], radius=w * 0.035, fill=(0, 0, 0, 255))
+    gl = Image.new("RGBA", im.size, (0, 0, 0, 0)); ImageDraw.Draw(gl).polygon([(30 + bz, 30 + bz), (30 + w * 0.55, 30 + bz), (30 + bz, 30 + h * 0.4)], fill=(255, 255, 255, 22))
+    im.alpha_composite(gl)
+    return im.rotate(tilt, expand=True, resample=Image.BICUBIC) if tilt else im
+
+def push_notification(layer, app, text, t, t0, t1, W, pal, y=40, icon_col=(30, 30, 30), progress=True):
+    if not (t0 <= t < t1 + 0.3): return
+    k = eo(pr(t, t0, 0.35)); ko = eo(pr(t, t1, 0.3))
+    w = W - 80; h = 150
+    im = Image.new("RGBA", (w + 40, h + 40), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.rounded_rectangle([20, 28, w + 20, h + 28], radius=34, fill=(0, 0, 0, 120)); im = im.filter(ImageFilter.GaussianBlur(14)); d = ImageDraw.Draw(im)
+    d.rounded_rectangle([20, 20, w + 20, h + 20], radius=34, fill=(32, 32, 40, 238), outline=(255, 255, 255, 30), width=2)
+    d.rounded_rectangle([46, 46, 106, 106], radius=16, fill=icon_col + (255,)); d.text((62, 52), "✦" if False else app[0], font=F("Inter-Bold", 38), fill=(255, 255, 255, 255))
+    d.text((126, 44), app, font=F("Inter-Bold", 30), fill=(245, 245, 248, 255)); d.text((w - 70, 46), "agora", font=F("Inter-Medium", 24), fill=pal["muted"] + (255,))
+    fb = F("Inter-Medium", 28); words = text.split(); line, ly = "", 84
+    for wd in words:
+        if tw(line + " " + wd, fb) > w - 160: d.text((126, ly), line.strip(), font=fb, fill=(220, 220, 228, 255)); line, ly = wd, ly + 34
+        else: line += " " + wd
+    d.text((126, ly), line.strip(), font=fb, fill=(220, 220, 228, 255))
+    if progress:
+        kp = cl((t - t0 - 0.3) / max(0.1, t1 - t0 - 0.6)); d.rounded_rectangle([126, h + 4, w - 40, h + 10], radius=3, fill=(70, 70, 80, 255))
+        d.rounded_rectangle([126, h + 4, 126 + (w - 166) * kp, h + 10], radius=3, fill=pal["glow"] + (255,))
+    layer.alpha_composite(with_alpha(im, k), (20, int(y - (h + 60) * (1 - k) - (h + 80) * ko)))
+
+def evolving_card(layer, img_rgb, caption, states, t, t0, t1, x, y, pal, w=300, rot=-4):
+    """Polaroid que evolui com a fala. states: [(t, 'gif'|'2x'|'film'|texto)] — selos que pipocam e,
+    se 'film', vira tira de filme com o quadro atual destacado."""
+    if not (t0 <= t < t1 + 0.3): return
+    k = back(pr(t, t0, 0.3)); ko = pr(t, t1, 0.3)
+    film = any(s == "film" and t >= ts for ts, s in states)
+    if not film:
+        h = int(w * 1.18); im = Image.new("RGBA", (w + 40, h + 40), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+        d.rectangle([20, 28, w + 20, h + 28], fill=(0, 0, 0, 90)); im = im.filter(ImageFilter.GaussianBlur(10)); d = ImageDraw.Draw(im)
+        d.rectangle([20, 20, w + 20, h + 20], fill=(250, 250, 250, 255))
+        ph = img_rgb.convert("RGBA").resize((w - 28, w - 28), Image.BICUBIC); im.paste(ph, (34, 34))
+        d.text((36, w + 18), caption, font=F("Inter-Bold", 24), fill=(30, 30, 35, 255))
+        for ts, s in states:
+            if t < ts or s == "film": continue
+            kb = back(pr(t, ts, 0.25), 2.2)
+            if s == "gif":
+                bw, bh = 74 * kb, 40 * kb; d.rounded_rectangle([w + 20 - bw + 14, 14, w + 34, 14 + bh], radius=10, fill=(40, 190, 120, 255))
+                if kb > 0.8: d.text((w + 34 - 62, 18), "GIF", font=F("Inter-Bold", 26), fill=(255, 255, 255, 255))
+            elif s == "2x":
+                r = 38 * kb; cx, cy = w + 4, w - 6; d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=pal["accent"] + (255,))
+                if kb > 0.8: d.text((cx - 22, cy - 18), "2x", font=F("InterDisplay-Black", 32), fill=(30, 20, 0, 255))
+        im = im.rotate(rot, expand=True, resample=Image.BICUBIC)
+    else:
+        n = 5; fh = int(w * 0.62); im = Image.new("RGBA", (int(w * 0.62) + 36, n * (fh + 10) + 30), (12, 12, 14, 240)); d = ImageDraw.Draw(im)
+        for j in range(n * 2): d.rectangle([4, 10 + j * (fh + 10) / 2, 14, 18 + j * (fh + 10) / 2], fill=(220, 220, 220, 255)); d.rectangle([im.width - 14, 10 + j * (fh + 10) / 2, im.width - 4, 18 + j * (fh + 10) / 2], fill=(220, 220, 220, 255))
+        cur = int((t - t0) * 6) % n
+        for j in range(n):
+            fr = img_rgb.convert("RGBA").resize((int(w * 0.62) - 8, fh), Image.BICUBIC); im.paste(fr, (22, 15 + j * (fh + 10)))
+            if j == cur: d.rectangle([20, 13 + j * (fh + 10), 22 + int(w * 0.62) - 6, 15 + j * (fh + 10) + fh + 2], outline=pal["accent"] + (255,), width=4)
+    layer.alpha_composite(with_alpha(im, 1 - ko), (int(x - im.width / 2), int(y - im.height / 2 + 30 * (1 - min(1, k)))))
+
+def cards_to_sphere(layer, thumbs, t, t0, t_conv, cx, cy, W, H, radius=230, n=90, seed=3):
+    """Chuva de miniaturas caindo do topo (t0..t_conv) que convergem numa esfera girando em (cx,cy)."""
+    if t < t0: return
+    rng = np.random.default_rng(seed); spin = (t - t0) * 0.9
+    ph = np.arccos(1 - 2 * (np.arange(n) + 0.5) / n); th = np.pi * (1 + 5 ** 0.5) * np.arange(n)
+    items = []
+    for i in range(n):
+        sx, sy = rng.uniform(0, W), rng.uniform(-H * 0.6, -60); vy = rng.uniform(0.9, 1.4) * H * 0.7; rot0 = rng.uniform(-40, 40)
+        x3 = math.sin(ph[i]) * math.cos(th[i] + spin); y3 = math.cos(ph[i]); z3 = math.sin(ph[i]) * math.sin(th[i] + spin)
+        tx, ty = cx + x3 * radius, cy + y3 * radius
+        fall_y = sy + vy * (t - t0); fall_x = sx
+        kc = eio(pr(t, t_conv + (i % 15) * 0.02, 0.6))
+        x = fall_x + (tx - fall_x) * kc; yv = fall_y + (ty - fall_y) * kc
+        size = (70 + 30 * rng.uniform()) * (1 - kc) + (34 + 18 * (z3 + 1) / 2) * kc
+        items.append((z3 * kc - 2 * (1 - kc), x, yv, size, rot0 * (1 - kc), i))
+    for z, x, yv, size, rot, i in sorted(items):
+        th_img = thumbs[i % len(thumbs)].convert("RGBA").resize((int(size), int(size)), Image.BICUBIC)
+        card = Image.new("RGBA", (int(size) + 8, int(size) + 8), (255, 255, 255, 255)); card.paste(th_img, (4, 4))
+        if rot: card = card.rotate(rot, expand=True, resample=Image.BICUBIC)
+        a = 0.55 + 0.45 * (z + 1) / 2 if z > -1.5 else 1.0
+        layer.alpha_composite(with_alpha(card, a), (int(x - card.width / 2), int(yv - card.height / 2)))
+
+def disintegrate(sprite, k, seed=5, cell=6, drift=(160, -260)):
+    """Esfarela um sprite RGBA em partículas que voam e somem (k 0..1). Varre da esquerda para a direita."""
+    if k <= 0: return sprite
+    w, h = sprite.size; out = Image.new("RGBA", (w + abs(drift[0]) * 2, h + abs(drift[1]) * 2), (0, 0, 0, 0))
+    ox, oy = abs(drift[0]), abs(drift[1]); arr = np.asarray(sprite); rng = np.random.default_rng(seed)
+    for yy in range(0, h, cell):
+        for xx in range(0, w, cell):
+            blk = arr[yy:yy + cell, xx:xx + cell]
+            if blk[..., 3].max() < 20: continue
+            start = (xx / w) * 0.6 + rng.uniform(0, 0.15); kk = cl((k - start) / 0.4)
+            if kk >= 1: continue
+            dx = drift[0] * kk * rng.uniform(0.5, 1.5); dy = drift[1] * kk * rng.uniform(0.5, 1.5)
+            b = Image.fromarray(blk.copy()); b = with_alpha(b, 1 - kk)
+            out.alpha_composite(b, (int(ox + xx + dx), int(oy + yy + dy)))
+    return out.crop((ox - 0, oy - 0, ox + w + abs(drift[0]), oy + h)) if False else out
+
+def strike_x(layer, box, t, t0, color=(235, 52, 52), width=16):
+    """✕ vermelho desenhado em dois traços sobre box (x0,y0,x1,y1)."""
+    if t < t0: return
+    x0, y0, x1, y1 = box; d = ImageDraw.Draw(layer)
+    k1 = eo(pr(t, t0, 0.14)); k2 = eo(pr(t, t0 + 0.12, 0.14))
+    d.line([(x0, y0), (x0 + (x1 - x0) * k1, y0 + (y1 - y0) * k1)], fill=color + (255,), width=width)
+    if k2 > 0: d.line([(x1, y0), (x1 - (x1 - x0) * k2, y0 + (y1 - y0) * k2)], fill=color + (255,), width=width)
+
+def orbit_recap(layer, sprites, t, t0, cx, cy, W, H, rx=460, ry=170, speed=0.7, speed_lines=True, front_layer=None):
+    """Recapitulação: sprites (cards/títulos já usados no vídeo) orbitando a pessoa + linhas radiais de velocidade.
+    Desenhe ANTES de restaurar a pessoa com a máscara para os itens 'de trás' ficarem atrás dela."""
+    if t < t0: return
+    k = eo(pr(t, t0, 0.5)); d = ImageDraw.Draw(layer)
+    if speed_lines:
+        for i in range(36):
+            a = i / 36 * 2 * math.pi + (t - t0) * 0.15; r0 = 260 + 40 * (i % 3)
+            d.line([(cx + math.cos(a) * r0, cy + math.sin(a) * r0), (cx + math.cos(a) * 1400, cy + math.sin(a) * 1400)], fill=(255, 255, 255, int(28 * k)), width=2)
+    n = len(sprites); items = []
+    for i, sp in enumerate(sprites):
+        a = 2 * math.pi * i / n + (t - t0) * speed
+        x = cx + math.cos(a) * rx * k; y = cy + math.sin(a) * ry * k; z = math.sin(a)
+        s = 0.55 + 0.35 * (z + 1) / 2; items.append((z, x, y, s, sp))
+    for z, x, y, s, sp in sorted(items, key=lambda q: q[0]):
+        im = sp.resize((max(1, int(sp.width * s)), max(1, int(sp.height * s))), Image.BICUBIC)
+        tgt = front_layer if (front_layer is not None and z >= 0) else layer   # metade da frente passa NA FRENTE da pessoa
+        tgt.alpha_composite(with_alpha(im, k * (0.6 + 0.4 * (z + 1) / 2)), (int(x - im.width / 2), int(y - im.height / 2)))

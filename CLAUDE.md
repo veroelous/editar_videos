@@ -10,7 +10,9 @@
 - Confira o tamanho (`ls -l`) antes de enviar. Se passar de 380 MiB, recodifique; não tente enviar.
 
 ## Padrões de edição (usar por padrão nas próximas edições)
-- Biblioteca de efeitos: `pipelines/efeitos/fx.py` (ver o README da pasta). Combina as duas referências.
+- **Antes de editar, leia `referencias/ACERVO.md`**: é o guia de decisão (qual efeito para cada momento da fala), com regras de bom gosto e paletas. Escolha os efeitos pelo que a fala pede, não por variedade.
+- Biblioteca de efeitos: `pipelines/efeitos/fx.py` (ver o README da pasta). Reúne todas as referências.
+- **Toda nova referência de vídeo:** analisar em `referencias/<nome>/ANALISE.md`, acrescentar as técnicas novas ao `ACERVO.md` (com status) e implementar no `fx.py` as que forem reaproveitáveis.
 - **Reels:**
   - legenda `caption2` (duas camadas, entrada com desfoque), no peito, com as **mãos passando na frente** (`HandMasker`);
   - título do gancho com `kinetic_title`;
@@ -26,6 +28,8 @@
 ## Onde ficam as coisas
 - `referencias/reels_claude/ANALISE.md`: estilo de edição de referência (reels).
 - `referencias/nelmoricalde_meet/ANALISE.md`: estilo "tech premium" (vidro, desfoque, template Exemplo N, badges, CTA de comentário).
+- `referencias/nelmoricalde_chatgpt/ANALISE.md`: estilo cinematográfico (objetos na mão, partículas, mockup 3D, card que evolui, bastidor no editor, recap).
+- `referencias/ACERVO.md`: **acervo unificado + guia de decisão**.
 - `pipelines/efeitos/`: biblioteca de efeitos reutilizável + demo.
 - `pipelines/reels_claude_style/`: pipeline de reels vertical.
 - `pipelines/youtube_longo/`: pipeline de vídeo longo 16:9 + cortes verticais.
