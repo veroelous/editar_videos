@@ -60,5 +60,5 @@ Status: ✅ implementado em `pipelines/efeitos/fx.py` · 🟡 parcial · ⬜ cat
 | Vídeo longo 16:9 → Shorts | Recorte 9:16 por segmento, centrado na mediana do rosto (OpenCV a 2 fps); título no espaço de parede acima da cabeça; cards de vidro na parte de baixo; legenda no peito com as mãos na frente | `pipelines/shorts_desenvolve/` |
 | Selfie vertical (rosto ocupa o quadro) | Objetos no peito e nas laterais, nunca na altura do rosto; órbita com `front_layer` | `pipelines/efeitos/README.md` |
 | Gravação de Meet | Detectar layout (participante vertical vs. câmera principal); participante com fundo desfocado; cortar pedidos pessoais | `pipelines/youtube_longo/` |
-| Títulos letra a letra | Evite letras acentuadas maiúsculas no `kinetic_title` (o acento pode ser cortado); prefira palavras sem acento ou coloque o acento no kicker | `fx.kinetic_title` |
+| Títulos letra a letra | Corrigido: `kinetic_title` alinha as letras pela linha de base (`text_sprite(ref=...)`); antes as acentuadas desciam | `fx.kinetic_title` |
 

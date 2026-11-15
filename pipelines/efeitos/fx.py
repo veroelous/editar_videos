@@ -31,9 +31,14 @@ def with_alpha(img, a):
     if a >= 1: return img
     arr = np.asarray(img).copy(); arr[..., 3] = (arr[..., 3] * max(0, a)).astype(np.uint8); return Image.fromarray(arr)
 
-def text_sprite(text, font, fill, shadow=True, pad=24):
-    """Texto num sprite RGBA próprio (para poder desfocar/escalar isoladamente)."""
-    b = font.getbbox(text); w, h = b[2] - b[0] + 2 * pad, b[3] - b[1] + 2 * pad
+def text_sprite(text, font, fill, shadow=True, pad=24, ref=None):
+    """Texto num sprite RGBA próprio (para poder desfocar/escalar isoladamente).
+    ref: string cujo bbox vertical define o alinhamento (use o título inteiro ao desenhar letra a letra,
+    senão letras acentuadas descem)."""
+    b = font.getbbox(text)
+    if ref is not None:
+        rb = font.getbbox(ref); b = (b[0], rb[1], b[2], rb[3])
+    w, h = b[2] - b[0] + 2 * pad, b[3] - b[1] + 2 * pad
     im = Image.new("RGBA", (w, h), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
     if shadow:
         sh = Image.new("RGBA", (w, h), (0, 0, 0, 0))
@@ -134,7 +139,7 @@ def kinetic_title(layer, kicker, title, t, t0, cx, y, pal, size=150, exit_t=None
         cw = tw(ch, f) if ch != " " else tw(" ", f)
         ts = t0 + 0.15 + i * per_letter
         if t >= ts and ch != " ":
-            k = eo(pr(t, ts, 0.12)); spr, pad = text_sprite(ch, f, col + (255,))
+            k = eo(pr(t, ts, 0.12)); spr, pad = text_sprite(ch, f, col + (255,), ref=title + "ÁÃÇ")
             spr = blur_reveal(spr, k, 12); dx, dy, rot = 0, 18 * (1 - k), 0
             if exit_t and t >= exit_t:
                 ke = eio(pr(t, exit_t + i * 0.02, 0.5)); ang = rng.uniform(-1, 1)
