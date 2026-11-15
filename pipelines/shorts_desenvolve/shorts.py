@@ -20,6 +20,8 @@ P = json.load(open(f"{E}/shorts_plan.json"))[SID]
 WS = json.load(open(f"{E}/transcripts/bruto.json"))["words"]
 FACES = json.load(open(f"{E}/faces.json"))
 GAP, PRE, POST, TAIL = 0.35, 0.06, 0.10, 2.4
+# correções de transcrição (nomes próprios que o ASR erra) — acrescente aqui ou no plano em "fixes"
+FIXES = {"Dweig": "Duhigg", "Sialdini": "Cialdini", "Cloud": "Claude", **P.get("fixes", {})}
 HANDLE = P.get("handle", "CanalDesenvolveMais")
 TAIL_ONLY = os.environ.get("TAIL_ONLY") == "1"   # re-renderiza só o CTA final e emenda no video.mp4 existente
 
@@ -51,7 +53,7 @@ for k, r in enumerate(ranges):
                             f"aresample=48000,apad,atrim=0:{od:.6f},afade=t=in:st=0:d=0.03,afade=t=out:st={r['e'] - r['s']:.4f}:d=0.25"),
                     "-c:v", "libx264", "-preset", "veryfast", "-crf", "14", "-c:a", "pcm_s16le", "-ac", "2", out], check=True)
     for i in range(r["a"], r["b"] + 1):
-        words.append({"i": i, "text": WS[i]["text"], "start": WS[i]["start"] - r["s"] + off, "end": WS[i]["end"] - r["s"] + off})
+        words.append({"i": i, "text": FIXES.get(WS[i]["text"].strip(".,?!"), WS[i]["text"].strip(".,?!")) + WS[i]["text"][len(WS[i]["text"].rstrip(".,?!")):] if WS[i]["text"].strip(".,?!") in FIXES else WS[i]["text"], "start": WS[i]["start"] - r["s"] + off, "end": WS[i]["end"] - r["s"] + off})
     r["o"] = off; off += od; lst.write(f"file 'seg_{k:03d}.mov'\n")
 lst.close(); TOTAL = off; T_SPEECH = words[-1]["end"]
 subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", f"{WK}/list.txt", "-c", "copy", f"{WK}/base.mov"], check=True)
