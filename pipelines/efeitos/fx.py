@@ -120,14 +120,14 @@ def section_tag(layer, text, t, t0, t1, x, y, pal, size=26):
     layer.alpha_composite(with_alpha(im, 1 - ko), (int(x), int(y)))
 
 # ---------------------------------------------------------------- 4. título cinético (letra a letra + espalhar)
-def kinetic_title(layer, kicker, title, t, t0, cx, y, pal, size=150, exit_t=None, per_letter=0.05, color=None):
+def kinetic_title(layer, kicker, title, t, t0, cx, y, pal, size=150, exit_t=None, per_letter=0.05, color=None, kicker_scale=0.22):
     col = color or pal["cream"]
-    fk = F("Inter-Bold", int(size * 0.22)); kk = eo(pr(t, t0, 0.3))
+    fk = F("Inter-Bold", int(size * kicker_scale)); kk = eo(pr(t, t0, 0.3))
     if kicker:
         spaced = " ".join(kicker.upper())
         spr, pad = text_sprite(spaced, fk, (255, 255, 255, 255)); spr = blur_reveal(spr, kk)
         if exit_t: spr = with_alpha(spr, 1 - pr(t, exit_t, 0.25))
-        layer.alpha_composite(spr, (int(cx - spr.width / 2), int(y - size * 0.42 - pad)))
+        layer.alpha_composite(spr, (int(cx - spr.width / 2), int(y - size * (0.2 + kicker_scale) - pad)))
     f = F("InterDisplay-Black", size); total = tw(title, f); x = cx - total / 2
     rng = np.random.default_rng(len(title))
     for i, ch in enumerate(title):

@@ -53,3 +53,12 @@ Status: ✅ implementado em `pipelines/efeitos/fx.py` · 🟡 parcial · ⬜ cat
 | `PAL_EBO` | EBO / conteúdo bíblico | creme #F2EEE6 / escuro #0A0A0E | azul #2B6BFB | creme | branco |
 | `PAL_TECH` | tecnologia/IA | azul-marinho #0C0C1C | laranja #E8734A | creme #F3E3B0 | roxo #8460FF |
 | `PAL_GOLD` | impacto/números (R3) | quarto desfocado | amarelo-ouro #F5C542 | branco | verde-água #5EE6C8 |
+
+## 4. Aprendizados de produção (por tipo de material)
+| Material | O que fazer | Onde |
+|---|---|---|
+| Vídeo longo 16:9 → Shorts | Recorte 9:16 por segmento, centrado na mediana do rosto (OpenCV a 2 fps); título no espaço de parede acima da cabeça; cards de vidro na parte de baixo; legenda no peito com as mãos na frente | `pipelines/shorts_desenvolve/` |
+| Selfie vertical (rosto ocupa o quadro) | Objetos no peito e nas laterais, nunca na altura do rosto; órbita com `front_layer` | `pipelines/efeitos/README.md` |
+| Gravação de Meet | Detectar layout (participante vertical vs. câmera principal); participante com fundo desfocado; cortar pedidos pessoais | `pipelines/youtube_longo/` |
+| Títulos letra a letra | Evite letras acentuadas maiúsculas no `kinetic_title` (o acento pode ser cortado); prefira palavras sem acento ou coloque o acento no kicker | `fx.kinetic_title` |
+
