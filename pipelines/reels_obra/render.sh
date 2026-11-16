@@ -20,7 +20,7 @@ PY
 # 2) trilha + SFX
 python3 "$HERE/audio.py"
 # 3) frames em paralelo
-NF=$(python3 -c "import sys; sys.path.insert(0,'$HERE'); from compose import END1,FPS; print(int(END1*FPS))")
+NF=$(python3 -c "import sys; sys.path.insert(0,'$HERE'); from compose import END1,FPS,COVER; print(int((END1+COVER)*FPS))")
 rm -rf "$PROJ/frames"; mkdir -p "$PROJ/frames"
 CH=$(( (NF + J - 1) / J ))
 for ((k=0; k<J; k++)); do python3 "$HERE/compose.py" $((k*CH)) $(((k+1)*CH)) "$PROJ/frames" & done; wait

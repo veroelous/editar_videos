@@ -5,7 +5,7 @@ amb.wav: som ambiente do bruto já remontado na linha do tempo (gerado por rende
 import os, sys
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(__file__))
-from compose import SEGS, END0, END1
+from compose import SEGS, END0, END1, COVER, OUTRO
 
 PROJ = os.environ.get("PROJ", "brutos/g2b")
 SR = 48000; N = int((END1 + 0.6) * SR); BPM = 120; B = 60 / BPM
@@ -109,6 +109,7 @@ add(S, whoosh(0.6), 27.3, 1.1)
 add(S, impact(1.0), END0)
 for i in range(10): add(S, tick(2000 + 60 * i, 0.12), END0 + 0.9 + 0.15 + i * 0.045)  # "SIGA A G2B"
 add(S, ding(), END0 + 3.0)
+add(S, whoosh(0.4), OUTRO - 0.35, 0.8); add(S, impact(0.8), OUTRO); add(S, shimmer(1.0), OUTRO + 0.05, 1.4)
 
 # ---------------------------------------------------------------- ambiente + mix
 amb = np.zeros(N)
@@ -121,6 +122,11 @@ if os.path.exists(f"{PROJ}/amb.wav"):
 mix = M * 0.75 + S * 0.8 + amb
 mix = np.tanh(mix * 1.1) / np.tanh(1.1)
 mix = mix / (np.abs(mix).max() + 1e-9) * 0.89
+# capa: impacto + brilho + subida curta até o flash que abre o gancho
+C = np.zeros(int(COVER * SR))
+add(C, impact(0.7), 0.0); add(C, shimmer(0.9), 0.05, 1.2); add(C, riser(COVER - 0.1), 0.0, 0.7); add(C, whoosh(0.35), COVER - 0.3, 0.8)
+C = np.tanh(C * 1.1) / np.tanh(1.1); C = C / (np.abs(C).max() + 1e-9) * 0.7
+mix = np.concatenate([C, mix])
 st = np.stack([mix, mix], 1)
 sf.write(f"{PROJ}/audio_mix.wav", st, SR)
 print("ok", len(mix) / SR)

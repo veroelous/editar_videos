@@ -12,20 +12,27 @@ from fx import *  # noqa
 PROJ = os.environ.get("PROJ", "brutos/g2b")
 W, H, FPS = 1080, 1920, 30
 SRC_FPS, SRC_N = 30, len(os.listdir(f"{PROJ}/src"))
-PAL = dict(bg=(9, 13, 22), ink=(255, 255, 255), accent=(245, 197, 66), cream=(245, 197, 66), glow=(245, 197, 66), muted=(160, 168, 185))
+# Paleta G2B: azul-marinho da marca (#20314D) + azul-céu de destaque + branco
+NAVY = (32, 49, 77); SKY = (125, 184, 255)
+PAL = dict(bg=(14, 23, 40), ink=(255, 255, 255), accent=SKY, cream=SKY, glow=(70, 120, 200), muted=(165, 180, 205))
 Y = PAL["accent"]
+LOGO_PATH = os.environ.get("LOGO", f"{PROJ}/logo/1.png")  # versão branca do logo (PNG transparente)
+_logo = Image.open(LOGO_PATH).convert("RGBA"); LOGO = _logo.crop(_logo.getbbox())
+def logo_sz(w):
+    return LOGO.resize((int(w), int(LOGO.height * w / LOGO.width)), Image.LANCZOS)
 
 # ---------------------------------------------------------------- linha do tempo (cortes nas batidas de 120 bpm)
 # (out_ini, out_fim, src_ini, src_fim, zoom_ini, zoom_fim, transição_de_entrada)
 SEGS = [
     (0.0, 4.0, 0.0, 4.4, 1.00, 1.10, None),
-    (4.0, 8.5, 9.7, 17.4, 1.12, 1.02, "whip_x"),
+    (4.0, 8.5, 11.0, 17.4, 1.12, 1.02, "whip_x"),
     (8.5, 12.5, 17.4, 24.2, 1.02, 1.12, "zoom"),
     (12.5, 18.5, 25.0, 37.4, 1.10, 1.00, "leak"),
     (18.5, 22.5, 38.6, 45.2, 1.00, 1.10, "whip_y"),
     (22.5, 28.0, 46.0, 56.3, 1.04, 1.16, "zoom"),
 ]
-END0, END1 = 28.0, 33.5
+END0, END1 = 28.0, 35.6
+OUTRO = END0 + 5.4  # vinheta final com o logo grande
 FREEZE_SRC = 4.2  # quadro do "antes" no cartão final (portão aberto)
 
 def src_frame(ts):
@@ -66,13 +73,18 @@ def vignette():
     return v[..., None].astype(np.float32)
 VIG = vignette()
 
+DEEP = np.array([12, 22, 42], np.float32); NAVY_A = np.array(NAVY, np.float32)
+GB = np.clip((np.linspace(0, 1, H) - 0.55) / 0.45, 0, 1)[:, None, None] ** 1.5
+GT = np.clip((0.17 - np.linspace(0, 1, H)) / 0.17, 0, 1)[:, None, None]
 def grade_bottom(fr):
-    """Escurece a parte de baixo (legibilidade da legenda) + vinheta."""
-    a = np.asarray(fr).astype(np.float32) * VIG
-    g = np.linspace(0, 1, H)[:, None, None]; g = np.clip((g - 0.55) / 0.45, 0, 1) ** 1.5
-    a = a * (1 - 0.55 * g)
-    gt = np.clip((0.16 - np.linspace(0, 1, H)) / 0.16, 0, 1)[:, None, None]
-    a = a * (1 - 0.45 * gt)
+    """Grade azul G2B: sombras puxadas para o azul-marinho da marca, leve tom frio,
+    degradês azul-marinho em cima e embaixo (legibilidade) + vinheta."""
+    a = np.asarray(fr).astype(np.float32)
+    lum = (a @ np.array([0.299, 0.587, 0.114], np.float32))[..., None] / 255
+    a = a + (NAVY_A * 1.25 - a) * (0.42 * (1 - lum) ** 1.6)          # split-tone: sombras azuis
+    a = a * np.array([0.93, 0.98, 1.07], np.float32)                 # balanço frio
+    a = a * VIG + DEEP * (1 - VIG)
+    a = a + (DEEP - a) * (0.62 * GB) + (DEEP - a) * (0.5 * GT)
     return Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
 
 # ---------------------------------------------------------------- copy (legendas escritas)
@@ -121,18 +133,18 @@ def tape(L, t, t0, d=0.55, angle=-14, n_strips=2):
     if not (t0 <= t < t0 + d): return
     k = eio(pr(t, t0, d))
     band = Image.new("RGBA", (2600, 230), (0, 0, 0, 0)); bd = ImageDraw.Draw(band)
-    bd.rectangle([0, 0, 2600, 230], fill=Y + (255,))
-    for x in range(-300, 2900, 120): bd.polygon([(x, 0), (x + 60, 0), (x - 60, 230), (x - 120, 230)], fill=(16, 16, 18, 255))
-    bd.rectangle([0, 60, 2600, 170], fill=(16, 16, 18, 255))
+    bd.rectangle([0, 0, 2600, 230], fill=(255, 255, 255, 255))
+    for x in range(-300, 2900, 120): bd.polygon([(x, 0), (x + 60, 0), (x - 60, 230), (x - 120, 230)], fill=NAVY + (255,))
+    bd.rectangle([0, 60, 2600, 170], fill=NAVY + (255,))
     f = F("InterDisplay-Black", 70); txt = "EM OBRAS  •  EM OBRAS  •  EM OBRAS  •  EM OBRAS  •  EM OBRAS"
-    bd.text((40 - 400 * k, 72), txt, font=f, fill=Y + (255,))
+    bd.text((40 - 400 * k, 72), txt, font=f, fill=(255, 255, 255, 255))
     for j in range(n_strips):
         b = band.rotate(angle + 26 * j, expand=True, resample=Image.BICUBIC)
         off = (1 - 2 * k) * 1800 * (1 if j == 0 else -1)
         L.alpha_composite(b, (int(W / 2 - b.width / 2 + off), int((700 if j == 0 else 1250) - b.height / 2)))
 
 def rec_dot(L, t, t0, t1):
-    toast(L, "REGISTRANDO O INÍCIO DA REFORMA", t, t0, t1, 120, 300, PAL, dot=(235, 52, 52), size=26)
+    toast(L, "REGISTRANDO O INÍCIO DA REFORMA", t, t0, t1, 236, 300, PAL, dot=(235, 52, 52), size=26)
 
 # ---------------------------------------------------------------- cartão final (ANTES | DEPOIS)
 FREEZE = None
@@ -144,7 +156,7 @@ def end_card(t):
     # painel ANTES (P&B) desce de cima; painel DEPOIS (escuro) sobe de baixo
     k1 = eo(pr(te, 0.0, 0.45)); k2 = eo(pr(te, 0.25, 0.45))
     pw, phh = 900, 640; px = (W - pw) // 2
-    antes = ImageOps.grayscale(FREEZE).convert("RGB").resize((pw, int(pw * H / W)), Image.LANCZOS)
+    antes = ImageOps.colorize(ImageOps.grayscale(FREEZE), black=(10, 18, 34), white=(232, 240, 252)).resize((pw, int(pw * H / W)), Image.LANCZOS)
     antes = antes.crop((0, (antes.height - phh) // 2, pw, (antes.height - phh) // 2 + phh))
     m = Image.new("L", (pw, phh), 0); ImageDraw.Draw(m).rounded_rectangle([0, 0, pw - 1, phh - 1], radius=34, fill=255)
     ya = int(170 - 900 * (1 - k1)); bg.paste(antes, (px, ya), m)
@@ -152,19 +164,19 @@ def end_card(t):
     # selo ANTES
     f = F("InterDisplay-Black", 64); s = "ANTES"; sw = tw(s, f)
     d.rounded_rectangle([px + 30, ya + 30, px + 30 + sw + 44, ya + 30 + 92], radius=14, fill=(255, 255, 255, 255))
-    d.text((px + 52, ya + 38), s, font=f, fill=(16, 16, 18, 255))
+    d.text((px + 52, ya + 38), s, font=f, fill=NAVY + (255,))
     # DEPOIS
     yd = int(860 + 900 * (1 - k2))
     dep = Image.new("RGBA", (pw, phh), (0, 0, 0, 0)); dd = ImageDraw.Draw(dep)
-    dd.rounded_rectangle([0, 0, pw - 1, phh - 1], radius=34, fill=(22, 26, 38, 255), outline=Y + (255,), width=4)
+    dd.rounded_rectangle([0, 0, pw - 1, phh - 1], radius=34, fill=NAVY + (255,), outline=Y + (255,), width=4)
     # listras de obra no topo do card
-    for x in range(-40, pw + 40, 56): dd.polygon([(x, 0), (x + 28, 0), (x + 8, 22), (x - 20, 22)], fill=Y + (200,))
+    for x in range(-40, pw + 40, 56): dd.polygon([(x, 0), (x + 28, 0), (x + 8, 22), (x - 20, 22)], fill=(255, 255, 255, 170))
     q = F("InterDisplay-Black", 300); pulse = 1 + 0.06 * math.sin(te * 7)
     qs, qp = text_sprite("?", q, Y + (255,)); qs = qs.resize((int(qs.width * pulse), int(qs.height * pulse)), Image.BICUBIC)
     dep.alpha_composite(qs, (int(pw / 2 - qs.width / 2), int(phh / 2 - qs.height / 2 - 30)))
     f2 = F("InterDisplay-Black", 64); s2 = "DEPOIS"; s2w = tw(s2, f2)
     dd.rounded_rectangle([30, 30 + 14, 30 + s2w + 44, 30 + 14 + 92], radius=14, fill=Y + (255,))
-    dd.text((52, 38 + 14), s2, font=f2, fill=(16, 16, 18, 255))
+    dd.text((52, 38 + 14), s2, font=f2, fill=NAVY + (255,))
     # barra "carregando"
     lk = pr(te, 0.8, 3.6); bx0, bx1, by = 60, pw - 60, phh - 70
     dd.rounded_rectangle([bx0, by, bx1, by + 18], radius=9, fill=(255, 255, 255, 40))
@@ -181,6 +193,18 @@ def end_card(t):
         L.alpha_composite(spr, (int(W / 2 - spr.width / 2), int(1770 - pad + 14 * (1 - k3))))
     push_notification(L, "G2B Esquadrias e Vidros", "Nova etapa da reforma chegando. Ative o sininho para ver primeiro.", t, END0 + 3.0, END1 + 1, W, PAL, y=24, icon_col=(30, 34, 46), progress=False)
     bg.alpha_composite(L)
+    if t >= OUTRO - 0.35:  # painéis recolhem e o logo cresce no centro
+        ko = eio(pr(t, OUTRO - 0.35, 0.35))
+        bg = Image.blend(bg, dark_bg(W, H, PAL).convert("RGBA"), ko)
+        if t >= OUTRO:
+            k = back(pr(t, OUTRO, 0.55), 1.4); kb = eo(pr(t, OUTRO, 0.4))
+            lg = logo_sz(max(10, 760 * k)); lg = blur_reveal(lg, kb, 14)
+            glow = logo_sz(max(10, 760 * k)).filter(ImageFilter.GaussianBlur(28)); glow = with_alpha(glow, 0.45 * kb)
+            for im in (glow, lg): bg.alpha_composite(im, (int(W / 2 - im.width / 2), int(820 - im.height / 2)))
+            if t >= OUTRO + 0.6:
+                k2 = eo(pr(t, OUTRO + 0.6, 0.35)); f = F("InterDisplay-SemiBold", 40)
+                spr, pad = text_sprite("Acompanhe a reforma. O DEPOIS vem aí.", f, SKY + (255,)); spr = blur_reveal(spr, k2)
+                bg.alpha_composite(spr, (int(W / 2 - spr.width / 2), int(1330 - pad + 16 * (1 - k2))))
     return bg.convert("RGB")
 
 # ---------------------------------------------------------------- frame
@@ -223,7 +247,45 @@ def base_frame(t):
         warm = Image.new("RGB", (W, H), (255, 236, 200)); fr = Image.blend(fr, warm, min(0.95, flash))
     return fr
 
+# ---------------------------------------------------------------- capa (primeiro quadro / capa do Instagram)
+COVER = 1.2  # segundos de capa antes do gancho (todo o resto é deslocado por isso)
+COVER_SRC = 12.5  # corredor com o carro: o "antes" mais reconhecível
+_cover_bg = None
+def cover(t, still=False):
+    global _cover_bg
+    if _cover_bg is None: _cover_bg = grade_bottom(fit(src_frame(COVER_SRC), 1.0)).filter(ImageFilter.GaussianBlur(5))
+    z = 1.0 if still else 1.0 + 0.05 * t / COVER
+    fr = _cover_bg.resize((int(W * z), int(H * z)), Image.LANCZOS)
+    fr = fr.crop(((fr.width - W) // 2, (fr.height - H) // 2, (fr.width - W) // 2 + W, (fr.height - H) // 2 + H)).convert("RGBA")
+    veil = Image.new("RGBA", (W, H), (14, 23, 40, 150)); fr.alpha_composite(veil)
+    L = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    lg = logo_sz(420); L.alpha_composite(lg, (int(W / 2 - lg.width / 2), 290))
+    fk = F("Inter-Bold", 40); spr, pad = text_sprite(" ".join("DIÁRIO DA REFORMA"), fk, (255, 255, 255, 255))
+    L.alpha_composite(spr, (int(W / 2 - spr.width / 2), 875 - pad))
+    # EP. 01 em pílula azul-céu
+    fe = F("InterDisplay-Black", 54); s1 = "EP. 01"; w1 = tw(s1, fe) + 60
+    d = ImageDraw.Draw(L); d.rounded_rectangle([W / 2 - w1 / 2, 955, W / 2 + w1 / 2, 1045], radius=45, fill=SKY + (255,))
+    b = fe.getbbox(s1); d.text((W / 2 - (b[2] - b[0]) / 2 - b[0], 1000 - (b[3] - b[1]) / 2 - b[1]), s1, font=fe, fill=NAVY + (255,))
+    ft = F("InterDisplay-Black", 210); spr, pad = text_sprite("O ANTES", ft, (255, 255, 255, 255), ref="ÁO")
+    L.alpha_composite(spr, (int(W / 2 - spr.width / 2), 1090 - pad))
+    fs = F("InterDisplay-SemiBold", 46); spr, pad = text_sprite("A sede da G2B vai mudar.", fs, SKY + (255,))
+    L.alpha_composite(spr, (int(W / 2 - spr.width / 2), 1375 - pad))
+    fs2 = F("Inter-SemiBold", 34); spr, pad = text_sprite("Acompanhe cada etapa  →", fs2, (225, 232, 245, 255))
+    L.alpha_composite(spr, (int(W / 2 - spr.width / 2), 1465 - pad))
+    fr.alpha_composite(L)
+    return fr.convert("RGB")
+
 def render(t):
+    if t < COVER:
+        fr = cover(t)
+        if t > COVER - 0.15:  # flash para o gancho
+            fr = Image.blend(fr, Image.new("RGB", (W, H), (235, 243, 255)), (t - (COVER - 0.15)) / 0.15)
+        return fr
+    t -= COVER
+    if t < 0.12: return Image.blend(render_main(t), Image.new("RGB", (W, H), (235, 243, 255)), 1 - t / 0.12)
+    return render_main(t)
+
+def render_main(t):
     if t >= END0:
         fr = end_card(t)
         if t - END0 < 0.18: fr = Image.blend(fr, Image.new("RGB", (W, H), (255, 255, 255)), 1 - (t - END0) / 0.18)
@@ -233,9 +295,12 @@ def render(t):
     # gancho
     kinetic_title(L, "diário da reforma", "O ANTES", t, 0.05, W / 2, 520, PAL, size=190, exit_t=3.6, per_letter=0.07)
     rec_dot(L, t, 0.6, 3.6)
+    if 0.25 <= t < END0:
+        kl = eo(pr(t, 0.25, 0.4)) * (1 - pr(t, END0 - 0.4, 0.3)); lg = blur_reveal(logo_sz(170), kl, 10)
+        L.alpha_composite(lg, (44, 52))
     # persistentes
-    section_tag(L, "EP. 01  •  O INÍCIO", t, 4.15, 27.8, 60, 120, PAL, size=30)
-    progress_pill(L, t, 4.35, 27.8, 0, 3, W - 60 - 330, 110)
+    section_tag(L, "EP. 01  •  O INÍCIO", t, 4.15, 27.8, 236, 104, PAL, size=28)
+    progress_pill(L, t, 4.35, 27.8, 0, 3, W - 50 - 330, 96)
     tape(L, t, 27.45, d=0.6)
     fr.alpha_composite(L); fr.alpha_composite(cap_layer(t))
     return fr.convert("RGB")
@@ -243,6 +308,6 @@ def render(t):
 if __name__ == "__main__":
     a, b, out = int(sys.argv[1]), int(sys.argv[2]), sys.argv[3]
     os.makedirs(out, exist_ok=True)
-    N = int(END1 * FPS)
+    N = int((END1 + COVER) * FPS)
     for f in range(a, min(b, N)):
         render(f / FPS).save(f"{out}/{f:05d}.png", compress_level=1)
