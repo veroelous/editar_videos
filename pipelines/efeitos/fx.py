@@ -69,7 +69,7 @@ def caption2(layer, words, t, cx, cy, pal, size_small=46, size_big=62, maxw=860,
         for (ts, te, txt, strong), wd in zip(row, widths):
             if t >= ts - 0.04:
                 k = eo(pr(t, ts - 0.04, 0.14)) * (1 - kout)
-                spr, pad = text_sprite(txt, font, col + (255,))
+                spr, pad = text_sprite(txt, font, col + (255,), ref="ÁÉÇgjpqy")
                 spr = blur_reveal(spr, k if kout == 0 else 1 - kout, 10)
                 layer.alpha_composite(spr, (int(x - pad), int(y - pad)))
             x += wd + sp
