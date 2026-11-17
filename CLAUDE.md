@@ -23,6 +23,7 @@
   - painéis laterais podem usar `glass_panel` (vidro) no lugar do painel creme opaco;
   - versículos e demonstrações no layout `example_template` (16:9 adaptado);
   - etiqueta de seção persistente (`section_tag`).
+- **Vídeo-aula (YouTube, bruto já cortado):** pipeline `pipelines/youtube_aula/` — zoom por frase, painel de aula com ícones 3D, frases-chave, capítulos, inscreva-se/curtir animado, card final de 20 s.
 - Paletas: `PAL_EBO` (creme/preto/azul #2B6BFB) para o EBO; `PAL_TECH` (azul-marinho, laranja, creme) para conteúdo de tecnologia.
 
 ## Onde ficam as coisas
@@ -33,4 +34,5 @@
 - `pipelines/efeitos/`: biblioteca de efeitos reutilizável + demo.
 - `pipelines/reels_claude_style/`: pipeline de reels vertical.
 - `pipelines/youtube_longo/`: pipeline de vídeo longo 16:9 + cortes verticais.
+- `pipelines/youtube_aula/`: vídeo-aula 16:9 sem cortes (ritmo, painéis didáticos, ícones).
 - `brutos/`: vídeos brutos e saídas de edição (ignorado pelo git).

@@ -34,6 +34,11 @@ Status: ✅ implementado em `pipelines/efeitos/fx.py` · 🟡 parcial · ⬜ cat
 | **Muda de assunto** (YouTube) | Cartão de capítulo numerado (tela cheia curta) | R1 | ✅ (pipeline longo) |
 | **Recapitula** antes do final | Elementos do vídeo em órbita ao redor da pessoa, com linhas de velocidade | R3 | ✅ `orbit_recap` |
 | "Eu **só fiz X**" (contraste antigo × novo) | UI apoiada nas mãos: o antigo riscado em uma, o novo com ✓ na outra | R3 | 🟡 `strike_x` (falta apoiar nas mãos) |
+| **Ensina** em vídeo-aula (explica, compara, lista, conta história) | Painel de aula: pessoa encolhe para card à direita; painel de vidro à esquerda com itens (ícone 3D + texto, numerados, chips, balões, diagrama) entrando na palavra | Aula | ✅ `youtube_aula/aula.py` (`compose_panel`) |
+| Diz uma **frase-tese** curta ("estar ocupado não é estar avançando") | Card de vidro embaixo, linha branca + linha dourada, plim | Aula | ✅ `draw_statement` |
+| Usa uma **metáfora simples** ("apagar incêndio", "cabeça de dono") | Emoji 3D com brilho + rótulo, ao lado do rosto | Aula | ✅ `draw_pop` |
+| Precisa de **ritmo** em fala longa sem cortes | Zoom por frase: aberto ↔ médio a cada ~7 s; *punch-in* rápido nas frases enfáticas | Aula | ✅ `zoom_at` |
+| Pede **inscrição/curtida** | Botão "Inscreva-se" com cursor clicando → "Inscrito ✓" + sino balançando + joia | Aula | ✅ `draw_subscribe` |
 | **CTA** | Título "COMENTA / PALAVRA" + comentário fixado simulado; saída com letras se espalhando | R2/R3 | ✅ `kinetic_title(exit_t)`, `comment_card` |
 
 ## 2. Regras de bom gosto (valem para tudo)
@@ -61,4 +66,4 @@ Status: ✅ implementado em `pipelines/efeitos/fx.py` · 🟡 parcial · ⬜ cat
 | Selfie vertical (rosto ocupa o quadro) | Objetos no peito e nas laterais, nunca na altura do rosto; órbita com `front_layer` | `pipelines/efeitos/README.md` |
 | Gravação de Meet | Detectar layout (participante vertical vs. câmera principal); participante com fundo desfocado; cortar pedidos pessoais | `pipelines/youtube_longo/` |
 | Títulos letra a letra | Corrigido: `kinetic_title` alinha as letras pela linha de base (`text_sprite(ref=...)`); antes as acentuadas desciam | `fx.kinetic_title` |
-
+| Vídeo-aula já cortada pelo autor (16:9) | Não cortar; acelerar a fala (1,15x com `atempo`); títulos cinéticos embaixo sobre degradê (no topo cobrem o rosto quando há zoom); painéis seguidos se emendam sem voltar à tela cheia | `pipelines/youtube_aula/` |
