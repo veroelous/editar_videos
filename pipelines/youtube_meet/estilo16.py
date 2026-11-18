@@ -66,7 +66,7 @@ def background(t):
 def topbar(layer, t, total, left, right, a=1.0):
     d = ImageDraw.Draw(layer); d.rectangle([0, 0, W * min(1, t / total), 3], fill=GOLD + (220,))
     if a <= 0: return
-    f = font("caps", 21); L = " ".join(left.upper()); R = " ".join(right.upper())
+    f = font("caps", 21); L = " ".join(left.upper()); R = " ".join(right.replace("*", "").upper())
     d.text((110, 46), L, font=f, fill=MUTED + (int(255 * a),)); d.text((W - 110 - tw(R, f), 46), R, font=f, fill=MUTED + (int(255 * a),))
 
 _fc = {}
@@ -293,7 +293,7 @@ def endcard(L, t, e):
 def lower3(L, t, e):
     k = eo(pr(t, e["t0"], 0.5)) * (1 - eio(pr(t, e["t1"] - 0.5, 0.5)))
     if k <= 0: return
-    x, y = e.get("x", 150), e.get("y", 880)
+    x, y = e.get("x", CX0), e.get("y", 860)
     im, pad, b = sprite(e["name"], font("serif", 52), INK); L.alpha_composite(with_alpha(im, k), (int(x - pad + 20 * (1 - k)), int(y - pad)))
     kicker(L, e["role"], x, y + 66, k, col=GOLD, size=20)
 
