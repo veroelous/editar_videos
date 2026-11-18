@@ -1,0 +1,2420 @@
+{
+ "id": "longo",
+ "segs": {
+  "6": 810.0
+ },
+ "tag": "Estudo bíblico · João 5",
+ "cold_title": "Abertura: as frases do estudo",
+ "fix": {
+  "Alargadas": "Largadas",
+  "alargadas": "largadas",
+  "marca": "maca",
+  "marca.": "maca.",
+  "Abacuque": "Habacuque",
+  "12.": "1:2.",
+  "malejado,": "alejado,",
+  "Esther": "Ester",
+  "Esther,": "Ester,",
+  "precise": "precisem",
+  "leproosos,": "leprosos,",
+  "Pau!": "Pá!",
+  "peg": "pegue"
+ },
+ "punch": [
+  "esforço.",
+  "curado?",
+  "ninguém.",
+  "justo,",
+  "verdade",
+  "injusto.",
+  "imediatamente.",
+  "hoje.",
+  "anestesia",
+  "sistema.",
+  "jesus.",
+  "minuto",
+  "leprosos.",
+  "injusto.",
+  "ninguém.",
+  "anda."
+ ],
+ "spans": [
+  [
+   6,
+   1951,
+   1959,
+   "t1"
+  ],
+  [
+   6,
+   3242,
+   3246,
+   "t2"
+  ],
+  [
+   6,
+   4426,
+   4435,
+   "t3"
+  ],
+  [
+   6,
+   4991,
+   5015,
+   "t4"
+  ],
+  [
+   "card",
+   4.2,
+   "intro"
+  ],
+  [
+   "card",
+   2.6,
+   "c1"
+  ],
+  [
+   6,
+   41,
+   82,
+   "1a"
+  ],
+  [
+   6,
+   151,
+   185,
+   "1b"
+  ],
+  [
+   6,
+   225,
+   283,
+   "1c"
+  ],
+  [
+   6,
+   335,
+   356,
+   "1d"
+  ],
+  [
+   "card",
+   2.6,
+   "c2"
+  ],
+  [
+   6,
+   411,
+   459,
+   "2a"
+  ],
+  [
+   6,
+   469,
+   536,
+   "2b"
+  ],
+  [
+   6,
+   538,
+   572,
+   "2c"
+  ],
+  [
+   "card",
+   2.6,
+   "c3"
+  ],
+  [
+   6,
+   591,
+   710,
+   "3a"
+  ],
+  [
+   6,
+   746,
+   802,
+   "3b"
+  ],
+  [
+   6,
+   803,
+   852,
+   "3c"
+  ],
+  [
+   6,
+   859,
+   867,
+   "3d"
+  ],
+  [
+   6,
+   869,
+   1034,
+   "3e"
+  ],
+  [
+   6,
+   1053,
+   1103,
+   "3f"
+  ],
+  [
+   "card",
+   2.6,
+   "c4"
+  ],
+  [
+   6,
+   1104,
+   1203,
+   "4a"
+  ],
+  [
+   6,
+   1204,
+   1296,
+   "4b"
+  ],
+  [
+   6,
+   1297,
+   1402,
+   "4c"
+  ],
+  [
+   6,
+   1403,
+   1513,
+   "4d"
+  ],
+  [
+   6,
+   1514,
+   1525,
+   "4e"
+  ],
+  [
+   6,
+   1575,
+   1655,
+   "4e2"
+  ],
+  [
+   6,
+   1661,
+   1684,
+   "4f"
+  ],
+  [
+   6,
+   1692,
+   1726,
+   "4f"
+  ],
+  [
+   6,
+   1774,
+   1946,
+   "4g"
+  ],
+  [
+   "card",
+   2.6,
+   "c5"
+  ],
+  [
+   6,
+   1951,
+   2121,
+   "5a"
+  ],
+  [
+   6,
+   2122,
+   2235,
+   "5b"
+  ],
+  [
+   6,
+   2236,
+   2313,
+   "5c"
+  ],
+  [
+   6,
+   2321,
+   2382,
+   "5d"
+  ],
+  [
+   6,
+   2383,
+   2391,
+   "5e"
+  ],
+  [
+   6,
+   2437,
+   2445,
+   "5e"
+  ],
+  [
+   "card",
+   2.6,
+   "c6"
+  ],
+  [
+   6,
+   2450,
+   2500,
+   "6a"
+  ],
+  [
+   6,
+   2501,
+   2548,
+   "6b"
+  ],
+  [
+   6,
+   2549,
+   2572,
+   "6c"
+  ],
+  [
+   6,
+   2583,
+   2633,
+   "6d"
+  ],
+  [
+   6,
+   2670,
+   2726,
+   "6e"
+  ],
+  [
+   6,
+   2745,
+   2785,
+   "6f"
+  ],
+  [
+   6,
+   2786,
+   2828,
+   "6g"
+  ],
+  [
+   6,
+   2829,
+   2847,
+   "6h"
+  ],
+  [
+   "card",
+   2.6,
+   "c7"
+  ],
+  [
+   6,
+   2848,
+   2880,
+   "7a"
+  ],
+  [
+   6,
+   2881,
+   2959,
+   "7b"
+  ],
+  [
+   6,
+   2960,
+   2981,
+   "7c"
+  ],
+  [
+   6,
+   2982,
+   3052,
+   "7d"
+  ],
+  [
+   6,
+   3053,
+   3079,
+   "7e"
+  ],
+  [
+   6,
+   3092,
+   3168,
+   "7f"
+  ],
+  [
+   6,
+   3169,
+   3207,
+   "7g"
+  ],
+  [
+   6,
+   3220,
+   3241,
+   "7h"
+  ],
+  [
+   6,
+   3242,
+   3264,
+   "7i"
+  ],
+  [
+   6,
+   3265,
+   3294,
+   "7j"
+  ],
+  [
+   6,
+   3295,
+   3347,
+   "7k"
+  ],
+  [
+   "card",
+   2.6,
+   "c8"
+  ],
+  [
+   6,
+   3348,
+   3369,
+   "8a"
+  ],
+  [
+   6,
+   3370,
+   3450,
+   "8b"
+  ],
+  [
+   6,
+   3451,
+   3515,
+   "8c"
+  ],
+  [
+   6,
+   3516,
+   3605,
+   "8d"
+  ],
+  [
+   6,
+   3606,
+   3681,
+   "8e"
+  ],
+  [
+   6,
+   3682,
+   3714,
+   "8f"
+  ],
+  [
+   "card",
+   2.6,
+   "c9"
+  ],
+  [
+   6,
+   3730,
+   3786,
+   "9a"
+  ],
+  [
+   "card",
+   11.0,
+   "v9a"
+  ],
+  [
+   6,
+   3847,
+   3861,
+   "9b"
+  ],
+  [
+   6,
+   3922,
+   3953,
+   "9c"
+  ],
+  [
+   6,
+   3954,
+   4044,
+   "9d"
+  ],
+  [
+   6,
+   4045,
+   4070,
+   "9e"
+  ],
+  [
+   6,
+   4071,
+   4135,
+   "9f"
+  ],
+  [
+   6,
+   4136,
+   4239,
+   "9g"
+  ],
+  [
+   6,
+   4240,
+   4282,
+   "9h"
+  ],
+  [
+   6,
+   4283,
+   4333,
+   "9i"
+  ],
+  [
+   "card",
+   9.0,
+   "v9b"
+  ],
+  [
+   6,
+   4365,
+   4377,
+   "9j"
+  ],
+  [
+   "card",
+   2.6,
+   "c10"
+  ],
+  [
+   6,
+   4378,
+   4425,
+   "10a"
+  ],
+  [
+   6,
+   4426,
+   4454,
+   "10b"
+  ],
+  [
+   6,
+   4455,
+   4475,
+   "10c"
+  ],
+  [
+   6,
+   4476,
+   4537,
+   "10d"
+  ],
+  [
+   6,
+   4538,
+   4591,
+   "10e"
+  ],
+  [
+   "card",
+   2.6,
+   "c11"
+  ],
+  [
+   6,
+   4592,
+   4608,
+   "11a"
+  ],
+  [
+   6,
+   4609,
+   4649,
+   "11b"
+  ],
+  [
+   6,
+   4650,
+   4714,
+   "11c"
+  ],
+  [
+   6,
+   4715,
+   4745,
+   "11d"
+  ],
+  [
+   6,
+   4746,
+   4786,
+   "11e"
+  ],
+  [
+   6,
+   4787,
+   4833,
+   "11f"
+  ],
+  [
+   6,
+   4834,
+   4870,
+   "11g"
+  ],
+  [
+   6,
+   4884,
+   4890,
+   "11h"
+  ],
+  [
+   6,
+   4907,
+   4937,
+   "11h"
+  ],
+  [
+   "card",
+   2.6,
+   "c12"
+  ],
+  [
+   6,
+   4940,
+   4955,
+   "12a"
+  ],
+  [
+   6,
+   4956,
+   5015,
+   "12b"
+  ],
+  [
+   6,
+   5084,
+   5203,
+   "12c",
+   "full"
+  ],
+  [
+   "card",
+   18.0,
+   "fim"
+  ]
+ ],
+ "events": [
+  {
+   "k": "chapter",
+   "t0": "b:c1",
+   "t1": "B:c1",
+   "n": 1,
+   "title": "Enquanto eu vou, *outro chega primeiro*"
+  },
+  {
+   "k": "chapter",
+   "t0": "b:c2",
+   "t1": "B:c2",
+   "n": 2,
+   "title": "O tanque de *Betesda*"
+  },
+  {
+   "k": "chapter",
+   "t0": "b:c3",
+   "t1": "B:c3",
+   "n": 3,
+   "title": "Você quer *ser curado?*"
+  },
+  {
+   "k": "chapter",
+   "t0": "b:c4",
+   "t1": "B:c4",
+   "n": 4,
+   "title": "Largadas *injustas*"
+  },
+  {
+   "k": "chapter",
+   "t0": "b:c5",
+   "t1": "B:c5",
+   "n": 5,
+   "title": "O passado *explica*"
+  },
+  {
+   "k": "chapter",
+   "t0": "b:c6",
+   "t1": "B:c6",
+   "n": 6,
+   "title": "Jesus não discute *o argumento*"
+  },
+  {
+   "k": "chapter",
+   "t0": "b:c7",
+   "t1": "B:c7",
+   "n": 7,
+   "title": "Revoltado com Deus *ou com a realidade?*"
+  },
+  {
+   "k": "chapter",
+   "t0": "b:c8",
+   "t1": "B:c8",
+   "n": 8,
+   "title": "O *sistema*"
+  },
+  {
+   "k": "chapter",
+   "t0": "b:c9",
+   "t1": "B:c9",
+   "n": 9,
+   "title": "Os *dez leprosos*"
+  },
+  {
+   "k": "chapter",
+   "t0": "b:c10",
+   "t1": "B:c10",
+   "n": 10,
+   "title": "*Gratidão*"
+  },
+  {
+   "k": "chapter",
+   "t0": "b:c11",
+   "t1": "B:c11",
+   "n": 11,
+   "title": "“Eu não tenho *ninguém*”"
+  },
+  {
+   "k": "chapter",
+   "t0": "b:c12",
+   "t1": "B:c12",
+   "n": 12,
+   "title": "Levanta *e anda*"
+  },
+  {
+   "k": "f_word",
+   "t0": "b:t1-0.1",
+   "t1": "B:t1+0.3",
+   "lines": [
+    "Nem toda diferença de resultado",
+    "é *diferença de esforço.*"
+   ],
+   "size": 100
+  },
+  {
+   "k": "f_word",
+   "t0": "b:t2-0.1",
+   "t1": "B:t2+0.4",
+   "lines": [
+    "Fé não é",
+    "*anestesia emocional.*"
+   ],
+   "size": 120
+  },
+  {
+   "k": "f_word",
+   "t0": "b:t3-0.1",
+   "t1": "B:t3+0.3",
+   "lines": [
+    "Gratidão não é chamar de justo",
+    "*aquilo que foi injusto.*"
+   ],
+   "size": 96
+  },
+  {
+   "k": "f_word",
+   "t0": "b:t4-0.1",
+   "t1": "B:t4+0.5",
+   "lines": [
+    "O seu passado *explica.*",
+    "Mas Jesus *ainda chama.*"
+   ],
+   "size": 110
+  },
+  {
+   "k": "intro",
+   "t0": "b:intro",
+   "t1": "B:intro",
+   "kicker": "estudo bíblico · João 5 · Lucas 17",
+   "title": "Largadas *injustas*",
+   "sub": "com Manoel Gonçalves"
+  },
+  {
+   "k": "lower3",
+   "t0": "b:1a+0.5",
+   "t1": "b:1a+6",
+   "name": "Manoel Gonçalves",
+   "role": "estudo bíblico"
+  },
+  {
+   "k": "c_title",
+   "t0": "f:enquanto@1a-0.1",
+   "t1": "B:1a+0.2",
+   "kicker": "quem disse esta frase?",
+   "lines": [
+    "“Enquanto eu vou,",
+    "*outro chega primeiro.*”"
+   ]
+  },
+  {
+   "k": "c_flow",
+   "t0": "b:1b-0.1",
+   "t1": "B:1b+0.3",
+   "title": "a lenda do tanque",
+   "steps": [
+    [
+     "f:anjo@1b",
+     "um anjo agitava as águas"
+    ],
+    [
+     "f:pulasse@1b",
+     "quem pulasse primeiro"
+    ],
+    [
+     "f:curado@1b",
+     "era curado"
+    ]
+   ]
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:1c-0.1",
+   "t1": "f:enquanto@1c-0.2",
+   "lines": [
+    [
+     "“Por que você está aqui?",
+     "f:por@1c"
+    ],
+    [
+     "*O que está esperando?*”",
+     "f:esperando@1c"
+    ]
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "f:enquanto@1c-0.1",
+   "t1": "f:então@1c-0.1",
+   "lines": [
+    "Enquanto eu vou,",
+    "*outro chega primeiro.*"
+   ],
+   "size": 120
+  },
+  {
+   "k": "f_word",
+   "t0": "b:1d-0.1",
+   "t1": "B:1d+0.3",
+   "kicker": "o tema de hoje",
+   "lines": [
+    "Largadas",
+    "*injustas.*"
+   ],
+   "size": 150
+  },
+  {
+   "k": "c_verse",
+   "t0": "b:2a-0.1",
+   "t1": "f:ali@2a-0.1",
+   "ref": "João 5:1-2",
+   "text": "Algum tempo depois, Jesus subiu a Jerusalém para uma festa dos judeus. Há em Jerusalém, perto da porta das Ovelhas, um tanque que, em hebraico, é chamado Betesda."
+  },
+  {
+   "k": "c_verse",
+   "t0": "f:ali@2a-0.1",
+   "t1": "B:2a+0.2",
+   "ref": "João 5:3",
+   "text": "Ali costumava ficar grande número de pessoas doentes e inválidas: cegos, mancos e paralíticos."
+  },
+  {
+   "k": "c_list",
+   "t0": "b:2b-0.1",
+   "t1": "f:cegos@2b-0.2",
+   "title": "o tipo de lugar",
+   "numbered": false,
+   "items": [
+    [
+     "f:agradável@2b",
+     "não era agradável"
+    ],
+    [
+     "f:cheiroso@2b",
+     "não era cheiroso"
+    ],
+    [
+     "f:arrumado@2b",
+     "não era arrumado"
+    ],
+    [
+     "f:chique@2b",
+     "não era chique"
+    ]
+   ]
+  },
+  {
+   "k": "c_verse",
+   "t0": "f:cegos@2b-0.2",
+   "t1": "B:2b+0.2",
+   "ref": "João 5:3-4",
+   "text": "Eles esperavam o movimento das águas. De vez em quando descia um anjo do Senhor e agitava as águas."
+  },
+  {
+   "k": "c_verse",
+   "t0": "b:2c-0.1",
+   "t1": "f:esse@2c-0.1",
+   "ref": "João 5:4",
+   "text": "O primeiro que entrasse no tanque, depois de agitadas as águas, era curado de qualquer doença que tivesse."
+  },
+  {
+   "k": "f_word",
+   "t0": "f:38@2c-0.2",
+   "t1": "B:2c+0.4",
+   "kicker": "João 5:5",
+   "lines": [
+    "*38 anos*",
+    "esperando a chance."
+   ],
+   "size": 130
+  },
+  {
+   "k": "c_title",
+   "t0": "b:3a-0.1",
+   "t1": "w:6.636-0.2",
+   "kicker": "João 5:6",
+   "lines": [
+    "Uma pergunta",
+    "*que parece óbvia.*"
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "w:6.636-0.15",
+   "t1": "w:6.640-0.1",
+   "lines": [
+    "Você quer",
+    "*ser curado?*"
+   ],
+   "size": 150
+  },
+  {
+   "k": "c_statement",
+   "t0": "w:6.640-0.1",
+   "t1": "B:3a+0.2",
+   "lines": [
+    [
+     "Ao cego, Jesus perguntou:",
+     "f:cego@3a"
+    ],
+    [
+     "*“O que você quer?”*",
+     "f:falou@3a"
+    ]
+   ]
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:3b-0.1",
+   "t1": "f:muitas@3b-0.1",
+   "lines": [
+    [
+     "Aproveite a chance",
+     "f:aproveitar@3b"
+    ],
+    [
+     "*quando Jesus pergunta.*",
+     "f:perguntando@3b"
+    ]
+   ]
+  },
+  {
+   "k": "c_statement",
+   "t0": "f:muitas@3b-0.1",
+   "t1": "B:3b+0.2",
+   "lines": [
+    [
+     "“Não sei mais",
+     "f:sei@3b"
+    ],
+    [
+     "nem o que eu quero.",
+     "f:quero@3b"
+    ],
+    [
+     "*Já até acostumei.*”",
+     "f:acostumei@3b-0.3"
+    ]
+   ]
+  },
+  {
+   "k": "c_verse",
+   "t0": "f:senhor@3c-0.2",
+   "t1": "B:3c+0.3",
+   "ref": "João 5:7",
+   "text": "Senhor, não tenho ninguém que me ajude a entrar no tanque quando a água é agitada."
+  },
+  {
+   "k": "f_word",
+   "t0": "b:3d-0.1",
+   "t1": "f:quando@3e-0.1",
+   "lines": [
+    "Essa não é",
+    "*a resposta.*"
+   ],
+   "size": 140
+  },
+  {
+   "k": "c_versus",
+   "t0": "f:quando@3e-0.1",
+   "t1": "f:esse@3e-0.1",
+   "left": [
+    "a pergunta",
+    "O que|você quer?",
+    "f:quando@3e"
+   ],
+   "right": [
+    "a nossa resposta",
+    "uma|justificativa",
+    "f:justificando@3e"
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "f:esse@3e-0.1",
+   "t1": "w:6.925-0.1",
+   "lines": [
+    "Esse paralítico",
+    "*sou eu.*"
+   ],
+   "size": 140
+  },
+  {
+   "k": "c_list",
+   "t0": "w:6.925-0.1",
+   "t1": "w:6.959-0.1",
+   "title": "o que a gente responde",
+   "items": [
+    [
+     "w:6.935",
+     "estou ganhando pouco"
+    ],
+    [
+     "w:6.944",
+     "preciso vender mais"
+    ],
+    [
+     "w:6.949",
+     "preciso de clientes"
+    ],
+    [
+     "w:6.951",
+     "preciso fechar contrato"
+    ]
+   ],
+   "strike": "w:6.953"
+  },
+  {
+   "k": "c_statement",
+   "t0": "w:6.959-0.1",
+   "t1": "w:6.975-0.1",
+   "lines": [
+    [
+     "“Não é isso que eu",
+     "w:6.959"
+    ],
+    [
+     "estou te perguntando.",
+     "w:6.965"
+    ],
+    [
+     "*O que você quer?*”",
+     "w:6.971"
+    ]
+   ]
+  },
+  {
+   "k": "c_list",
+   "t0": "w:6.975-0.1",
+   "t1": "w:6.1006-0.1",
+   "title": "e mais justificativas",
+   "items": [
+    [
+     "w:6.985",
+     "essa dor…"
+    ],
+    [
+     "w:6.990",
+     "preciso de fisioterapia"
+    ],
+    [
+     "w:6.999",
+     "a fila do SUS é grande"
+    ]
+   ],
+   "strike": "w:6.1004"
+  },
+  {
+   "k": "f_word",
+   "t0": "w:6.1006-0.1",
+   "t1": "B:3e+0.3",
+   "kicker": "e Jesus continua perguntando",
+   "lines": [
+    "“O que",
+    "*você quer?*”"
+   ],
+   "size": 140
+  },
+  {
+   "k": "c_title",
+   "t0": "b:3f-0.1",
+   "t1": "B:3f+0.3",
+   "kicker": "a frase mais forte do texto",
+   "lines": [
+    "“Eu não tenho",
+    "*ninguém.*”"
+   ],
+   "size": 104
+  },
+  {
+   "k": "c_title",
+   "t0": "b:4a-0.1",
+   "t1": "f:fulano@4a-0.2",
+   "kicker": "nem sempre é justo",
+   "lines": [
+    "Existem *largadas*",
+    "e existem *chegadas.*"
+   ]
+  },
+  {
+   "k": "c_statement",
+   "t0": "f:fulano@4a-0.1",
+   "t1": "B:4a+0.2",
+   "lines": [
+    [
+     "“Fulano conseguiu…",
+     "f:fulano@4a"
+    ],
+    [
+     "eu não, porque",
+     "f:porque@4a"
+    ],
+    [
+     "*não me esforcei.*”",
+     "f:esforcei@4a"
+    ]
+   ]
+  },
+  {
+   "k": "c_list",
+   "t0": "b:4b-0.1",
+   "t1": "B:4b+0.2",
+   "title": "o que é a chegada?",
+   "numbered": false,
+   "items": [
+    [
+     "f:faculdade@4b",
+     "uma faculdade"
+    ],
+    [
+     "f:casa@4b",
+     "a casa própria"
+    ],
+    [
+     "f:equilibrada@4b",
+     "finanças equilibradas"
+    ],
+    [
+     "f:corpo@4b",
+     "um corpo sem dores"
+    ]
+   ]
+  },
+  {
+   "k": "c_lanes",
+   "t0": "b:4c-0.15",
+   "t1": "f:justo@4e2-0.2",
+   "lanes": {
+    "A": [
+     480,
+     1180
+    ],
+    "B": [
+     620,
+     1300
+    ],
+    "C": [
+     760,
+     1420
+    ]
+   },
+   "active": [
+    [
+     "C",
+     "b:4c-0.1"
+    ],
+    [
+     "B",
+     "b:4d-0.1"
+    ],
+    [
+     "A",
+     "b:4e-0.1"
+    ],
+    [
+     "all",
+     "f:justo@4e2-0.5"
+    ]
+   ],
+   "labels": {
+    "C": [
+     [
+      "f:classe@4c",
+      "classe B"
+     ],
+     [
+      "f:particular@4c",
+      "escola particular"
+     ]
+    ],
+    "B": [
+     [
+      "f:longe@4d",
+      "pai longe"
+     ],
+     [
+      "f:público@4d",
+      "escola pública"
+     ]
+    ],
+    "A": [
+     [
+      "f:afeganistão@4e2",
+      "guerra"
+     ],
+     [
+      "f:bomba@4e2",
+      "sem pai"
+     ],
+     [
+      "f:hospital@4e2",
+      "sem hospital"
+     ]
+    ]
+   }
+  },
+  {
+   "k": "f_word",
+   "t0": "f:justo@4e2-0.15",
+   "t1": "B:4e2+0.3",
+   "lines": [
+    "É *justo?*"
+   ],
+   "size": 170
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:4f-0.1",
+   "t1": "f:não@4f-0.1",
+   "lines": [
+    [
+     "“Todo mundo nasce",
+     "f:todo@4f"
+    ],
+    [
+     "com 24 horas.",
+     "f:24@4f"
+    ],
+    [
+     "*Todo mundo pode conseguir.*”",
+     "f:conseguir@4f-0.6"
+    ]
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "f:não@4f-0.1",
+   "t1": "B:4f+0.4",
+   "lines": [
+    "*Não é verdade.*"
+   ],
+   "size": 150
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:4g-0.1",
+   "t1": "f:discutindo@4g-0.2",
+   "lines": [
+    [
+     "As crianças do abrigo",
+     "f:abrigo@4g"
+    ],
+    [
+     "*têm o mesmo acesso?*",
+     "f:acesso@4g"
+    ]
+   ]
+  },
+  {
+   "k": "c_title",
+   "t0": "f:discutindo@4g-0.1",
+   "t1": "f:mateus@4g-0.3",
+   "lines": [
+    "Acesso",
+    "*é justiça.*"
+   ],
+   "size": 110
+  },
+  {
+   "k": "c_verse",
+   "t0": "f:mateus@4g-0.2",
+   "t1": "f:olhar@4g-0.2",
+   "ref": "Mateus 6:33",
+   "text": "Busquem, pois, em primeiro lugar o Reino de Deus e a sua justiça."
+  },
+  {
+   "k": "f_word",
+   "t0": "f:olhar@4g-0.1",
+   "t1": "B:4g+0.4",
+   "lines": [
+    "Olhar só a chegada",
+    "*é ler errado a realidade.*"
+   ],
+   "size": 100
+  },
+  {
+   "k": "f_word",
+   "t0": "b:5a-0.1",
+   "t1": "f:criança@5a-0.2",
+   "lines": [
+    "Nem toda diferença de resultado",
+    "é *diferença de esforço.*"
+   ],
+   "size": 100
+  },
+  {
+   "k": "c_list",
+   "t0": "f:criança@5a-0.1",
+   "t1": "f:reconhecer@5a-0.2",
+   "title": "o mesmo esforço, outro resultado",
+   "numbered": false,
+   "items": [
+    [
+     "f:exercício@5a",
+     "todo mundo que treina emagrece?"
+    ],
+    [
+     "f:come@5a",
+     "tem gente que não come e engorda"
+    ],
+    [
+     "f:caramba@5a",
+     "e quem come muito e é magro"
+    ]
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "f:reconhecer@5a-0.1",
+   "t1": "B:5a+0.4",
+   "lines": [
+    "Reconhecer a injustiça da largada",
+    "não me autoriza a *entregar meu destino a ela.*"
+   ],
+   "size": 84
+  },
+  {
+   "k": "c_title",
+   "t0": "f:largada@5b-0.2",
+   "t1": "f:injusto@5b-0.2",
+   "lines": [
+    "Eu larguei atrás.",
+    "*O jogo não acabou.*"
+   ],
+   "size": 96
+  },
+  {
+   "k": "c_statement",
+   "t0": "f:injusto@5b-0.1",
+   "t1": "f:passado@5b-0.2",
+   "lines": [
+    [
+     "É injusto? *É.*",
+     "f:injusto@5b"
+    ],
+    [
+     "Vamos reconhecer.",
+     "f:reconhecer@5b"
+    ],
+    [
+     "Mas eu *não vou parar.*",
+     "f:mas@5b"
+    ]
+   ]
+  },
+  {
+   "k": "c_timeline",
+   "t0": "f:passado@5b-0.1",
+   "t1": "B:5e+0.3",
+   "explica": "f:explica@5c",
+   "nao": "f:determina@5c"
+  },
+  {
+   "k": "f_word",
+   "t0": "b:6a-0.1",
+   "t1": "f:então@6a-0.1",
+   "lines": [
+    "Jesus não discute",
+    "*o argumento.*"
+   ],
+   "size": 130
+  },
+  {
+   "k": "c_verse",
+   "t0": "f:senhor@6a-0.2",
+   "t1": "B:6a+0.2",
+   "ref": "João 5:7",
+   "text": "Senhor, não tenho ninguém que me ajude a entrar no tanque quando a água é agitada. Enquanto estou tentando entrar, outro chega antes de mim."
+  },
+  {
+   "k": "c_versus",
+   "t0": "b:6b-0.1",
+   "t1": "f:argumentos@6b-0.1",
+   "left": [
+    "não é",
+    "uma|resposta",
+    "b:6b"
+   ],
+   "right": [
+    "é",
+    "um|argumento",
+    "f:argumento@6b"
+   ]
+  },
+  {
+   "k": "c_title",
+   "t0": "f:argumentos@6b-0.1",
+   "t1": "B:6b+0.2",
+   "kicker": "pros outros e pra nós mesmos",
+   "lines": [
+    "As nossas",
+    "*desculpinhas.*"
+   ],
+   "size": 104
+  },
+  {
+   "k": "f_verse",
+   "t0": "f:levante@6c-0.3",
+   "t1": "B:6c+0.6",
+   "ref": "João 5:8",
+   "text": "Levante-se, pegue a sua maca e ande.",
+   "size": 90
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:6d-0.1",
+   "t1": "B:6d+0.2",
+   "lines": [
+    [
+     "Jesus vai direto ao assunto,",
+     "f:jesus@6d"
+    ],
+    [
+     "*antes que você perca*",
+     "f:perca@6d"
+    ],
+    [
+     "*a sua chance.*",
+     "f:chance@6d"
+    ]
+   ]
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:6e-0.1",
+   "t1": "f:imediatamente@6e-0.2",
+   "lines": [
+    [
+     "Jesus podia dizer:",
+     "f:jesus@6e"
+    ],
+    [
+     "“Que injustiça, hein?",
+     "f:poxa@6e"
+    ],
+    [
+     "*Quer ajuda pra pular?*”",
+     "f:ajuda@6e"
+    ]
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "f:imediatamente@6e-0.15",
+   "t1": "B:6e+0.3",
+   "kicker": "João 5:9",
+   "lines": [
+    "*Imediatamente.*"
+   ],
+   "size": 160
+  },
+  {
+   "k": "c_list",
+   "t0": "b:6f-0.1",
+   "t1": "B:6f+0.2",
+   "title": "ele não precisou",
+   "numbered": false,
+   "items": [
+    [
+     "f:curso@6f",
+     "fazer um curso"
+    ],
+    [
+     "f:inscrever@6f",
+     "se inscrever em nada"
+    ],
+    [
+     "f:aprender@6f",
+     "aprender isso ou aquilo"
+    ]
+   ],
+   "strike": "f:doente@6f"
+  },
+  {
+   "k": "c_list",
+   "t0": "b:6g-0.1",
+   "t1": "B:6g+0.2",
+   "title": "Jesus não perguntou",
+   "numbered": false,
+   "gap": 74,
+   "size": 42,
+   "items": [
+    [
+     "f:dízimo@6g",
+     "se ele dava dízimo"
+    ],
+    [
+     "f:louvor@6g",
+     "se era do louvor"
+    ],
+    [
+     "f:bêbado@6g",
+     "se bebia ou se drogava"
+    ],
+    [
+     "f:adúltero@6g",
+     "se era adúltero"
+    ],
+    [
+     "f:religião@6g",
+     "qual a religião"
+    ],
+    [
+     "f:escolha@6g",
+     "qual a escolha sexual"
+    ]
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "f:eu@6h-0.1",
+   "t1": "B:6h+0.5",
+   "lines": [
+    "“Eu vou curar",
+    "*você hoje.*”"
+   ],
+   "size": 140
+  },
+  {
+   "k": "c_versus",
+   "t0": "b:7a-0.1",
+   "t1": "f:esse@7a-0.1",
+   "left": [
+    "revolta com",
+    "Deus",
+    "f:deus@7a"
+   ],
+   "right": [
+    "revolta com",
+    "a realidade",
+    "f:realidade@7a"
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "f:esse@7a-0.1",
+   "t1": "B:7a+0.3",
+   "kicker": "esse homem ficou",
+   "lines": [
+    "*38 anos*",
+    "revoltado com a realidade."
+   ],
+   "size": 120
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:7b-0.1",
+   "t1": "B:7b+0.2",
+   "lines": [
+    [
+     "Há 38, 20, 15 anos…",
+     "f:38@7b"
+    ],
+    [
+     "dor, doença,",
+     "f:dor@7b"
+    ],
+    [
+     "problema familiar.",
+     "f:familiar@7b"
+    ],
+    [
+     "*Isso revolta a gente.*",
+     "f:isso@7b"
+    ]
+   ]
+  },
+  {
+   "k": "c_verse",
+   "t0": "f:habacuque@7d-0.2",
+   "t1": "f:veja@7d-0.1",
+   "ref": "Habacuque 1:2",
+   "text": "Até quando, Senhor, clamarei por socorro, sem que tu ouças?"
+  },
+  {
+   "k": "f_word",
+   "t0": "f:veja@7d-0.1",
+   "t1": "B:7d+0.3",
+   "lines": [
+    "Não é revolta com Deus.",
+    "*É com a situação.*"
+   ],
+   "size": 100
+  },
+  {
+   "k": "c_title",
+   "t0": "b:7e-0.1",
+   "t1": "B:7e+0.2",
+   "lines": [
+    "Jesus também",
+    "*se revoltou.*"
+   ],
+   "size": 104
+  },
+  {
+   "k": "c_verse",
+   "t0": "b:7f-0.2",
+   "t1": "f:tem@7f-0.1",
+   "ref": "João 2:16",
+   "text": "“Tirem estas coisas daqui! Parem de fazer da casa de meu Pai um mercado!”"
+  },
+  {
+   "k": "c_statement",
+   "t0": "f:tem@7f-0.1",
+   "t1": "B:7f+0.2",
+   "lines": [
+    [
+     "Tem coisa que revolta.",
+     "f:tem@7f"
+    ],
+    [
+     "*Tem coisa que deixa bravo.*",
+     "f:bravo@7f-0.6"
+    ],
+    [
+     "“Hoje eu não estou bem.”",
+     "f:louvor@7f"
+    ]
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "b:7g-0.1",
+   "t1": "B:7g+0.3",
+   "kicker": "triste, bravo, alegre, feliz",
+   "lines": [
+    "Você é",
+    "*um ser humano.*"
+   ],
+   "size": 140
+  },
+  {
+   "k": "c_verse",
+   "t0": "b:7h-0.2",
+   "t1": "B:7h+0.2",
+   "ref": "Habacuque 1:2",
+   "text": "Até quando gritarei a ti: “Violência!”, sem que tragas salvação?"
+  },
+  {
+   "k": "f_word",
+   "t0": "b:7i-0.1",
+   "t1": "B:7i+0.4",
+   "lines": [
+    "Fé não é",
+    "*anestesia emocional.*"
+   ],
+   "size": 130
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:7j-0.1",
+   "t1": "B:7j+0.2",
+   "lines": [
+    [
+     "Fé é não permitir",
+     "f:fé@7j"
+    ],
+    [
+     "que a minha irritação",
+     "f:irritação@7j"
+    ],
+    [
+     "*determine quem Deus é.*",
+     "f:determine@7j"
+    ]
+   ]
+  },
+  {
+   "k": "c_list",
+   "t0": "b:7k-0.1",
+   "t1": "B:7k+0.3",
+   "title": "estou irritado, mas Deus não deixou",
+   "items": [
+    [
+     "w:6.3303",
+     "de ser Deus"
+    ],
+    [
+     "w:6.3315",
+     "de ter poder"
+    ],
+    [
+     "w:6.3325",
+     "de merecer honra e glória"
+    ]
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "b:8a-0.1",
+   "t1": "B:8a+0.3",
+   "lines": [
+    "Pedimos condições para *participar de um sistema*",
+    "enquanto Deus nos tira *da dependência dele.*"
+   ],
+   "size": 72
+  },
+  {
+   "k": "c_flow",
+   "t0": "f:qual@8b-0.1",
+   "t1": "B:8b+0.3",
+   "title": "o sistema do tanque",
+   "steps": [
+    [
+     "f:1@8b",
+     "ficar perto do poço"
+    ],
+    [
+     "f:dois@8b",
+     "esperar o anjo agitar a água"
+    ],
+    [
+     "f:três@8b",
+     "o primeiro a pular é curado"
+    ]
+   ]
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:8c-0.1",
+   "t1": "B:8c+0.2",
+   "lines": [
+    [
+     "“Filho, não precisa passar",
+     "f:filho@8c"
+    ],
+    [
+     "por tudo isso.",
+     "f:passar@8c"
+    ],
+    [
+     "*Eu tenho poder.*”",
+     "f:poder@8c"
+    ]
+   ]
+  },
+  {
+   "k": "c_title",
+   "t0": "b:8d-0.1",
+   "t1": "f:concurso@8d-1.4",
+   "lines": [
+    "Explicando para Deus",
+    "*como fazer o milagre?*"
+   ],
+   "size": 88
+  },
+  {
+   "k": "c_flow",
+   "t0": "f:concurso@8d-1.3",
+   "t1": "B:8d+0.3",
+   "title": "o meu roteiro para Deus",
+   "gap": 84,
+   "steps": [
+    [
+     "f:concurso@8d",
+     "passar no concurso"
+    ],
+    [
+     "f:trabalhar@8d",
+     "trabalhar"
+    ],
+    [
+     "f:dinheiro@8d",
+     "ganhar dinheiro"
+    ],
+    [
+     "f:comprar@8d",
+     "comprar tal coisa"
+    ],
+    [
+     "f:criar@8d",
+     "criar as filhas"
+    ]
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "f:grávida@8e-0.15",
+   "t1": "f:mas@8e-0.1",
+   "kicker": "a Ester chega e diz",
+   "lines": [
+    "“Tô grávida",
+    "*de novo.*”"
+   ],
+   "size": 140
+  },
+  {
+   "k": "c_statement",
+   "t0": "f:mas@8e-0.1",
+   "t1": "B:8e+0.3",
+   "lines": [
+    [
+     "“Mas eu não arrumei",
+     "f:mas@8e"
+    ],
+    [
+     "minha vida ainda…”",
+     "f:vida@8e"
+    ],
+    [
+     "*“Você vai criar e pronto.”*",
+     "f:não@8e"
+    ]
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "f:não@8f-0.1",
+   "t1": "B:8f+0.5",
+   "lines": [
+    "Não dependa de um sistema.",
+    "*Dependa de Jesus.*"
+   ],
+   "size": 110
+  },
+  {
+   "k": "c_title",
+   "t0": "b:9a-0.1",
+   "t1": "f:são@9a-0.1",
+   "kicker": "Lucas 17:11",
+   "lines": [
+    "Entre Samaria",
+    "*e Galileia.*"
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "f:são@9a-0.1",
+   "t1": "B:9a+0.3",
+   "kicker": "quem não pertence a lugar nenhum",
+   "lines": [
+    "*Os excluídos.*"
+   ],
+   "size": 150
+  },
+  {
+   "k": "f_verse",
+   "t0": "b:v9a",
+   "t1": "B:v9a",
+   "ref": "Lucas 17:12-14",
+   "size": 56,
+   "text": "Ao entrar num povoado, dez leprosos dirigiram-se a ele. Ficaram a certa distância e gritaram em alta voz: “Jesus, Mestre, tem piedade de nós!” Ao vê-los, ele disse: “Vão mostrar-se aos sacerdotes”. Enquanto eles iam, foram purificados."
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:9b-0.1",
+   "t1": "B:9b+0.2",
+   "lines": [
+    [
+     "Jesus nem disse:",
+     "b:9b"
+    ],
+    [
+     "*“vou fazer uma oração…”*",
+     "f:oração@9b"
+    ]
+   ]
+  },
+  {
+   "k": "c_title",
+   "t0": "f:quantos@9c-0.1",
+   "t1": "B:9c+0.3",
+   "kicker": "detalhes que passam direto",
+   "lines": [
+    "Quantos",
+    "*leprosos?*"
+   ],
+   "size": 110
+  },
+  {
+   "k": "c_flow",
+   "t0": "b:9d-0.1",
+   "t1": "B:9d+0.2",
+   "title": "se fosse a gente",
+   "steps": [
+    [
+     "f:campanha@9d",
+     "campanha de oração"
+    ],
+    [
+     "f:40@9d",
+     "40 dias de jejum"
+    ],
+    [
+     "f:depois@9d",
+     "mais uma campanha"
+    ],
+    [
+     "f:8@9d",
+     "8 horas orando"
+    ]
+   ]
+  },
+  {
+   "k": "c_counter",
+   "t0": "b:9e-0.1",
+   "t1": "B:9e+0.3",
+   "rows": [
+    [
+     "f:40@9e",
+     "40",
+     "dias de jejum"
+    ],
+    [
+     "f:7@9e",
+     "+ 7",
+     "dias de campanha"
+    ],
+    [
+     "f:47@9e",
+     "47",
+     "dias"
+    ]
+   ]
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:9f-0.1",
+   "t1": "f:vão@9f-0.3",
+   "lines": [
+    [
+     "Jesus entrou no povoado.",
+     "b:9f"
+    ],
+    [
+     "Os leprosos gritaram:",
+     "f:gritaram@9f"
+    ],
+    [
+     "*“Tem piedade de nós!”*",
+     "f:piedade@9f-0.6"
+    ]
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "f:vão@9f-0.2",
+   "t1": "f:levou@9f-0.1",
+   "kicker": "Lucas 17:14 · a oração de Jesus",
+   "lines": [
+    "“Vão mostrar-se",
+    "*aos sacerdotes.*”"
+   ],
+   "size": 120
+  },
+  {
+   "k": "f_word",
+   "t0": "f:levou@9f-0.1",
+   "t1": "B:9f+0.4",
+   "lines": [
+    "*1 minuto.*"
+   ],
+   "size": 180
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:9g-0.1",
+   "t1": "f:bateria@9g-0.4",
+   "lines": [
+    [
+     "Não estou desmerecendo",
+     "f:desmerecendo@9g"
+    ],
+    [
+     "o jejum e a oração.",
+     "f:desmerecendo@9g+0.7"
+    ],
+    [
+     "*Jesus subia ao monte para orar.*",
+     "f:monte@9g"
+    ]
+   ]
+  },
+  {
+   "k": "c_title",
+   "t0": "f:bateria@9g-0.3",
+   "t1": "B:9g+0.3",
+   "kicker": "ele não podia dizer “espera aí”",
+   "lines": [
+    "A bateria",
+    "*já estava carregada.*"
+   ],
+   "size": 96
+  },
+  {
+   "k": "f_word",
+   "t0": "b:9h-0.1",
+   "t1": "B:9h+0.4",
+   "lines": [
+    "Você não sabe quando",
+    "*os 10 leprosos vão chegar.*"
+   ],
+   "size": 100
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:9i-0.1",
+   "t1": "B:9i+0.2",
+   "lines": [
+    [
+     "Soltar a palavra de poder:",
+     "f:soltar@9i"
+    ],
+    [
+     "*“Vão mostrar-se",
+     "f:vão@9i"
+    ],
+    [
+     "*aos sacerdotes.”*",
+     "f:vão@9i+0.6"
+    ]
+   ]
+  },
+  {
+   "k": "f_verse",
+   "t0": "b:v9b",
+   "t1": "B:v9b",
+   "ref": "Lucas 17:15-16",
+   "size": 60,
+   "text": "Um deles, quando viu que estava curado, voltou, louvando a Deus em alta voz. Prostrou-se aos pés de Jesus e lhe agradeceu. Este era samaritano."
+  },
+  {
+   "k": "c_title",
+   "t0": "b:9j-0.1",
+   "t1": "B:9j+0.3",
+   "kicker": "quem voltou para agradecer",
+   "lines": [
+    "Era",
+    "*samaritano.*"
+   ],
+   "size": 120
+  },
+  {
+   "k": "c_dots",
+   "t0": "b:10a-0.1",
+   "t1": "B:10a+0.3",
+   "n": 10,
+   "one": 6,
+   "fade_at": "f:um@10a",
+   "labels": [
+    [
+     "f:dez@10a",
+     "10 foram curados",
+     540,
+     "small"
+    ],
+    [
+     "f:um@10a",
+     "*1 voltou.*",
+     600,
+     "big"
+    ],
+    [
+     "f:improvável@10a",
+     "o *improvável.*",
+     720,
+     "small"
+    ]
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "b:10b-0.1",
+   "t1": "w:6.4436-0.1",
+   "lines": [
+    "Gratidão não é chamar de justo",
+    "*aquilo que foi injusto.*"
+   ],
+   "size": 96
+  },
+  {
+   "k": "c_statement",
+   "t0": "w:6.4436-0.1",
+   "t1": "B:10c+0.3",
+   "lines": [
+    [
+     "Gratidão é não permitir",
+     "w:6.4436"
+    ],
+    [
+     "que aquilo que me faltou",
+     "w:6.4441"
+    ],
+    [
+     "me impeça de enxergar",
+     "w:6.4445"
+    ],
+    [
+     "*o que Deus ainda me deu.*",
+     "w:6.4449"
+    ]
+   ],
+   "size": 60
+  },
+  {
+   "k": "c_versus",
+   "t0": "b:10d-0.1",
+   "t1": "B:10d+0.3",
+   "left": [
+    "posso",
+    "achar ruim",
+    "f:ruim@10d"
+   ],
+   "right": [
+    "e ser",
+    "grato",
+    "f:grato@10d"
+   ]
+  },
+  {
+   "k": "c_versus",
+   "t0": "b:10e-0.1",
+   "t1": "f:gratidão@10e-0.1",
+   "left": [
+    "tem coisa",
+    "ruim",
+    "f:ruim@10e"
+   ],
+   "right": [
+    "tem coisa",
+    "boa",
+    "f:boa@10e"
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "f:gratidão@10e-0.1",
+   "t1": "B:10e+0.4",
+   "lines": [
+    "Enxergue o que Deus",
+    "*está fazendo de bom.*"
+   ],
+   "size": 110
+  },
+  {
+   "k": "f_word",
+   "t0": "f:eu@11a-0.1",
+   "t1": "f:aqui@11a-0.1",
+   "lines": [
+    "“Eu não tenho",
+    "*ninguém.*”"
+   ],
+   "size": 150
+  },
+  {
+   "k": "c_title",
+   "t0": "f:aqui@11a-0.1",
+   "t1": "B:11b+0.2",
+   "lines": [
+    "Aqui ninguém deveria",
+    "*precisar dizer isso.*"
+   ],
+   "size": 84
+  },
+  {
+   "k": "c_list",
+   "t0": "b:11c-0.1",
+   "t1": "B:11c+0.2",
+   "title": "Jesus sempre volta à fronteira",
+   "numbered": false,
+   "items": [
+    [
+     "f:mulher@11c",
+     "a mulher samaritana"
+    ],
+    [
+     "f:bom@11c",
+     "o bom samaritano"
+    ],
+    [
+     "f:leproso@11c",
+     "o leproso que voltou"
+    ],
+    [
+     "f:betesda@11c",
+     "o homem parado em Betesda"
+    ]
+   ]
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:11d-0.1",
+   "t1": "B:11d+0.2",
+   "lines": [
+    [
+     "Talvez uma igreja exista",
+     "b:11d"
+    ],
+    [
+     "para que menos pessoas",
+     "f:para@11d"
+    ],
+    [
+     "precisem dizer:",
+     "f:precisem@11d"
+    ],
+    [
+     "*“eu não tenho ninguém”.*",
+     "f:eu@11d"
+    ]
+   ],
+   "size": 60
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:11e-0.1",
+   "t1": "B:11e+0.2",
+   "lines": [
+    [
+     "A comunidade existe",
+     "f:comunidade@11e-0.8"
+    ],
+    [
+     "para os dias em que",
+     "f:momentos@11e"
+    ],
+    [
+     "*precisamos ser carregados.*",
+     "f:carregado@11e"
+    ]
+   ]
+  },
+  {
+   "k": "c_title",
+   "t0": "b:11f-0.1",
+   "t1": "f:quando@11f-0.1",
+   "lines": [
+    "Levanta,",
+    "*pega a maca e anda.*"
+   ]
+  },
+  {
+   "k": "c_statement",
+   "t0": "f:quando@11f-0.1",
+   "t1": "B:11f+0.3",
+   "lines": [
+    [
+     "Quando vier a solidão:",
+     "f:solidão@11f"
+    ],
+    [
+     "*“levanta, pega essa situação",
+     "w:6.4824"
+    ],
+    [
+     "*e crê em mim.”*",
+     "w:6.4829"
+    ]
+   ]
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:11g-0.1",
+   "t1": "B:11g+0.2",
+   "lines": [
+    [
+     "Mesmo que a igreja",
+     "f:igreja@11g"
+    ],
+    [
+     "esqueça de você,",
+     "f:esqueça@11g"
+    ],
+    [
+     "*lembra de Jesus.*",
+     "w:6.4868"
+    ]
+   ],
+   "size": 72
+  },
+  {
+   "k": "f_verse",
+   "t0": "b:11h-0.2",
+   "t1": "B:11h+0.6",
+   "ref": "Isaías 49:15",
+   "size": 62,
+   "text": "Haverá mãe que possa esquecer seu bebê que ainda mama e não ter compaixão do filho que gerou? Embora ela possa esquecê-lo, eu não me esquecerei de você!"
+  },
+  {
+   "k": "f_verse",
+   "t0": "b:12a-0.2",
+   "t1": "f:passado@12a-0.15",
+   "ref": "João 5:8",
+   "text": "Levante-se, pegue a sua maca e ande.",
+   "size": 90
+  },
+  {
+   "k": "f_word",
+   "t0": "f:passado@12a-0.1",
+   "t1": "B:12a+0.3",
+   "lines": [
+    "O passado *explica.*",
+    "Jesus *ainda chama.*"
+   ],
+   "size": 120
+  },
+  {
+   "k": "c_statement",
+   "t0": "b:12b-0.1",
+   "t1": "f:levanta@12b-0.15",
+   "lines": [
+    [
+     "O seu passado explica",
+     "f:passado@12b"
+    ],
+    [
+     "por que você está assim.",
+     "f:explicando@12b+0.5"
+    ],
+    [
+     "*Mas Jesus ainda te chama.*",
+     "f:mas@12b"
+    ]
+   ]
+  },
+  {
+   "k": "f_word",
+   "t0": "f:levanta@12b-0.1",
+   "t1": "B:12b+0.6",
+   "lines": [
+    "Levanta",
+    "*e anda.*"
+   ],
+   "size": 170
+  },
+  {
+   "k": "c_title",
+   "t0": "b:12c-0.1",
+   "t1": "f:parte@12c-0.3",
+   "lines": [
+    "Nem que seja chorando:",
+    "*levanta e vai.*"
+   ],
+   "size": 88
+  },
+  {
+   "k": "c_list",
+   "t0": "f:parte@12c-0.3",
+   "t1": "f:porque@12c-0.1",
+   "title": "qual é a sua parte?",
+   "items": [
+    [
+     "f:oração@12c",
+     "oração"
+    ],
+    [
+     "f:participação@12c",
+     "participação"
+    ],
+    [
+     "f:fé@12c",
+     "fé"
+    ],
+    [
+     "f:esperança@12c",
+     "esperança"
+    ]
+   ]
+  },
+  {
+   "k": "c_statement",
+   "t0": "f:porque@12c-0.1",
+   "t1": "B:12c+0.4",
+   "lines": [
+    [
+     "Quem desanima",
+     "f:desanimou@12c"
+    ],
+    [
+     "entrega os pontos.",
+     "f:entrega@12c"
+    ],
+    [
+     "*Não é isso que a gente quer.*",
+     "f:quer@12c-0.8"
+    ]
+   ]
+  },
+  {
+   "k": "endcard",
+   "t0": "b:fim",
+   "t1": "B:fim",
+   "lines": [
+    "Levanta",
+    "*e anda.*"
+   ],
+   "sub": "Inscreva-se e comente o que essa palavra falou com você."
+  }
+ ],
+ "music": {
+  "prog": "C Am F G",
+  "bpm": 76
+ }
+}
