@@ -4,10 +4,37 @@ Vídeo analisado: pregação de Zé Bruno, 41:38, 1280×720, 30 fps, horizontal.
 Fonte: arquivo no Google Drive enviado pelo usuário (18/11/2026).
 Objetivo: replicar esta fórmula de edição em vídeos brutos de pregação.
 
-> Limitação da análise: o áudio não foi transcrito (o modelo de transcrição foi
-> bloqueado pela rede). O conteúdo falado foi lido nas legendas embutidas. O
-> arquivo tem 2 faixas de áudio diferentes (a 2ª não é cópia da 1ª, mas não foi
-> possível identificar o que ela contém).
+> Áudio: o arquivo tem 2 faixas. A faixa 0 (padrão) é uma **dublagem automática em
+> inglês** do YouTube. A faixa 1 é o **original em português**. Use sempre a faixa
+> em português (`-map 0:1`).
+
+## Como o hook foi montado (confirmado pela transcrição)
+
+O hook **não** junta frases soltas de pontos diferentes. É **um único trecho
+contínuo** da pregação (~14:50–16:20), em que o pregador faz a sequência de
+perguntas. A edição:
+1. Começa exatamente na primeira pergunta ("Quando a gente diz…") e corta o que
+   vem antes ("participei de um podcast…").
+2. **Remove a digressão do meio** (~12 s: "E eu não estou dizendo que Deus não esteja
+   conosco… Ele é tudo que eu preciso ou ele me dá tudo?") para manter só as
+   perguntas no formato "isto OU aquilo".
+3. Encurta as pausas (de ~69 s brutos para ~52 s no ar).
+4. Termina na pergunta mais forte ("…ou pela oportunidade que ele me dá de obter o
+   que eu quero?") e não mostra a resposta, que vem só no meio do vídeo.
+5. Por cima, cobre os cortes com trocas de câmera (trocando o plano a cada fala) e
+   música de fundo baixa.
+
+Narração da ponte (voz diferente da do pregador, sobre música): "O verdadeiro amor a
+Deus não é medido pelas facilidades que ele nos dá, mas pela nossa fidelidade a ele,
+mesmo quando estamos presos em meio às maiores crises da vida. Assista a mensagem
+até o final e deixe seu comentário." A narração vai de 0:56 a 1:12. A fala do
+pregador recomeça (~1:15) **por baixo da contagem 3-2-1**: a contagem se sobrepõe
+ao começo da pregação.
+
+Para escolher o hook de um vídeo novo, procure o trecho em que o pregador faz
+uma **sequência de perguntas retóricas/contrastes** sobre o tema central (costuma
+estar no clímax, entre 30% e 50% da pregação), corte as digressões e termine na
+pergunta mais forte.
 
 ## Estrutura (linha do tempo)
 
