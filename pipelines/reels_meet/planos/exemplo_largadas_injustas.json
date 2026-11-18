@@ -1,0 +1,333 @@
+{
+ "tag": "Estudo bíblico · João 5",
+ "name": "Manoel Gonçalves",
+ "id": "r1",
+ "slug": "largadas_injustas",
+ "segs": {
+  "1": 1340.0,
+  "2": 3190.0
+ },
+ "spans": [
+  [
+   1,
+   868,
+   876,
+   "hook"
+  ],
+  [
+   1,
+   634,
+   645,
+   "mito"
+  ],
+  [
+   1,
+   232,
+   242,
+   "C"
+  ],
+  [
+   1,
+   268,
+   275,
+   "C"
+  ],
+  [
+   1,
+   351,
+   361,
+   "B"
+  ],
+  [
+   1,
+   378,
+   383,
+   "B"
+  ],
+  [
+   1,
+   498,
+   510,
+   "A"
+  ],
+  [
+   1,
+   511,
+   522,
+   "A"
+  ],
+  [
+   1,
+   536,
+   546,
+   "A"
+  ],
+  [
+   1,
+   554,
+   557,
+   "justo"
+  ],
+  [
+   1,
+   565,
+   574,
+   "justo"
+  ],
+  [
+   1,
+   1024,
+   1038,
+   "reconhecer"
+  ],
+  [
+   1,
+   1130,
+   1141,
+   "parar"
+  ],
+  [
+   2,
+   59,
+   83,
+   "anda"
+  ]
+ ],
+ "fix": {
+  "ante.": "anda."
+ },
+ "punch": [
+  "esforço.",
+  "verdade",
+  "particular,",
+  "público.",
+  "bomba,",
+  "justo,",
+  "destino",
+  "parar",
+  "chamando.",
+  "anda."
+ ],
+ "key": [
+  "esforço.",
+  "verdade",
+  "justo,",
+  "particular,",
+  "público.",
+  "bomba,",
+  "destino",
+  "parar",
+  "chamando.",
+  "chamando,",
+  "anda.",
+  "injusto.",
+  "hospital",
+  "esforce.",
+  "consegue"
+ ],
+ "events": [
+  {
+   "k": "cover",
+   "t1": "B:hook+0.25",
+   "kicker": "João 5 · Betesda",
+   "lines": [
+    "Nem toda diferença",
+    "de resultado é",
+    "*diferença de esforço.*"
+   ],
+   "size": 100
+  },
+  {
+   "k": "statement",
+   "t0": "b:mito-0.1",
+   "t1": "B:mito+0.3",
+   "lines": [
+    [
+     "“Todo mundo consegue,",
+     "b:mito"
+    ],
+    [
+     "é só se esforçar.”",
+     "f:desde@mito"
+    ],
+    [
+     "*Não é verdade.*",
+     "f:não@mito"
+    ]
+   ],
+   "size": 74
+  },
+  {
+   "k": "lanes",
+   "t0": "b:C-0.15",
+   "t1": "f:conquistar@justo-0.3",
+   "lanes": {
+    "A": [
+     1470,
+     200
+    ],
+    "B": [
+     1610,
+     340
+    ],
+    "C": [
+     1750,
+     480
+    ]
+   },
+   "active": [
+    [
+     "C",
+     "b:C-0.1"
+    ],
+    [
+     "B",
+     "b:B-0.1"
+    ],
+    [
+     "A",
+     "b:A-0.1"
+    ],
+    [
+     "all",
+     "b:justo-0.1"
+    ]
+   ],
+   "labels": {
+    "C": [
+     [
+      "f:classe@C",
+      "classe B"
+     ],
+     [
+      "f:particular@C",
+      "escola particular"
+     ]
+    ],
+    "B": [
+     [
+      "f:pai@B",
+      "pai longe de casa"
+     ],
+     [
+      "f:público@B",
+      "escola pública"
+     ]
+    ],
+    "A": [
+     [
+      "f:afeganistão@A",
+      "guerra"
+     ],
+     [
+      "f:bomba@A-0.3",
+      "sem pai"
+     ],
+     [
+      "f:escola@A",
+      "sem escola"
+     ],
+     [
+      "f:hospital@A",
+      "sem hospital"
+     ]
+    ]
+   }
+  },
+  {
+   "k": "title",
+   "t0": "f:conquistar@justo-0.3",
+   "t1": "B:justo+0.3",
+   "lines": [
+    "É *justo?*"
+   ],
+   "size": 150,
+   "y": 1450
+  },
+  {
+   "k": "statement",
+   "t0": "b:reconhecer-0.1",
+   "t1": "B:reconhecer+0.3",
+   "lines": [
+    [
+     "Reconhecer a injustiça",
+     "b:reconhecer"
+    ],
+    [
+     "da largada não me autoriza",
+     "f:não@reconhecer"
+    ],
+    [
+     "*a entregar meu destino a ela.*",
+     "f:destino@reconhecer-0.4"
+    ]
+   ],
+   "size": 64
+  },
+  {
+   "k": "statement",
+   "t0": "b:parar-0.1",
+   "t1": "f:mas@parar-0.1",
+   "lines": [
+    [
+     "Vamos reconhecer:",
+     "b:parar"
+    ],
+    [
+     "*é injusto.*",
+     "f:injusto@parar"
+    ]
+   ],
+   "size": 84
+  },
+  {
+   "k": "title",
+   "t0": "f:mas@parar-0.1",
+   "t1": "B:parar+0.3",
+   "lines": [
+    "Mas eu",
+    "*não vou parar.*"
+   ],
+   "size": 118
+  },
+  {
+   "k": "statement",
+   "t0": "b:anda-0.1",
+   "t1": "f:levanta@anda-0.15",
+   "lines": [
+    [
+     "O passado *explica.*",
+     "b:anda"
+    ],
+    [
+     "Jesus *ainda chama.*",
+     "f:jesus@anda"
+    ]
+   ],
+   "size": 90
+  },
+  {
+   "k": "hero",
+   "t0": "f:levanta@anda-0.1",
+   "t1": "end+0.35",
+   "lines": [
+    "Levanta",
+    "*e anda.*"
+   ],
+   "size": 150
+  }
+ ],
+ "cta": {
+  "word": "ANDA",
+  "line": "se essa palavra é pra você hoje"
+ },
+ "music": {
+  "prog": "Am F C G",
+  "bpm": 84,
+  "break": [
+   "b:reconhecer-0.2",
+   "b:parar-0.1"
+  ],
+  "swell": "f:levanta@anda"
+ }
+}
