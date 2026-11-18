@@ -66,7 +66,20 @@ BLK = {}
 for w in WORDS: BLK.setdefault(w["blk"], [w["start"], w["end"]]); BLK[w["blk"]][1] = w["end"]
 BORDERS = [ranges[k]["o"] for k in range(1, len(ranges)) if ranges[k]["blk"] != ranges[k - 1]["blk"]]
 
+def fixmap():
+    """O Meet troca a miniatura para quem faz barulho: quadros que não são o autor (longe da mediana)
+    são trocados pelo último quadro bom (ou o próximo, no início)."""
+    s_ = TILE["s"]; out = subprocess.run(["ffmpeg", "-v", "error", "-i", f"{WK}/base.mkv", "-fps_mode", "passthrough", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
+    fr = np.frombuffer(out, np.uint8).reshape(-1, s_, s_, 3)
+    th = fr.reshape(-1, 12, 13, 12, 13, 3).mean((2, 4)); dd = np.abs(th - np.median(th, 0)).mean((1, 2, 3)); bad = dd > 40
+    good = np.where(~bad)[0]; rep = {}
+    for i in np.where(bad)[0]:
+        prv = good[good < i]; j = prv[-1] if len(prv) else good[good > i][0]; rep[int(i)] = fr[j]
+    np.savez(f"{WK}/fix.npz", idx=np.array(list(rep.keys()), np.int64), raw=np.array(list(rep.values()), np.uint8).reshape(-1, s_, s_, 3) if rep else np.zeros((0, s_, s_, 3), np.uint8))
+    print("quadros trocados:", len(rep))
+
 # ------------------------------------------------------------------ PREP
+if sys.argv[1] == "fixmap": fixmap(); sys.exit()
 if sys.argv[1] == "prep":
     lst = open(f"{WK}/list.txt", "w")
     for k, r in enumerate(ranges):
@@ -85,7 +98,7 @@ if sys.argv[1] == "prep":
     ln = (f"loudnorm=I=-15:TP=-1.5:LRA=6:measured_I={js['input_i']}:measured_TP={js['input_tp']}:measured_LRA={js['input_lra']}:"
           f"measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", f"{WK}/base.mkv", "-af", chain + "," + ln, "-ar", "48000", "-ac", "2", f"{WK}/voice.wav"], check=True)
-    print("prep ok", round(TOTAL, 2), "s,", len(ranges), "cortes; fala até", round(T_SPEECH, 2)); sys.exit()
+    fixmap(); print("prep ok", round(TOTAL, 2), "s,", len(ranges), "cortes; fala até", round(T_SPEECH, 2)); sys.exit()
 
 # ------------------------------------------------------------------ roteiro gráfico (tempos de saída)
 EV = []
@@ -107,7 +120,7 @@ ev("statement", rb[0] - 0.1, rb[1] + 0.3, lines=[("reconhecer a injustiça da la
    line_t=[rb[0], find("não", 1, 1024, 1038), find("destino", 1, 1024, 1038) - 0.4])
 pb = BLK["parar"]
 ev("chip_big", pb[0] - 0.1, find("mas", 1, 1130, 1141) - 0.05, icon="check_mark_button", text="vamos reconhecer: é injusto")
-ev("kinetic", find("mas", 1, 1130, 1141) - 0.1, pb[1] + 0.35, kicker="mas eu", title="NÃO VOU PARAR", exit=pb[1] - 0.05, y=1540, size=128)
+ev("kinetic", find("mas", 1, 1130, 1141) - 0.1, pb[1] + 0.35, kicker="mas eu", title="NÃO VOU PARAR", exit=pb[1] - 0.05, y=1540, size=108)
 ab = BLK["anda"]; t_lev = find("levanta", 2, 59, 83)
 ev("duo", ab[0] - 0.1, t_lev - 0.15, rows=[(ab[0], "hourglass_not_done", "o passado", "explica"), (find("jesus", 2, 59, 83), "sparkles", "Jesus", "ainda chama")])
 ev("hero", t_lev - 0.1, T_SPEECH + 0.45, kicker="", title="LEVANTA E ANDA", flash=t_lev)
@@ -398,17 +411,19 @@ if mode == "frames":
     for ts in sys.argv[2:]:
         t = float(ts); fi = min(int(t * FPS), int(TOTAL * FPS) - 1)
         b = subprocess.run(["ffmpeg", "-v", "error", "-i", f"{WK}/base.mkv", "-vf", f"select=eq(n\\,{fi})", "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
-        render(b[:RAW], t).convert("RGB").save(f"{E}/prev/p_{t:06.2f}.jpg", quality=85)
+        FX_ = np.load(f"{WK}/fix.npz"); FIXR = {int(i): r.tobytes() for i, r in zip(FX_["idx"], FX_["raw"])}
+        render(FIXR.get(fi, b[:RAW]), t).convert("RGB").save(f"{E}/prev/p_{t:06.2f}.jpg", quality=85)
     sys.exit()
 if mode == "render":
     k, n = int(sys.argv[2]), int(sys.argv[3]); NF = int(round(TOTAL * FPS)); per = math.ceil(NF / n); f0, f1 = k * per, min(NF, (k + 1) * per)
     dec = subprocess.Popen(["ffmpeg", "-v", "error", "-i", f"{WK}/base.mkv", "-vf", f"select=gte(n\\,{f0})", "-vsync", "0", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
     enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
                             "-c:v", "libx264", "-preset", "medium", "-crf", "16", "-pix_fmt", "yuv420p", f"{WK}/part{k}.mp4"], stdin=subprocess.PIPE)
-    last = bytes(RAW)
+    last = bytes(RAW); FX_ = np.load(f"{WK}/fix.npz"); FIXR = {int(i): r.tobytes() for i, r in zip(FX_["idx"], FX_["raw"])}
     for fi in range(f0, f1):
         b = dec.stdout.read(RAW)
         if len(b) == RAW: last = b
+        if fi in FIXR: last = FIXR[fi]
         enc.stdin.write(render(last, fi / FPS).convert("RGB").tobytes())
     enc.stdin.close(); enc.wait(); dec.terminate(); print("part", k, "ok", f1 - f0, flush=True); sys.exit()
 if mode == "events":
