@@ -12,3 +12,12 @@ node_modules/
 
 # Video editing session outputs (see .claude/skills/video-use/SKILL.md)
 edit/
+projetos/**/*.mp4
+projetos/**/*.wav
+projetos/**/*.mov
+projetos/**/clips*/
+projetos/**/frames/
+projetos/**/segments/
+projetos/**/verify/
+projetos/**/fonts/package/
+projetos/**/fonts/*.tgz
