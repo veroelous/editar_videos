@@ -333,7 +333,7 @@ if MODE == "srt":
                 ws = txt.split(); bk = min(range(1, len(ws)), key=lambda k: abs(len(" ".join(ws[:k])) - len(txt) / 2)); txt = " ".join(ws[:bk]) + "\n" + " ".join(ws[bk:])
             end = min(c[-1]["end"] + 0.3, cues[n][0]["start"] - 0.02) if n < len(cues) else c[-1]["end"] + 0.3
             f.write(f"{n}\n{ts(c[0]['start'])} --> {ts(end)}\n{txt}\n\n")
-    for tc, title in [(0, PLAN.get("cold_title", "Abertura"))] + CHAPS: print(f"{int(tc // 60)}:{int(tc % 60):02d} {title}")
+    for tc, title in [(0, PLAN.get("cold_title", "Abertura"))] + CHAPS: print(f"{int(tc // 60)}:{int(tc % 60):02d} {title.replace("*", "")}")
     sys.exit()
 if MODE == "pack":
     n = int(sys.argv[3]); out = sys.argv[4]
