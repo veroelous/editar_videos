@@ -35,4 +35,5 @@
 - `pipelines/reels_claude_style/`: pipeline de reels vertical.
 - `pipelines/youtube_longo/`: pipeline de vídeo longo 16:9 + cortes verticais.
 - `pipelines/youtube_aula/`: vídeo-aula 16:9 sem cortes (ritmo, painéis didáticos, ícones).
+- `pipelines/reels_meet/`: reel 9:16 a partir de Meet com câmera em miniatura (moldura + super-resolução, trilha e SFX).
 - `brutos/`: vídeos brutos e saídas de edição (ignorado pelo git).
