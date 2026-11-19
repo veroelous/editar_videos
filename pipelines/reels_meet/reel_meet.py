@@ -149,22 +149,30 @@ def cam_big(raw):
         _cache.clear(); _cache[key] = Image.fromarray(_sr(np.frombuffer(raw, np.uint8).reshape(TILE["s"], TILE["s"], 3)))
     return _cache[key]
 
+PIP = PLAN.get("layout", "frame") == "pip"
+PIP_BOX = (770, 170, 1010, 410)     # seu quadro pequeno no canto (layout pip)
+ZS = 1.12                           # escala da zona gráfica no layout pip
+if PIP: st.FS = 1.15
 def render(raw, t):
     out = st.background(t)
     pulse = 0
     for b in BORDERS:
         if b - 0.1 <= t < b + 0.35: pulse = max(pulse, math.sin(math.pi * pr(t, b - 0.1, 0.45)))
-    fl, (fcx, fcy) = st.frame(cam_big(raw), t, zoom_at(t), pulse)
+    fl, (fcx, fcy) = st.frame(cam_big(raw), t, zoom_at(t), pulse, box=PIP_BOX if PIP else None)
     out.alpha_composite(fl, (int(fcx - fl.width / 2 + 2 * math.sin(t * 0.9)), int(fcy - fl.height / 2 + 4 * math.sin(t * 0.7))))
     ui = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    st.topbar(ui, t, TOTAL, PLAN.get("tag", ""), PLAN.get("name", ""))
+    st.topbar(ui, t, TOTAL, PLAN.get("tag", ""), "" if PIP else PLAN.get("name", ""))
+    zl = Image.new("RGBA", (W, H), (0, 0, 0, 0)) if PIP else ui
     for e in EV:
-        if e["k"] == "cover" or (e["t0"] - 0.05 <= t < e["t1"] + 0.05): st.BLOCKS[e["k"]](ui, t, e)
+        if e["k"] == "cover" or (e["t0"] - 0.05 <= t < e["t1"] + 0.05): st.BLOCKS[e["k"]](zl, t, e)
+    if PIP:   # zona gráfica ampliada (ZS) e centralizada; a borda de baixo some antes do rodapé do Instagram
+        zc = zl.crop((0, 1250, W, H)); zc = zc.resize((int(W * ZS), int(zc.height * ZS)), Image.LANCZOS)
+        ui.alpha_composite(zc, (int((W - zc.width) / 2), int(600 - 80 * ZS)))
     if not any(a <= t < b for a, b in NOCAP) and t < T_SPEECH + 0.3:
         cur = None
         for s0, s1, ws in CAPS:
             if s0 - 0.15 <= t < s1 + 0.05: cur = (s0, s1, ws)
-        if cur: st.caption(ui, cur[2], t, cy=1232, size=52, t_end=cur[1])
+        if cur: st.caption(ui, cur[2], t, cy=1430 if PIP else 1232, size=52, t_end=cur[1])
     out.alpha_composite(ui)
     return out
 

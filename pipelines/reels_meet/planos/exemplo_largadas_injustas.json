@@ -329,5 +329,6 @@
    "b:parar-0.1"
   ],
   "swell": "f:levanta@anda"
- }
+ },
+ "layout": "pip"
 }

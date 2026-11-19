@@ -16,6 +16,11 @@ Para estudos/aulas gravados no Meet em que o slide ocupa a tela e a câmera do a
   emocional, *swell* no clímax; SFX discretos (whoosh suave, tique, sino). Mix −14 LUFS.
 - O Meet troca a miniatura para quem faz barulho: quadros que não são o autor são substituídos pelo último quadro bom (`fixmap`).
 
+## Layout "pip" (padrão quando a câmera é ruim)
+`"layout": "pip"` no plano: o rosto vira um quadrinho de 240 px no canto superior direito e os gráficos sobem
+para o centro (ampliados), com a legenda logo abaixo. Use sempre que a imagem da câmera for fraca (miniatura do Meet):
+o feedback foi que a imagem ampliada ficava ruim; pequena e discreta, os gráficos carregam o vídeo.
+
 ## Plano (JSON)
 `segs` (transcrições por trecho e seu início no bruto), `spans` [seg, palavra_ini, palavra_fim, bloco], `events` (blocos gráficos com tempos
 "w:SEG.I", "e:SEG.I", "b:bloco", "B:bloco", "f:texto@bloco", "F:texto@bloco", "end", com +/-seg), `punch`, `key`, `cta`, `music`

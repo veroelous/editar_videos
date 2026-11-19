@@ -11,8 +11,9 @@ from fx import eo, eio, back, pr, cl, tw, with_alpha, blur_reveal
 
 FD = "/usr/share/fonts/opentype/inter/"; SERIF = "/home/user/editar_videos/pipelines/efeitos/fonts/"
 _f = {}
+FS = 1.0          # escala global de fonte (layout "pip" usa > 1)
 def font(kind, size):
-    k = (kind, int(size))
+    size = size * FS; k = (kind, int(size))
     if k not in _f:
         path = {"sans": FD + "InterDisplay-Medium.otf", "sans_b": FD + "InterDisplay-SemiBold.otf", "sans_x": FD + "InterDisplay-Bold.otf",
                 "caps": FD + "Inter-Medium.otf", "serif": SERIF + "InstrumentSerif-Regular.ttf", "serif_i": SERIF + "InstrumentSerif-Italic.ttf"}[kind]
@@ -46,7 +47,7 @@ def draw_rich(layer, line, cx, y, size, k, base="serif", col=INK, align="center"
     asc = font(base, size).getmetrics()[0]
     x = (cx - wsum / 2) if align == "center" else x0
     for txt, f, c in parts:
-        im = Image.new("RGBA", (tw(txt, f) + 60, int(size * 1.6)), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+        im = Image.new("RGBA", (tw(txt, f) + 60, int(f.size * 1.75)), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
         b = f.getbbox(txt); d.text((30 - b[0], 30 + asc - f.getmetrics()[0]), txt, font=f, fill=c + (255,))
         im = with_alpha(blur_reveal(im, k, 8), alpha) if k < 1 or alpha < 1 else im
         layer.alpha_composite(im, (int(x - 30), int(y - 30 + 26 * (1 - eo(k)))))
@@ -91,10 +92,10 @@ def topbar(layer, t, total, left, right):
 
 # ------------------------------------------------------------------ moldura
 _fcache = {}
-def frame(img, t, z, pulse=0.0, pop=1.0):
+def frame(img, t, z, pulse=0.0, pop=1.0, box=None):
     """Recorte do rosto (img quadrada) com zoom z, cantos arredondados, sombra suave e filete claro."""
     s = img.width; cw = s / z; c0 = (s - cw) / 2; cy0 = min(max(0, s * 0.47 - cw / 2), s - cw)
-    fw, fh = FB[2] - FB[0], FB[3] - FB[1]
+    B_ = box or FB; fw, fh = int(B_[2] - B_[0]), int(B_[3] - B_[1])
     sc = 1 + 0.012 * pulse
     pw, ph = int(fw * sc), int(fh * sc)
     piece = img.resize((pw, ph), Image.BICUBIC, box=(c0, cy0, c0 + cw, cy0 + cw)).convert("RGBA")
@@ -108,7 +109,7 @@ def frame(img, t, z, pulse=0.0, pop=1.0):
     lay = shb.copy()
     lay.paste(piece, (80, 80), m)
     ImageDraw.Draw(lay).rounded_rectangle([80, 80, 80 + pw - 1, 80 + ph - 1], radius=26, outline=LINE + (46,), width=2)
-    return lay, (FB[0] + fw / 2, FB[1] + fh / 2)
+    return lay, (B_[0] + fw / 2, B_[1] + fh / 2)
 
 # ------------------------------------------------------------------ legenda (ordem natural, palavra acende ao ser dita)
 def caption(layer, words, t, cy=1250, size=54, maxw=920, t_end=None):
@@ -133,7 +134,7 @@ def caption(layer, words, t, cy=1250, size=54, maxw=920, t_end=None):
         x = W / 2 - rw / 2; y = y0 + li * lh
         for (txt, f, col, s0), w in row:
             said = eo(pr(t, s0 - 0.05, 0.12)); a = (0.32 + 0.68 * said) * k_in * k_out
-            im = Image.new("RGBA", (w + 40, int(size * 1.7)), (0, 0, 0, 0))
+            im = Image.new("RGBA", (w + 40, int(f.size * 1.8)), (0, 0, 0, 0))
             ImageDraw.Draw(im).text((20 - f.getbbox(txt)[0], 20 + asc - f.getmetrics()[0]), txt, font=f, fill=col + (int(255 * a),))
             layer.alpha_composite(im, (int(x - 20), int(y - 20 + 10 * (1 - k_in))))
             x += w + sp
