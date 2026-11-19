@@ -36,4 +36,5 @@
 - `pipelines/youtube_longo/`: pipeline de vídeo longo 16:9 + cortes verticais.
 - `pipelines/youtube_aula/`: vídeo-aula 16:9 sem cortes (ritmo, painéis didáticos, ícones).
 - `pipelines/reels_meet/`: reel 9:16 a partir de Meet com câmera em miniatura (moldura + super-resolução, trilha e SFX).
+- `.claude/skills/youtube/`: skill **claude-youtube** (MIT, AgriciDaniel) — `/youtube thumbnail`, `seo`, `metadata`, `script`, `hook`, `shorts`… Usar `/youtube thumbnail` (+ `references/thumbnail-ctr-guide.md`) para planejar thumbnails e `/youtube metadata` para título/descrição/tags.
 - `brutos/`: vídeos brutos e saídas de edição (ignorado pelo git).
