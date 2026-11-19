@@ -81,8 +81,22 @@ def face_full(r):
         if len(fs): x, y, w, h = max(fs, key=lambda f: f[2]); pts.append((x + w / 2, y + h / 2))
     return np.median(np.array(pts), 0) if pts else (430, 300)
 
+def rkey(r):
+    return f"card_{r['blk']}_{r['nf']}" if r.get("card") else f"{r['seg']}_{r['a']}_{r['b']}_{r['mode']}_{r['x']}_{r['nf']}"
+def tile_face(r, side="largest"):
+    """Rosto dentro da miniatura (outra pessoa lendo, ou a Ester na mesma câmera)."""
+    import cv2
+    cas = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml"); pts = []
+    for tt in np.linspace(r["s"], r["e"], 6):
+        b = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{tt:.2f}", "-i", SRC, "-frames:v", "1", "-vf", "crop=318:178:962:272,scale=954:534", "-f", "rawvideo", "-pix_fmt", "gray", "-"], capture_output=True).stdout
+        if len(b) < 954 * 534: continue
+        fs = cas.detectMultiScale(np.frombuffer(b, np.uint8).reshape(534, 954), 1.1, 5, minSize=(60, 60))
+        if len(fs):
+            x, y, w, h = (max(fs, key=lambda f: f[0]) if side == "right" else max(fs, key=lambda f: f[2])); pts.append((962 + (x + w / 2) / 3, 272 + (y + h / 2) / 3))
+    return np.median(np.array(pts), 0) if pts else (1121, 360)
+
 def prep_range(k):
-    r = ranges[k]; out = f"{WK}/cam_{k:04d}.mp4"; aud = f"{WK}/aud_{k:04d}.wav"
+    r = ranges[k]; out = f"{WK}/cam_{rkey(r)}.mp4"; aud = f"{WK}/aud_{rkey(r)}.wav"
     if os.path.exists(out) and os.path.exists(aud): return k
     enc = ["-c:v", "libx264", "-preset", "fast", "-crf", "15", "-pix_fmt", "yuv420p", "-r", str(FPS)]
     if r.get("card"):
@@ -99,9 +113,12 @@ def prep_range(k):
                         "-vf", f"crop={S}:{S}:{x}:{y},scale={CS}:{CS}:flags=lanczos,fps={FPS}", "-an"] + enc + [out], check=True)
         return k
     from sr import Upscaler
-    up = Upscaler(MODELS, threads=1); s_ = TILE["s"]; RAW = s_ * s_ * 3
+    up = Upscaler(MODELS, threads=1); s_ = TILE["s"]; RAW = s_ * s_ * 3; cx_, cy_ = r["x"], TILE["y"]
+    if r["mode"] in ("ester", "other"):    # quem lê aparece: posição fixa medida (mesma câmera) ou o rosto da miniatura
+        fx_, fy_ = PLAN["fixed_face"][r["mode"]] if r["mode"] in PLAN.get("fixed_face", {}) else tile_face(r)
+        cx_ = int(min(max(fx_ - s_ / 2, 962), 1280 - s_)); cy_ = int(min(max(fy_ - s_ * 0.45, 272), 449 - s_))
     dec = subprocess.Popen(["ffmpeg", "-v", "error", "-ss", f"{r['s']:.3f}", "-t", f"{d + 0.2:.3f}", "-i", SRC, "-frames:v", str(r["nf"]),
-                            "-vf", f"crop={s_}:{s_}:{r['x']}:{TILE['y']},fps={FPS}", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
+                            "-vf", f"crop={s_}:{s_}:{cx_}:{cy_},fps={FPS}", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
     e = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{CS}x{CS}", "-r", str(FPS), "-i", "-"] + enc + [out], stdin=subprocess.PIPE)
     last = None; lastk = None; n = 0
     while n < r["nf"]:
@@ -128,13 +145,16 @@ def fixmap():
         else: lastgood = i
     json.dump(rep, open(f"{WK}/fix.json", "w")); print("quadros trocados:", len(rep))
 
+if MODE == "keys":
+    for k, r in enumerate(ranges): print(k, rkey(r))
+    sys.exit()
 if MODE == "prep":
     from multiprocessing import Pool
     with Pool(4) as p:
         for i, k in enumerate(p.imap_unordered(prep_range, range(len(ranges)))):
             if i % 40 == 0: print("prep", i, "/", len(ranges), flush=True)
-    open(f"{WK}/cams.txt", "w").write("".join(f"file 'cam_{k:04d}.mp4'\n" for k in range(len(ranges))))
-    open(f"{WK}/auds.txt", "w").write("".join(f"file 'aud_{k:04d}.wav'\n" for k in range(len(ranges))))
+    open(f"{WK}/cams.txt", "w").write("".join(f"file 'cam_{rkey(r)}.mp4'\n" for r in ranges))
+    open(f"{WK}/auds.txt", "w").write("".join(f"file 'aud_{rkey(r)}.wav'\n" for r in ranges))
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", f"{WK}/cams.txt", "-c", "copy", f"{WK}/cam.mp4"], check=True)
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", f"{WK}/auds.txt", "-c", "copy", f"{WK}/aud_raw.wav"], check=True)
     chain = "highpass=f=90,afftdn=nf=-28:nr=10,acompressor=threshold=-22dB:ratio=3:attack=6:release=120:makeup=2"
@@ -279,6 +299,7 @@ if MODE == "audio":
             if q in (0, 2): put(kick, kk, tb, 0.45)
             put(shk, sh, tb, 0.08); put(shk, sh, tb + beat / 2, 0.05)
     music = pad + pno + bass + kick + shk; music /= np.abs(music).max() + 1e-9
+    if M.get("off"): music[:] = 0      # sem trilha de fundo: só voz + efeitos sonoros
     fo = int((TOTAL - 2.5) * SR_); music[fo:] *= np.linspace(1, 0, len(music) - fo)
     v, _ = sf.read(f"{WK}/voice.wav", dtype="float32"); v = v[:N]; vm = np.abs(v).mean(1)
     hop = int(0.05 * SR_); e_ = np.add.reduceat(vm, np.arange(0, len(vm), hop)) / hop

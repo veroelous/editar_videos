@@ -293,9 +293,9 @@ def endcard(L, t, e):
 def lower3(L, t, e):
     k = eo(pr(t, e["t0"], 0.5)) * (1 - eio(pr(t, e["t1"] - 0.5, 0.5)))
     if k <= 0: return
-    x, y = e.get("x", CX0), e.get("y", 860)
-    im, pad, b = sprite(e["name"], font("serif", 52), INK); L.alpha_composite(with_alpha(im, k), (int(x - pad + 20 * (1 - k)), int(y - pad)))
-    kicker(L, e["role"], x, y + 66, k, col=GOLD, size=20)
+    x, y, sz = e.get("x", CX0), e.get("y", 860), e.get("size", 52)
+    im, pad, b = sprite(e["name"], font("serif", sz), INK); L.alpha_composite(with_alpha(im, k), (int(x - pad + 20 * (1 - k)), int(y - pad)))
+    kicker(L, e["role"], x, y + sz * 1.27, k, col=GOLD, size=20)
 
 BLOCKS = dict(c_title=c_title, c_verse=c_verse, c_statement=c_statement, c_list=c_list, c_versus=c_versus, c_counter=c_counter,
               c_flow=c_flow, c_dots=c_dots, c_timeline=c_timeline, c_lanes=c_lanes, f_word=f_word, f_verse=f_verse,

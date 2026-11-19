@@ -18,7 +18,9 @@
   "precise": "precisem",
   "leproosos,": "leprosos,",
   "Pau!": "Pá!",
-  "peg": "pegue"
+  "peg": "pegue",
+  "Prostou-se": "Prostrou-se",
+  "veros,": "vê-los,"
  },
  "punch": [
   "esforço.",
@@ -106,19 +108,27 @@
    6,
    411,
    459,
-   "2a"
+   "2a",
+   "ester"
   ],
   [
    6,
    469,
-   536,
+   502,
    "2b"
   ],
   [
    6,
-   538,
+   518,
+   555,
+   "2c",
+   "ester"
+  ],
+  [
+   6,
+   556,
    572,
-   "2c"
+   "2d"
   ],
   [
    "card",
@@ -438,9 +448,11 @@
    "9a"
   ],
   [
-   "card",
-   11.0,
-   "v9a"
+   6,
+   3802,
+   3843,
+   "9z1",
+   "other"
   ],
   [
    6,
@@ -491,9 +503,18 @@
    "9i"
   ],
   [
-   "card",
-   9.0,
-   "v9b"
+   6,
+   4338,
+   4351,
+   "9z2",
+   "other"
+  ],
+  [
+   6,
+   4354,
+   4364,
+   "9z2",
+   "other"
   ],
   [
    6,
@@ -848,7 +869,7 @@
   {
    "k": "c_list",
    "t0": "b:2b-0.1",
-   "t1": "f:cegos@2b-0.2",
+   "t1": "B:2b+0.2",
    "title": "o tipo de lugar",
    "numbered": false,
    "items": [
@@ -872,22 +893,16 @@
   },
   {
    "k": "c_verse",
-   "t0": "f:cegos@2b-0.2",
-   "t1": "B:2b+0.2",
+   "t0": "b:2c-0.2",
+   "t1": "B:2c+0.3",
    "ref": "João 5:3-4",
-   "text": "Eles esperavam o movimento das águas. De vez em quando descia um anjo do Senhor e agitava as águas."
-  },
-  {
-   "k": "c_verse",
-   "t0": "b:2c-0.1",
-   "t1": "f:esse@2c-0.1",
-   "ref": "João 5:4",
-   "text": "O primeiro que entrasse no tanque, depois de agitadas as águas, era curado de qualquer doença que tivesse."
+   "text": "Eles esperavam o movimento das águas. De vez em quando descia um anjo do Senhor e agitava as águas. O primeiro que entrasse no tanque, depois de agitadas as águas, era curado de qualquer doença que tivesse.",
+   "size": 52
   },
   {
    "k": "f_word",
-   "t0": "f:38@2c-0.2",
-   "t1": "B:2c+0.4",
+   "t0": "f:38@2d-0.2",
+   "t1": "B:2d+0.4",
    "kicker": "João 5:5",
    "lines": [
     "*38 anos*",
@@ -1860,12 +1875,12 @@
    "size": 150
   },
   {
-   "k": "f_verse",
-   "t0": "b:v9a",
-   "t1": "B:v9a",
+   "k": "c_verse",
+   "t0": "b:9z1-0.2",
+   "t1": "B:9z1+0.3",
    "ref": "Lucas 17:12-14",
-   "size": 56,
-   "text": "Ao entrar num povoado, dez leprosos dirigiram-se a ele. Ficaram a certa distância e gritaram em alta voz: “Jesus, Mestre, tem piedade de nós!” Ao vê-los, ele disse: “Vão mostrar-se aos sacerdotes”. Enquanto eles iam, foram purificados."
+   "text": "Ao entrar num povoado, dez leprosos dirigiram-se a ele. Ficaram a certa distância e gritaram em alta voz: “Jesus, Mestre, tem piedade de nós!” Ao vê-los, ele disse: “Vão mostrar-se aos sacerdotes”. Enquanto eles iam, foram purificados.",
+   "size": 50
   },
   {
    "k": "c_statement",
@@ -2038,12 +2053,12 @@
    ]
   },
   {
-   "k": "f_verse",
-   "t0": "b:v9b",
-   "t1": "B:v9b",
+   "k": "c_verse",
+   "t0": "b:9z2-0.2",
+   "t1": "B:9z2+0.3",
    "ref": "Lucas 17:15-16",
-   "size": 60,
-   "text": "Um deles, quando viu que estava curado, voltou, louvando a Deus em alta voz. Prostrou-se aos pés de Jesus e lhe agradeceu. Este era samaritano."
+   "text": "Um deles, quando viu que estava curado, voltou, louvando a Deus em alta voz. Prostrou-se aos pés de Jesus e lhe agradeceu. Este era samaritano.",
+   "size": 56
   },
   {
    "k": "c_title",
@@ -2411,10 +2426,55 @@
     "*e anda.*"
    ],
    "sub": "Inscreva-se e comente o que essa palavra falou com você."
+  },
+  {
+   "k": "lower3",
+   "x": 110,
+   "y": 968,
+   "size": 38,
+   "t0": "b:2a+0.3",
+   "t1": "B:2a",
+   "name": "Ester",
+   "role": "leitura · João 5"
+  },
+  {
+   "k": "lower3",
+   "x": 110,
+   "y": 968,
+   "size": 38,
+   "t0": "b:2c+0.3",
+   "t1": "B:2c",
+   "name": "Ester",
+   "role": "leitura · João 5"
+  },
+  {
+   "k": "lower3",
+   "x": 110,
+   "y": 968,
+   "size": 38,
+   "t0": "b:9z1+0.3",
+   "t1": "B:9z1",
+   "name": "José Correia",
+   "role": "leitura · Lucas 17"
+  },
+  {
+   "k": "lower3",
+   "x": 110,
+   "y": 968,
+   "size": 38,
+   "t0": "b:9z2+0.3",
+   "t1": "B:9z2",
+   "name": "José Correia",
+   "role": "leitura · Lucas 17"
   }
  ],
  "music": {
-  "prog": "C Am F G",
-  "bpm": 76
+  "off": true
+ },
+ "fixed_face": {
+  "ester": [
+   1226,
+   382
+  ]
  }
 }
