@@ -5,7 +5,7 @@ amb.wav: som ambiente do bruto já remontado na linha do tempo (gerado por rende
 import os, sys
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(__file__))
-from compose import SEGS, END0, END1, COVER, OUTRO
+from compose import SEGS, END0, END1, COVER, OUTRO, PHRASES, HOOK_TITLE
 
 PROJ = os.environ.get("PROJ", "brutos/g2b")
 SR = 48000; N = int((END1 + 0.6) * SR); BPM = 120; B = 60 / BPM
@@ -77,12 +77,12 @@ for b in range(bars):
     add(M, pad(ch + [ch[0] + 12], 4 * B), t0)
     for s in range(8):  # baixo em colcheias
         ts = t0 + s * B / 2
-        if 27.5 <= ts < END0: continue
+        if END0 - 0.5 <= ts < END0: continue
         if ts < 4.0 and s % 2: continue
         add(M, bass(root - 12, B / 2 * 0.9), ts, 0.55 if ts < 4 else 0.85)
 for i in range(int(END1 / B) + 1):
     ts = i * B
-    if 27.5 <= ts < END0: continue
+    if END0 - 0.5 <= ts < END0: continue
     if ts < 4.0:
         if i % 2 == 0: add(M, kick(0.55), ts)  # "batimento" no gancho
         continue
@@ -97,15 +97,18 @@ fe = int((END1 - 1.2) * SR); M[fe:] *= np.linspace(1, 0, N - fe) ** 1.5
 
 # ---------------------------------------------------------------- SFX
 S = np.zeros(N)
-for (o0, o1, s0, s1, z0, z1, tr) in SEGS[1:]:
+for (o0, o1, s0, s1, z0, z1, tr, *cmp) in SEGS[1:]:
     if tr in ("whip_x", "whip_y"): add(S, whoosh(0.42), o0 - 0.28, 0.9)
     elif tr == "zoom": add(S, whoosh(0.35), o0 - 0.25, 0.7); add(S, impact(0.45), o0)
     elif tr == "leak": add(S, shimmer(), o0 - 0.1); add(S, impact(0.5), o0)
-for i in range(7): add(S, tick(2200 + 90 * i, 0.16), 0.2 + i * 0.07)  # letras do "O ANTES"
+for i in range(len(HOOK_TITLE.replace(" ", ""))): add(S, tick(2200 + 90 * i, 0.16), 0.2 + i * 0.07)  # letras do título do gancho
+for sg in SEGS:  # comparativos ANTES|AGORA: whoosh na divisória + impacto na revelação
+    if len(sg) > 7:
+        w0, wd = sg[7]["wipe"]; add(S, whoosh(wd + 0.1, up=False), sg[0] + w0 - 0.05, 0.9); add(S, impact(0.55), sg[0] + w0 + wd)
 add(S, impact(0.6), 0.05)
-for t in (1.75, 4.35, 8.85, 12.9, 15.55, 18.85, 22.85): add(S, tick(1800, 0.09), t)  # entrada das legendas
-add(S, riser(1.7), 25.8, 0.9)
-add(S, whoosh(0.6), 27.3, 1.1)
+for ws, _te in PHRASES: add(S, tick(1800, 0.09), ws[0][0])  # entrada das legendas
+add(S, riser(1.7), END0 - 2.2, 0.9)
+add(S, whoosh(0.6), END0 - 0.7, 1.1)
 add(S, impact(1.0), END0)
 for i in range(10): add(S, tick(2000 + 60 * i, 0.12), END0 + 0.9 + 0.15 + i * 0.045)  # "SIGA A G2B"
 add(S, ding(), END0 + 3.0)

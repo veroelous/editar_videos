@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Render completo do reels "Diário da Reforma". Uso: PROJ=brutos/g2b bash pipelines/reels_obra/render.sh
+# Render completo do reels "Diário da Reforma". Uso: PROJ=brutos/g2b EP=g2b_ep01 bash pipelines/reels_obra/render.sh
 set -euo pipefail
 PROJ=${PROJ:-brutos/g2b}; HERE=$(dirname "$0"); J=${J:-$(nproc)}
-export PROJ
+EP=${EP:-g2b_ep01}; export PROJ EP
 # 1) ambiente do bruto remontado na linha do tempo (atempo por segmento)
 python3 - <<'PY'
 import os, subprocess, sys
@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.join(os.environ.get("HERE", "pipelines/reels_obra")))
 from compose import SEGS
 P = os.environ["PROJ"]; parts = []
 for i, (o0, o1, s0, s1, *_ ) in enumerate(SEGS):
-    sp = (s1 - s0) / (o1 - o0); f = f"{P}/amb_{i}.wav"
+    sp = max(0.5, (s1 - s0) / (o1 - o0)); f = f"{P}/amb_{i}.wav"  # atempo aceita no mínimo 0,5
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(s0), "-t", str(s1 - s0), "-i", f"{P}/raw.mp4", "-vn", "-ac", "1", "-ar", "48000",
                     "-af", f"atempo={sp:.4f},afade=t=in:d=0.03,afade=t=out:st={o1 - o0 - 0.04:.3f}:d=0.04,apad", "-t", str(o1 - o0), f], check=True)
     parts.append(f)

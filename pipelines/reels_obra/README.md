@@ -7,7 +7,18 @@ Usado no EP.01 da G2B Esquadrias e Vidros ("O antes"): passeio pela sede no iní
 | 0 | `ffmpeg -i raw.mp4 -vf "eq=contrast=1.07:saturation=1.18:brightness=0.01,unsharp=5:5:0.6" -q:v 2 src/%05d.jpg` | Extrai os frames do bruto já gradeados (`PROJ/src/`) |
 | 1 | `render.sh` | Ambiente remontado por segmento (atempo) → `audio.py` (trilha 120 bpm + SFX) → `compose.py` em paralelo → encode com loudnorm −14 LUFS |
 
-Rodar: `PROJ=brutos/g2b bash pipelines/reels_obra/render.sh` (a partir da raiz). Saída: `PROJ/final.mp4` (1080x1920, 30 fps).
+Rodar (a partir da raiz): `PROJ=brutos/g2b EP=g2b_ep01 bash pipelines/reels_obra/render.sh`. Saída: `PROJ/final.mp4` (1080x1920, 30 fps).
+
+## Episódios (`episodios/<EP>.py`)
+Cada episódio é só um roteiro; o compositor é o mesmo. Para um episódio novo: copie o anterior, crie `brutos/<proj>/` com `raw.mp4`, `logo/1.png` (logo branco) e `src/` (passo 0), e ajuste:
+- `SEGS` — trechos; um 8º item `dict(src=..., a=(ini, fim), wipe=(t, dur), ly=y)` vira **comparativo ANTES|AGORA** com divisória (o ANTES vem dos frames do episódio anterior, no mesmo ponto da sede);
+- `PHRASES`, `HOOK_*`, `TOAST_TXT`, `TAG_TXT`, capa (`EP_LABEL`, `COVER_*`), `OUTRO_TXT`;
+- `PILL` / `END_PCT` — a porcentagem da reforma **continua de onde o episódio anterior parou** (`END_PCT[1]`), e `END_NOTE` mostra o ganho ("+2% desde o EP. 01").
+
+| EP | Tema | Reforma | Destaques |
+|---|---|---|---|
+| 01 | O antes | 0 → 5% | gancho "O ANTES", cartão ANTES/DEPOIS |
+| 02 | A demolição | 5 → 7% | 2 comparativos (corredor e entrada da oficina), telhado e forro retirados |
 
 ## O que muda de um episódio para outro (`compose.py`)
 - `SEGS`: trechos do bruto, com zoom (Ken Burns) e a transição de entrada (`whip_x`, `whip_y`, `zoom`, `leak`). Cortes nas batidas (múltiplos de 0,5 s).
