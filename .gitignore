@@ -21,3 +21,5 @@ projetos/**/segments/
 projetos/**/verify/
 projetos/**/fonts/package/
 projetos/**/fonts/*.tgz
+projetos/**/*.mp3
+projetos/kit_canal_verify/
