@@ -9,7 +9,7 @@ que muda neste canal.
 
 | Tempo | Bloco | Detalhes |
 |---|---|---|
-| 0:00–1:13 | **Hook** (~72 s) | Em **P&B**. Música `intro_suspense.mp3` desde 0:00 (confirmado por correlação de áudio). Usa um trecho quase contínuo da pregação (~5:55–6:50: "você não é mal porque tem um demônio, é mal porque é mal… nascemos na ausência de Deus…") e fecha com uma frase de outro ponto (~13:40: "todos nós temos violência dentro de nós"). Termina numa **afirmação forte**, não numa pergunta. Tem flashes de bokeh/corações brancos em ~0:29 e ~0:58 |
+| 0:00–1:13 | **Hook** (~72 s) | Em **P&B**. Música `intro_suspense.mp3` desde 0:00 (confirmado por correlação de áudio). Usa um trecho quase contínuo da pregação (~6:02–6:50: "você não é mal porque tem um demônio, é mal porque é mal… nascemos na ausência de Deus…") e fecha com uma frase de outro ponto (~14:09: "todos nós temos violência dentro de nós"). Termina numa **afirmação forte**, não numa pergunta. Tem flashes de bokeh/corações brancos em ~0:29 e ~0:58 |
 | 0:02–0:59 | **Título do tema na tela** | "ONDE O MAL COMEÇA": fonte condensada e grossa amarela, contorno preto, brilho em degradê quente atrás. Fica centralizado a ~40% da altura, por cima do hook, com entrada glitch |
 | 0:07–0:17 | **Inscreva-se #1** (já dentro do hook) | Clipe de tela verde em **50% de escala**, centralizado na horizontal, com o elemento a ~58% da altura (acima da legenda) |
 | 1:13–1:27 | **Ponte** | Bokeh → **apresentador de IA** (homem numa sala, falando para a câmera) dizendo o resumo da tese + "Assista até o final e se inscreva no canal". Música `intro_fala_chamados.mp3` entrando em 1:13,5 |
