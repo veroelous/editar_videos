@@ -26,3 +26,4 @@ projetos/kit_canal_verify/
 projetos/kit_canal/*.png
 projetos/ref_*/v/
 projetos/ponte_*/
+.claude/settings.local.json
