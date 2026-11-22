@@ -206,6 +206,8 @@ def stage_track():
     json.dump({"dt": 2.0, "x": xs.round(1).tolist(), "y": ys.round(1).tolist()}, open(f"{WK}/track.json", "w")); print("track", len(xs))
 
 if MODE == "track": stage_track(); sys.exit()
+if MODE == "dump":   # trechos e palavras para outros pipelines (reels)
+    json.dump({"src": SRC, "ranges": ranges, "words": WORDS, "blk": BLK}, open(f"{WK}/dump.json", "w"), ensure_ascii=False); print("dump ok"); sys.exit()
 if MODE == "keys":
     for k, r in enumerate(ranges): print(k, rkey(r))
     sys.exit()
