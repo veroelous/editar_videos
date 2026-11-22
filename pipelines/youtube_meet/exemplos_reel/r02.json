@@ -1,0 +1,19 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1801/edit/planos/culto.json",
+ "blks": [
+  "s12",
+  "s13"
+ ],
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "O ataque não é para te matar.",
+  "*É contra a sua identidade.*"
+ ],
+ "cover_at": "auto",
+ "cta": [
+  "Você é filho de Deus.",
+  "Comenta *EU SOU*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1801/entrega/reels/02_identidade.mp4",
+ "to": "Judá e Benjamim"
+}

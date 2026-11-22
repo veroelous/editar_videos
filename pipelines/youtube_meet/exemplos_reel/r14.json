@@ -1,0 +1,28 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1801/edit/planos/culto.json",
+ "blks": [
+  "s49",
+  "s50"
+ ],
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "Sinal chama atenção.",
+  "*Fruto transforma.*"
+ ],
+ "cover_at": "auto",
+ "cta": [
+  "O que você tem buscado?",
+  "Comenta *FRUTO*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1801/entrega/reels/14_sinal_ou_fruto.mp4",
+ "skip": [
+  [
+   "Alguém entrar aqui mancando",
+   "o sinal é maravilhoso"
+  ],
+  [
+   "No meio disso Ele dá sinal também",
+   "sinal com certeza"
+  ]
+ ]
+}

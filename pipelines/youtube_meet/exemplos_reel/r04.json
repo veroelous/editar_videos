@@ -1,0 +1,19 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1801/edit/planos/culto.json",
+ "blks": [
+  "c6",
+  "s20"
+ ],
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "A Bíblia não é",
+  "*autoajuda.*"
+ ],
+ "cover_at": "auto",
+ "cta": [
+  "Concorda?",
+  "Comenta *É SOBRE ELE*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1801/entrega/reels/04_biblia_nao_e_autoajuda.mp4",
+ "to": "não é sobre você"
+}

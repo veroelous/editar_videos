@@ -1,0 +1,24 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1801/edit/planos/culto.json",
+ "blks": [
+  "s39"
+ ],
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "Deus não mora",
+  "*em prédios.*"
+ ],
+ "cover_at": "auto",
+ "cta": [
+  "Ele quer habitar em você.",
+  "Comenta *HABITA EM MIM*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1801/entrega/reels/05_deus_nao_mora_em_predios.mp4",
+ "to": "habitar no seu coração",
+ "skip": [
+  [
+   "Então o que eu quero trazer de restauração",
+   "trabalho que nós estamos tendo"
+  ]
+ ]
+}

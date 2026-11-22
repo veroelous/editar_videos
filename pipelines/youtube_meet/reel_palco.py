@@ -27,12 +27,15 @@ def find(ph, last=False):
     for i in range(len(ws) - k + 1):
         if [norm(w["text"]) for w in ws[i:i + k]] == n: return i + k - 1 if last else i
     raise KeyError(ph)
-a = find(R["from"]) if R.get("from") else 0; b = find(R["to"], True) if R.get("to") else len(ws) - 1; ws = ws[a:b + 1]
+a = find(R["from"]) if R.get("from") else 0; b = find(R["to"], True) if R.get("to") else len(ws) - 1
+drop = set()
+for f_, t_ in R.get("skip", []): drop |= set(range(find(f_), find(t_, True) + 1))   # trechos removidos no meio
+ws = [w for j, w in enumerate(ws) if a <= j <= b and j not in drop]
 rg = D["ranges"]; segs = []   # (src_ini, src_fim, palavras)
 for w in ws:
     r = rg[w["rk"]]; s0 = r["s"] + (w["start"] - r["o"]); s1 = r["s"] + (w["end"] - r["o"])
-    if segs and segs[-1][3] == w["rk"]: segs[-1][1] = s1; segs[-1][2].append((w, s0, s1))
-    else: segs.append([s0, s1, [(w, s0, s1)], w["rk"]])
+    if segs and segs[-1][3] == (w["rk"], w["i"] - 1): segs[-1][1] = s1; segs[-1][2].append((w, s0, s1)); segs[-1][3] = (w["rk"], w["i"])
+    else: segs.append([s0, s1, [(w, s0, s1)], (w["rk"], w["i"])])
 o = 0.0; SEG = []; WR = []
 for s0, s1, lst, _ in segs:
     s0 -= 0.12; s1 += 0.25; SEG.append((s0, s1, o))
@@ -72,7 +75,25 @@ def frame_at(ts, k):
 def still(ts):
     b = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{ts:.3f}", "-i", SRC, "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
     return Image.frombytes("RGB", (1920, 1080), b[:1920 * 1080 * 3])
-COVER = still(src_at(HOLD + R.get("cover_at", 1.0)))
+def auto_cover():
+    """Quadro mais expressivo: maior abertura de braços (largura/altura da silhueta), pessoa longe das bordas."""
+    import cv2, mediapipe as mp
+    from mediapipe.tasks.python import vision, BaseOptions
+    seg = vision.ImageSegmenter.create_from_options(vision.ImageSegmenterOptions(base_options=BaseOptions(
+        model_asset_path="/tmp/claude-0/-home-user-editar-videos/0ca601e2-5ead-5526-97c2-0a2240f4e1d5/scratchpad/models/selfie_multiclass.tflite"), output_category_mask=True))
+    best = (-1, 1.0)
+    for u in np.arange(1.0, min(SPEECH - 1, 45.0), 0.75):
+        im = np.asarray(still(src_at(HOLD + u)).resize((960, 540)))
+        m = (np.squeeze(seg.segment(mp.Image(image_format=mp.ImageFormat.SRGB, data=np.ascontiguousarray(im))).category_mask.numpy_view()) > 0).astype(np.uint8)
+        n, lab, sts, cen = cv2.connectedComponentsWithStats(m)
+        if n < 2: continue
+        i = 1 + int(np.argmax(sts[1:, 4])); x, y, w, h, ar = sts[i]
+        if ar < 1500 or x < 40 or x + w > 920: continue
+        sc = w / h + 0.15 * (ar / 6000)
+        if sc > best[0]: best = (sc, u)
+    print("capa em", round(best[1], 2), "s"); return best[1]
+CA = auto_cover() if R.get("cover_at", "auto") == "auto" else R["cover_at"]
+COVER = still(src_at(HOLD + CA))
 _m = np.ones((VS, VS), np.float32); r_ = np.arange(VS)
 _m *= np.clip(r_ / 110, 0, 1)[:, None] * np.clip((VS - r_) / 170, 0, 1)[:, None]   # funde topo/base do quadro no fundo
 MASK = Image.fromarray((_m * 255).astype(np.uint8), "L")
@@ -123,7 +144,7 @@ def render(t):
     if cover: im = COVER; z = R.get("cover_zoom", 1.3)
     else:
         k = next((j for j, (s0, s1, _) in enumerate(SEG) if s0 <= ts <= s1 + 0.01), len(SEG) - 1); im = frame_at(ts, k); z = zoom(t)
-    out = bg_from(im); sq = stage_square(im, ts if ts else src_at(HOLD + R.get("cover_at", 1.0)), z)
+    out = bg_from(im); sq = stage_square(im, ts if ts else src_at(HOLD + CA), z)
     out.paste(sq, (0, VY), MASK)
     L = Image.new("RGBA", (W, H), (0, 0, 0, 0)); header(L, t, cover)
     if not cover:

@@ -1,0 +1,24 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1801/edit/planos/culto.json",
+ "blks": [
+  "s54"
+ ],
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "Jejum não é dieta.",
+  "*Jejum é espiritual.*"
+ ],
+ "cover_at": "auto",
+ "cta": [
+  "Está nos 40 dias com a gente?",
+  "Comenta *JEJUM*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1801/entrega/reels/07_jejum_nao_e_dieta.mp4",
+ "to": "Mas começa",
+ "skip": [
+  [
+   "Precisa acabar logo esses 40 dias",
+   "cacetadinhas na esté"
+  ]
+ ]
+}

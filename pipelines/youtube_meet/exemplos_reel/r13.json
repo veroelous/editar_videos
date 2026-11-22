@@ -1,0 +1,18 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1801/edit/planos/culto.json",
+ "blks": [
+  "s47",
+  "s48"
+ ],
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "A poda dói,",
+  "*mas ela cura.*"
+ ],
+ "cover_at": "auto",
+ "cta": [
+  "Está passando por uma poda?",
+  "Comenta *ESTOU*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1801/entrega/reels/13_a_poda_doi.mp4"
+}

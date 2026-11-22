@@ -1,0 +1,29 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1801/edit/planos/culto.json",
+ "blks": [
+  "s29",
+  "s30"
+ ],
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "O altar",
+  "*antes dos muros.*"
+ ],
+ "cover_at": "auto",
+ "cta": [
+  "Qual é o centro da sua fé?",
+  "Comenta *ALTAR*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1801/entrega/reels/10_altar_antes_dos_muros.mp4",
+ "to": "edificar um altar de adoração",
+ "skip": [
+  [
+   "Então Voltando aqui",
+   "vamos reconstruir"
+  ],
+  [
+   "A religião quer que você não entenda",
+   "o centro espiritual"
+  ]
+ ]
+}
