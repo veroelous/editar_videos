@@ -97,6 +97,32 @@ def tile_face(r, side="largest"):
             x, y, w, h = (max(fs, key=lambda f: f[0]) if side == "right" else max(fs, key=lambda f: f[2])); pts.append((962 + (x + w / 2) / 3, 272 + (y + h / 2) / 3))
     return np.median(np.array(pts), 0) if pts else (1121, 360)
 
+_seg = None
+def stage_person(r):
+    """Posição da pessoa no palco: x = maior blob da segmentação de pessoa (MediaPipe), y = rosto (Haar);
+    mediana de 3 quadros do trecho. Retorna (cx, y_do_rosto)."""
+    global _seg
+    import cv2, mediapipe as mp
+    from mediapipe.tasks.python import vision, BaseOptions
+    if _seg is None:
+        _seg = vision.ImageSegmenter.create_from_options(vision.ImageSegmenterOptions(
+            base_options=BaseOptions(model_asset_path=f"{MODELS}/selfie_multiclass.tflite"), output_category_mask=True))
+    cas = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml"); xs, ys = [], []
+    for tt in np.linspace(r["s"] + 0.2, max(r["s"] + 0.3, r["e"] - 0.2), 3):
+        b = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{tt:.2f}", "-i", SRC, "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
+        if len(b) < 1920 * 1080 * 3: continue
+        im = np.frombuffer(b, np.uint8).reshape(1080, 1920, 3); sm = np.ascontiguousarray(cv2.resize(im, (960, 540)))
+        m = (np.squeeze(_seg.segment(mp.Image(image_format=mp.ImageFormat.SRGB, data=sm)).category_mask.numpy_view()) > 0).astype(np.uint8)
+        n, lab, st_, cen = cv2.connectedComponentsWithStats(m)
+        if n > 1:
+            i = 1 + int(np.argmax(st_[1:, 4]))
+            if st_[i, 4] > 1500: xs.append(2 * cen[i, 0])
+        fs = cas.detectMultiScale(cv2.cvtColor(im, cv2.COLOR_RGB2GRAY), 1.1, 6, minSize=(36, 36), maxSize=(140, 140))
+        if len(fs) and xs:
+            x, y, w, h = min(fs, key=lambda f: abs(f[0] + f[2] / 2 - xs[-1])); ys.append(y + h / 2)
+    d0 = PLAN.get("stage_default", (960, 300))
+    return (float(np.median(xs)) if xs else d0[0], float(np.median(ys)) if ys else d0[1])
+
 def prep_range(k):
     r = ranges[k]; out = f"{WK}/cam_{rkey(r)}.mp4"; aud = f"{WK}/aud_{rkey(r)}.wav"
     if os.path.exists(out) and os.path.exists(aud): return k
@@ -111,6 +137,12 @@ def prep_range(k):
                     "-af", f"aresample=48000,apad,atrim=0:{d:.6f},afade=t=in:st=0:d=0.03,afade=t=out:st={max(0, d - 0.03):.4f}:d=0.03",
                     "-c:a", "pcm_s16le", "-ac", "2", aud], check=True)
     if AUDIO_ONLY: return k
+    if r["mode"] == "stage":   # palco (câmera fixa larga): recorte quadrado acompanhando a pessoa (HOG) no trecho
+        cx, cy = stage_person(r); S = PLAN.get("stage_crop", 720); H0 = PLAN.get("src_h", 1080); W0 = PLAN.get("src_w", 1920)
+        x = int(min(max(cx - S / 2, 0), W0 - S)); y = int(min(max(cy - S * 0.27, 0), H0 - S))
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{r['s']:.3f}", "-t", f"{d + 0.2:.3f}", "-i", SRC, "-frames:v", str(r["nf"]),
+                        "-vf", f"crop={S}:{S}:{x}:{y},scale={CS}:{CS}:flags=lanczos,unsharp=5:5:0.6,fps={FPS}", "-an"] + enc + [out], check=True)
+        return k
     if r["mode"] == "full":
         cx, cy = face_full(r); S = 600; x = int(min(max(cx - S / 2, 0), 1280 - S)); y = int(min(max(cy - S * 0.42, 0), 720 - S))
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{r['s']:.3f}", "-t", f"{d + 0.2:.3f}", "-i", SRC, "-frames:v", str(r["nf"]),
@@ -206,7 +238,7 @@ def layout(t):
     return tuple(b0[i] + (b1[i] - b0[i]) * k for i in range(4)), a0 + (a1 - a0) * k, s1
 def zoom_at(t):
     k = next((j for j, r in enumerate(ranges) if r["o"] <= t < r["o"] + r["d"]), len(ranges) - 1)
-    r = ranges[k]; z = (1.10 if k % 2 == 0 else 1.26) * (1 + 0.04 * pr(t, r["o"], r["d"]))
+    r = ranges[k]; z = PLAN.get("zoom_mult", 1.0) * (1.10 if k % 2 == 0 else 1.26) * (1 + 0.04 * pr(t, r["o"], r["d"]))
     for s0, s1 in PUNCH:
         if s0 - 0.2 <= t <= s1 + 0.8: z *= 1 + 0.08 * eio(pr(t, s0 - 0.2, 0.3)) * (1 - eio(pr(t, s1 + 0.35, 0.45)))
     return z
@@ -326,38 +358,42 @@ if MODE == "audio":
             n = int(1.6 * SR_); t_ = tt(n); f = hz(m)
             _pc[m] = sum(a * np.sin(2 * np.pi * f * h * t_) * np.exp(-t_ * (2.2 + h * 1.4)) for h, a in ((1, 1), (2, .45), (3, .22), (4, .1))) * np.minimum(1, t_ / 0.004)
         return _pc[m]
-    pad = np.zeros(N); pno = np.zeros(N); bass = np.zeros(N); kick = np.zeros(N); shk = np.zeros(N)
-    kk = np.sin(2 * np.pi * np.cumsum(48 + 60 * np.exp(-tt(int(.35 * SR_)) * 25)) / SR_) * np.exp(-tt(int(.35 * SR_)) * 10)
-    sh = filt(rng.standard_normal(int(.06 * SR_)), 5000, "high") * np.exp(-tt(int(.06 * SR_)) * 70)
-    quiet = [(a, b) for a, b in CARDS]
-    for b in range(int(TOTAL / bar) + 2):
-        t0 = b * bar; ch = PROG[b % len(PROG)]; n = int((bar + 1.5) * SR_); t_ = tt(n)
-        sig = sum(np.sin(2 * np.pi * hz(m + 12) * t_) + 0.4 * np.sin(2 * np.pi * hz(m + 12) * 1.004 * t_) + 0.25 * np.sin(2 * np.pi * hz(m + 24) * 0.998 * t_) for m in ch)
-        put(pad, sig * np.minimum(1, t_ / 0.8) * np.exp(-np.maximum(0, t_ - bar) * 3) * 0.10, t0)
-        sparse = (b // 16) % 3 == 2
-        pat = [0, 2, 1, 2, 0, 2, 1, 2] if not sparse else [0, None, 2, None, 1, None, None, None]
-        for s_, ix in enumerate(pat):
-            if ix is not None: put(pno, piano(ch[ix] + 24) * (0.20 if s_ % 2 == 0 else 0.13), t0 + s_ * beat / 2)
-        for q in range(4):
-            tb = t0 + q * beat
-            if q in (0, 2): put(bass, np.sin(2 * np.pi * hz(ch[0] - 12) * tt(int(beat * 1.8 * SR_))) * np.exp(-tt(int(beat * 1.8 * SR_)) * 1.6) * 0.22, tb)
-            if sparse: continue
-            if q in (0, 2): put(kick, kk, tb, 0.45)
-            put(shk, sh, tb, 0.08); put(shk, sh, tb + beat / 2, 0.05)
-    music = pad + pno + bass + kick + shk; music /= np.abs(music).max() + 1e-9
-    if M.get("off"): music[:] = 0      # sem trilha de fundo: só voz + efeitos sonoros
-    fo = int((TOTAL - 2.5) * SR_); music[fo:] *= np.linspace(1, 0, len(music) - fo)
-    v, _ = sf.read(f"{WK}/voice.wav", dtype="float32"); v = v[:N]; vm = np.abs(v).mean(1)
-    hop = int(0.05 * SR_); e_ = np.add.reduceat(vm, np.arange(0, len(vm), hop)) / hop
-    act_ = np.convolve((e_ > 0.02).astype(float), np.ones(10) / 10, "same")
-    duck = np.interp(np.arange(N), np.arange(len(act_)) * hop, act_, right=0)
-    tN = np.arange(N) / SR_
-    card_boost = np.zeros(N)
-    for a, b in CARDS: card_boost[int(a * SR_):int(b * SR_)] = 1
-    card_boost = np.convolve(card_boost, np.ones(SR_ // 2) / (SR_ // 2), "same")
-    gm = 10 ** (-17 / 20) * (1 - 0.55 * duck) * (1 + 1.2 * card_boost)
-    mus = music * gm
-    sfx = np.zeros(N)
+    OFF = bool(M.get("off"))
+    if not OFF:
+        pad = np.zeros(N); pno = np.zeros(N); bass = np.zeros(N); kick = np.zeros(N); shk = np.zeros(N)
+        kk = np.sin(2 * np.pi * np.cumsum(48 + 60 * np.exp(-tt(int(.35 * SR_)) * 25)) / SR_) * np.exp(-tt(int(.35 * SR_)) * 10)
+        sh = filt(rng.standard_normal(int(.06 * SR_)), 5000, "high") * np.exp(-tt(int(.06 * SR_)) * 70)
+        quiet = [(a, b) for a, b in CARDS]
+        for b in range(int(TOTAL / bar) + 2):
+            t0 = b * bar; ch = PROG[b % len(PROG)]; n = int((bar + 1.5) * SR_); t_ = tt(n)
+            sig = sum(np.sin(2 * np.pi * hz(m + 12) * t_) + 0.4 * np.sin(2 * np.pi * hz(m + 12) * 1.004 * t_) + 0.25 * np.sin(2 * np.pi * hz(m + 24) * 0.998 * t_) for m in ch)
+            put(pad, sig * np.minimum(1, t_ / 0.8) * np.exp(-np.maximum(0, t_ - bar) * 3) * 0.10, t0)
+            sparse = (b // 16) % 3 == 2
+            pat = [0, 2, 1, 2, 0, 2, 1, 2] if not sparse else [0, None, 2, None, 1, None, None, None]
+            for s_, ix in enumerate(pat):
+                if ix is not None: put(pno, piano(ch[ix] + 24) * (0.20 if s_ % 2 == 0 else 0.13), t0 + s_ * beat / 2)
+            for q in range(4):
+                tb = t0 + q * beat
+                if q in (0, 2): put(bass, np.sin(2 * np.pi * hz(ch[0] - 12) * tt(int(beat * 1.8 * SR_))) * np.exp(-tt(int(beat * 1.8 * SR_)) * 1.6) * 0.22, tb)
+                if sparse: continue
+                if q in (0, 2): put(kick, kk, tb, 0.45)
+                put(shk, sh, tb, 0.08); put(shk, sh, tb + beat / 2, 0.05)
+        music = pad + pno + bass + kick + shk; music /= np.abs(music).max() + 1e-9
+        if M.get("off"): music[:] = 0      # sem trilha de fundo: só voz + efeitos sonoros
+        fo = int((TOTAL - 2.5) * SR_); music[fo:] *= np.linspace(1, 0, len(music) - fo)
+        v, _ = sf.read(f"{WK}/voice.wav", dtype="float32"); v = v[:N]; vm = np.abs(v).mean(1)
+        hop = int(0.05 * SR_); e_ = np.add.reduceat(vm, np.arange(0, len(vm), hop)) / hop
+        act_ = np.convolve((e_ > 0.02).astype(float), np.ones(10) / 10, "same")
+        duck = np.interp(np.arange(N), np.arange(len(act_)) * hop, act_, right=0)
+        tN = np.arange(N) / SR_
+        card_boost = np.zeros(N)
+        for a, b in CARDS: card_boost[int(a * SR_):int(b * SR_)] = 1
+        card_boost = np.convolve(card_boost, np.ones(SR_ // 2) / (SR_ // 2), "same")
+        gm = 10 ** (-17 / 20) * (1 - 0.55 * duck) * (1 + 1.2 * card_boost)
+        mus = music * gm
+    else:
+        v, _ = sf.read(f"{WK}/voice.wav", dtype="float32"); v = v[:N]; mus = 0.0
+    sfx = np.zeros(N, np.float32)
     def whoosh(d=0.5):
         n = int(d * SR_); x = rng.standard_normal(n); y = np.zeros(n); seg = 10
         for k_ in range(seg):
@@ -378,7 +414,7 @@ if MODE == "audio":
             for ti, _ in e["steps"]: put(sfx, tick(1500), ti, 0.08)
         if k == "c_counter":
             for ti, *_ in e["rows"]: put(sfx, tick(1300), ti, 0.10)
-    mix = v[:N] + (mus + sfx)[:, None][: len(v[:N])]; mix = mix[: int(TOTAL * SR_)]
+    mix = v[:N] + ((mus + sfx)[:, None])[: len(v[:N])].astype(np.float32); mix = mix[: int(TOTAL * SR_)]
     sf.write(f"{WK}/mix_raw.wav", mix.astype(np.float32), SR_)
     m = subprocess.run(["ffmpeg", "-hide_banner", "-i", f"{WK}/mix_raw.wav", "-af", "loudnorm=I=-14:TP=-1:LRA=9:print_format=json", "-f", "null", "-"], capture_output=True, text=True).stderr
     js = json.loads(m[m.rfind("{"):m.rfind("}") + 1])
