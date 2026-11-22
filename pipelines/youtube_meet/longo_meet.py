@@ -16,7 +16,8 @@ PLAN = json.load(open(sys.argv[1])); MODE = sys.argv[2]
 D = PLAN.get("proj", "/home/user/editar_videos/brutos/reel4"); E = f"{D}/edit"; SRC = PLAN.get("src", f"{D}/dl/bruto.mp4"); WK = f"{E}/work_{PLAN['id']}"
 MODELS = "/tmp/claude-0/-home-user-editar-videos/0ca601e2-5ead-5526-97c2-0a2240f4e1d5/scratchpad/models"
 os.makedirs(WK, exist_ok=True)
-W, H, FPS, CS = 1920, 1080, 24, 624
+W, H, CS = 1920, 1080, 624; FPS = PLAN.get("fps", 24); SPEED = PLAN.get("speed", 1.0)
+STAGE = PLAN.get("layout") == "stage"   # palco em tela cheia como base; gráficos por cima
 TILE = PLAN.get("tile", dict(x0=963, x1=1280, y=273, s=156))
 GAP, PRE, POST = PLAN.get("gap", 0.35), 0.05, 0.12
 FIX = PLAN.get("fix", {})
@@ -127,7 +128,7 @@ def prep_range(k):
     r = ranges[k]; out = f"{WK}/cam_{rkey(r)}.mp4"; aud = f"{WK}/aud_{rkey(r)}.wav"
     if os.path.exists(out) and os.path.exists(aud): return k
     enc = ["-c:v", "libx264", "-preset", "fast", "-crf", "15", "-pix_fmt", "yuv420p", "-r", str(FPS)]
-    if r.get("card") or AUDIO_ONLY:
+    if r.get("card") or AUDIO_ONLY or STAGE:
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", f"color=c=black:s={CS}x{CS}:r={FPS}", "-frames:v", str(r["nf"])] + enc + [out], check=True)
     if r.get("card"):
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo", "-t", f"{r['d']:.6f}", "-c:a", "pcm_s16le", aud], check=True)
@@ -136,7 +137,7 @@ def prep_range(k):
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{r['s']:.3f}", "-t", f"{d + 0.2:.3f}", "-i", SRC, "-vn",
                     "-af", f"aresample=48000,apad,atrim=0:{d:.6f},afade=t=in:st=0:d=0.03,afade=t=out:st={max(0, d - 0.03):.4f}:d=0.03",
                     "-c:a", "pcm_s16le", "-ac", "2", aud], check=True)
-    if AUDIO_ONLY: return k
+    if AUDIO_ONLY or STAGE: return k
     if r["mode"] == "stage":   # palco (câmera fixa larga): recorte quadrado acompanhando a pessoa (HOG) no trecho
         cx, cy = stage_person(r); S = PLAN.get("stage_crop", 720); H0 = PLAN.get("src_h", 1080); W0 = PLAN.get("src_w", 1920)
         x = int(min(max(cx - S / 2, 0), W0 - S)); y = int(min(max(cy - S * 0.27, 0), H0 - S))
@@ -181,6 +182,30 @@ def fixmap():
         else: lastgood = i
     json.dump(rep, open(f"{WK}/fix.json", "w")); print("quadros trocados:", len(rep))
 
+def stage_track():
+    """Posição da pessoa no palco ao longo da fonte (1 amostra a cada 2 s): x do centro e topo da cabeça, suavizados."""
+    import cv2, mediapipe as mp
+    from mediapipe.tasks.python import vision, BaseOptions
+    from scipy.ndimage import median_filter, gaussian_filter1d
+    seg = vision.ImageSegmenter.create_from_options(vision.ImageSegmenterOptions(
+        base_options=BaseOptions(model_asset_path=f"{MODELS}/selfie_multiclass.tflite"), output_category_mask=True))
+    p = subprocess.Popen(["ffmpeg", "-v", "error", "-i", SRC, "-vf", "fps=0.5,scale=960:540", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
+    xs, ys = [], []
+    while True:
+        b = p.stdout.read(960 * 540 * 3)
+        if len(b) < 960 * 540 * 3: break
+        im = np.frombuffer(b, np.uint8).reshape(540, 960, 3)
+        m = (np.squeeze(seg.segment(mp.Image(image_format=mp.ImageFormat.SRGB, data=np.ascontiguousarray(im))).category_mask.numpy_view()) > 0).astype(np.uint8)
+        n, lab, st_, cen = cv2.connectedComponentsWithStats(m)
+        i = 1 + int(np.argmax(st_[1:, 4])) if n > 1 else 0
+        if i and st_[i, 4] > 600: xs.append(2 * cen[i, 0]); ys.append(2 * st_[i, 1])
+        else: xs.append(np.nan); ys.append(np.nan)
+    xs, ys = np.array(xs), np.array(ys); ok = ~np.isnan(xs); idx = np.arange(len(xs))
+    xs = np.interp(idx, idx[ok], xs[ok]); ys = np.interp(idx, idx[ok], ys[ok])
+    xs = gaussian_filter1d(median_filter(xs, 5), 1.5); ys = gaussian_filter1d(median_filter(ys, 5), 1.5)
+    json.dump({"dt": 2.0, "x": xs.round(1).tolist(), "y": ys.round(1).tolist()}, open(f"{WK}/track.json", "w")); print("track", len(xs))
+
+if MODE == "track": stage_track(); sys.exit()
 if MODE == "keys":
     for k, r in enumerate(ranges): print(k, rkey(r))
     sys.exit()
@@ -199,6 +224,7 @@ if MODE == "prep":
     ln = (f"loudnorm=I=-16:TP=-1.5:LRA=7:measured_I={js['input_i']}:measured_TP={js['input_tp']}:measured_LRA={js['input_lra']}:"
           f"measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", f"{WK}/aud_raw.wav", "-af", chain + "," + ln, "-ar", "48000", "-ac", "2", f"{WK}/voice.wav"], check=True)
+    if STAGE and not os.path.exists(f"{WK}/track.json"): stage_track()
     if AUDIO_ONLY:   # envelope da voz por quadro (onda sonora) em vez de corrigir câmera
         a_, sr_ = sf.read(f"{WK}/voice.wav", dtype="float32"); a_ = np.abs(a_).mean(1); hop = sr_ // FPS
         envv = np.add.reduceat(a_, np.arange(0, len(a_), hop)) / hop; np.save(f"{WK}/env.npy", envv / (np.percentile(envv, 98) + 1e-9))
@@ -314,9 +340,90 @@ def wide_frame(t):
         cw, ch = W / z, H / z; x0, y0 = (W - cw) / 2, (H - ch) * 0.4
         im = im.resize((W, H), Image.BICUBIC, box=(x0, y0, x0 + cw, y0 + ch))
     return im.convert("RGBA")
+# ------------------------------------------------------------------ layout "palco": tela cheia + gráficos por cima
+if STAGE:
+    st.FX = 960
+    TRK = json.load(open(f"{WK}/track.json")) if os.path.exists(f"{WK}/track.json") else None
+    def frac(t, f, dur=0.9):
+        import bisect
+        j = max(0, bisect.bisect_right(CHT, t) - 1); t0, s1 = CHG[j]; s0 = CHG[j - 1][1] if j > 0 else s1
+        k = eio(pr(t, t0, dur)); return f(s0) * (1 - k) + f(s1) * k
+    def rng_at(t): return next((j for j, r in enumerate(ranges) if r["o"] <= t < r["o"] + r["d"]), len(ranges) - 1)
+    def src_at(t):
+        k = rng_at(t); r = ranges[k]
+        if r.get("card"):
+            if k == 0: return ranges[1]["s"] + 0.5
+            return ranges[k - 1]["e"] - 0.2
+        return r["s"] + (t - r["o"])
+    def person(ts):
+        if TRK is None: return 960.0, 300.0
+        i = ts / TRK["dt"]; return float(np.interp(i, np.arange(len(TRK["x"])), TRK["x"])), float(np.interp(i, np.arange(len(TRK["y"])), TRK["y"]))
+    SIDE = {}   # lado do painel de cada bloco de coluna: oposto ao pregador
+    for e in EV:
+        if e["k"].startswith("c_"): SIDE[e["t0"]] = "L" if person(src_at(e["t0"] + 0.1))[0] > 1060 else "R"
+    def side_at(t):
+        act = [e["t0"] for e in EV if e["k"].startswith("c_") and e["t0"] - 0.05 <= t < e["t1"] + 0.9]
+        return SIDE[max(act)] if act else "R"
+    _g = np.clip((np.arange(W) - 760) / 520, 0, 1) ** 1.4
+    GR = Image.fromarray((np.tile(_g, (H, 1)) * 225).astype(np.uint8), "L"); GL = GR.transpose(Image.FLIP_LEFT_RIGHT)
+    _yy, _xx = np.mgrid[0:H, 0:W]; _v = np.clip(((_xx - W / 2) / (W * 0.62)) ** 2 + ((_yy - H / 2) / (H * 0.62)) ** 2, 0, 1) ** 1.6 * 150
+    _v = np.maximum(_v, np.clip(1 - _yy / 150, 0, 1) * 150)   # vinheta + topo escuro (rótulos)
+    VIG = Image.new("RGBA", (W, H)); VIG.putalpha(Image.fromarray(_v.astype(np.uint8), "L"))
+    _sd = {"p": None, "k": None, "f": None, "prev": None, "img": None, "freeze": {}}
+    def src_frame(t):
+        k = rng_at(t); r = ranges[k]
+        if r.get("card"):
+            ts = src_at(t)
+            if k not in _sd["freeze"]:
+                b = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{ts:.2f}", "-i", SRC, "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
+                _sd["freeze"][k] = Image.frombytes("RGB", (W, H), b[:W * H * 3]) if len(b) >= W * H * 3 else Image.new("RGB", (W, H))
+            return _sd["freeze"][k]
+        fi = int(round((t - r["o"]) * FPS))
+        if _sd["k"] != k or _sd["f"] != fi:
+            if _sd["p"]: _sd["p"].kill()
+            if _sd["k"] is not None and _sd["k"] != k and _sd["img"] is not None: _sd["prev"] = (_sd["img"], r["o"])
+            _sd["p"] = subprocess.Popen(["ffmpeg", "-v", "error", "-ss", f"{r['s'] + fi / FPS:.3f}", "-i", SRC, "-vf", f"fps={FPS}",
+                                         "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE); _sd["k"] = k
+        b = _sd["p"].stdout.read(W * H * 3); _sd["f"] = fi + 1
+        im = Image.frombytes("RGB", (W, H), b) if len(b) == W * H * 3 else (_sd["img"] or Image.new("RGB", (W, H)))
+        _sd["img"] = im
+        pv = _sd["prev"]   # fusão de 0,5 s nos cortes de conteúdo
+        if pv and 0 <= t - pv[1] < 0.5: im = Image.blend(pv[0], im, eio((t - pv[1]) / 0.5))
+        return im
+    ZT = PLAN.get("stage_zooms", [1.0, 1.22, 1.0, 1.38]); ZP = PLAN.get("stage_zoom_period", 11.0)
+    def stage_zoom(t):
+        tb = int(t // ZP); u = eio(pr(t, tb * ZP, 2.4)); z = ZT[(tb - 1) % len(ZT)] + (ZT[tb % len(ZT)] - ZT[(tb - 1) % len(ZT)]) * u
+        for s0, s1 in PUNCH:
+            if s0 - 0.8 <= t <= s1 + 1.6: z *= 1 + 0.07 * eio(pr(t, s0 - 0.8, 0.9)) * (1 - eio(pr(t, s1 + 0.4, 1.2)))
+        return z
+    def render_stage(t):
+        box, alpha, s1 = layout(t)
+        cf = frac(t, lambda s: 1.0 if s == "col" else 0.0); df = frac(t, lambda s: 1.0 if s in ("full", "card") else 0.0)
+        sd = side_at(t); px, py = person(src_at(t))
+        z = stage_zoom(t); z = z + (max(z, 1.42) - z) * cf
+        xs_t = W / 2 + ((0.27 if sd == "R" else 0.73) * W - W / 2) * cf
+        cw, ch = W / z, H / z; x0 = min(max(px - xs_t / z, 0), W - cw); y0 = min(max(py - 0.20 * H / z, 0), H - ch)
+        im = src_frame(t)
+        if z > 1.001: im = im.resize((W, H), Image.BICUBIC, box=(x0, y0, x0 + cw, y0 + ch))
+        if df > 0.01:
+            from PIL import ImageFilter
+            bl = im.resize((384, 216), Image.BILINEAR).filter(ImageFilter.GaussianBlur(4)).resize((W, H), Image.BILINEAR)
+            im = Image.blend(im, Image.blend(bl, Image.new("RGB", (W, H)), 0.55), df)
+        out = im.convert("RGBA"); out.alpha_composite(VIG)
+        if cf > 0.01:
+            st.CX0, st.CX1 = (1030, 1810) if sd == "R" else (110, 890); st.CMID = (st.CX0 + st.CX1) / 2
+            g = (GR if sd == "R" else GL).point(lambda v: int(v * cf)); sh = Image.new("RGBA", (W, H), (8, 8, 10, 0)); sh.putalpha(g); out.alpha_composite(sh)
+        ui = Image.new("RGBA", (W, H), (0, 0, 0, 0)); chap = next((c for tc, c in reversed(CHAPS) if t >= tc), "")
+        st.topbar(ui, t, TOTAL, PLAN.get("tag", ""), chap, a=0 if s1 == "card" else 1)
+        lastc = max((e["t0"] for e in EV if e["k"].startswith("c_") and e["t0"] <= t < e["t1"]), default=None)
+        for e in EV:
+            if e["k"].startswith("c_") and (s1 in ("full", "card") or (lastc is not None and e["t0"] < lastc and e["t0"] <= t < e["t1"])): continue
+            if e["t0"] - 0.05 <= t < e["t1"] + 0.05: st.BLOCKS[e["k"]](ui, t, e)
+        out.alpha_composite(ui); return out.convert("RGB")
+
 def render(cam_img, t):
     wa = wide_alpha(t)
-    out = wide_frame(t) if wa >= 0.999 else render_main(cam_img, t)
+    out = render_stage(t) if STAGE else (wide_frame(t) if wa >= 0.999 else render_main(cam_img, t))
     if 0.001 < wa < 0.999: out = Image.blend(out, wide_frame(t).convert("RGB"), wa)
     fi_ = PLAN.get("fade_in", 0.0); fo_ = PLAN.get("fade_out", 0.0)   # abre do preto e fecha no preto
     k = min(1.0, t / fi_ if fi_ else 1.0, (TOTAL - t) / fo_ if fo_ else 1.0)
@@ -484,7 +591,7 @@ if MODE == "srt":
         cur.append(w); nxt = WORDS[j + 1] if j + 1 < len(WORDS) else None
         if w["text"][-1] in ".?!" and len(" ".join(x["text"] for x in cur)) > 20 or len(" ".join(x["text"] for x in cur)) > 70 or (nxt and nxt["start"] - w["end"] > 0.8) or not nxt:
             cues.append(cur); cur = []
-    def ts(t): h, r_ = divmod(t, 3600); m, s = divmod(r_, 60); return f"{int(h):02d}:{int(m):02d}:{int(s):02d},{int((s % 1) * 1000):03d}"
+    def ts(t): t = t / SPEED; h, r_ = divmod(t, 3600); m, s = divmod(r_, 60); return f"{int(h):02d}:{int(m):02d}:{int(s):02d},{int((s % 1) * 1000):03d}"
     with open(out, "w") as f:
         for n, c in enumerate(cues, 1):
             txt = " ".join(x["text"] for x in c)
@@ -492,14 +599,15 @@ if MODE == "srt":
                 ws = txt.split(); bk = min(range(1, len(ws)), key=lambda k: abs(len(" ".join(ws[:k])) - len(txt) / 2)); txt = " ".join(ws[:bk]) + "\n" + " ".join(ws[bk:])
             end = min(c[-1]["end"] + 0.3, cues[n][0]["start"] - 0.02) if n < len(cues) else c[-1]["end"] + 0.3
             f.write(f"{n}\n{ts(c[0]['start'])} --> {ts(end)}\n{txt}\n\n")
-    for tc, title in [(0, PLAN.get("cold_title", "Abertura"))] + CHAPS: print(f"{int(tc // 60)}:{int(tc % 60):02d} {title.replace("*", "")}")
+    for tc, title in [(0, PLAN.get("cold_title", "Abertura"))] + CHAPS: tc = tc / SPEED; print(f"{int(tc // 60)}:{int(tc % 60):02d} {title.replace("*", "")}")
     sys.exit()
 if MODE == "pack":
     n = int(sys.argv[3]); out = sys.argv[4]
     open(f"{WK}/parts.txt", "w").write("".join(f"file 'part{k}.mp4'\n" for k in range(n)))
-    vk = int((380 * 8388.608 / TOTAL - 128) * 0.96)
+    vk = int((380 * 8388.608 / (TOTAL / SPEED) - 128) * 0.96)
+    vf = ["-vf", f"setpts=PTS/{SPEED},fps={round(FPS * SPEED, 3)}"] if SPEED != 1 else []; af = ["-af", f"atempo={SPEED}"] if SPEED != 1 else []
     base = ["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", f"{WK}/parts.txt"]
     vopt = ["-c:v", "libx264", "-preset", "medium", "-b:v", f"{vk}k", "-maxrate", f"{2 * vk}k", "-bufsize", f"{4 * vk}k", "-pix_fmt", "yuv420p", "-passlogfile", f"{WK}/pl"]
-    subprocess.run(base + vopt + ["-pass", "1", "-an", "-f", "null", "/dev/null"], check=True)
-    subprocess.run(base + ["-i", f"{WK}/mix.wav", "-map", "0:v", "-map", "1:a"] + vopt + ["-pass", "2", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", "-shortest", out], check=True)
+    subprocess.run(base + vf + vopt + ["-pass", "1", "-an", "-f", "null", "/dev/null"], check=True)
+    subprocess.run(base + ["-i", f"{WK}/mix.wav", "-map", "0:v", "-map", "1:a"] + vf + af + vopt + ["-pass", "2", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", "-shortest", out], check=True)
     print("ok", out, round(os.path.getsize(out) / 2 ** 20, 1), "MiB", vk, "kbps"); sys.exit()

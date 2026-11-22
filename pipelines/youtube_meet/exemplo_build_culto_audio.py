@@ -63,14 +63,13 @@ for i in range(INI, FIM + 1):
     blk[i] = cur
 spans = [["card", 4.2, "intro"]]; i = INI; chap_start = {find(p): k + 1 for k, (_, p) in enumerate(CH)}
 while i <= FIM:
-    if i in chap_start: spans.append(["card", 2.6, f"cap{chap_start[i]}"])
     if i in cut: i += 1; continue
     j = i
     while j + 1 <= FIM and j + 1 not in cut and blk[j + 1] == blk[i] and (j + 1) not in chap_start: j += 1
     spans.append([7, i, j, blk[i], "stage"]); i = j + 1
 spans.append(["card", 18.0, "fim"])
 ev = [dict(k="intro", t0="b:intro", t1="B:intro", kicker="estudo bíblico · Esdras · Zacarias · João 15", title="O altar *antes dos muros*", sub="pregação de Manoel Gonçalves")]
-for k, (t, _) in enumerate(CH, 1): ev.append(dict(k="chapter", t0=f"b:cap{k}", t1=f"B:cap{k}", n=k, title=t))
+for k, (t, _) in enumerate(CH, 1): ev.append(dict(k="chapter", t0=f"b:c{k}" + ("+0.3" if k > 1 else "+0.6"), t1=f"b:c{k}+3.4", n=k, title=t))
 E = lambda **kw: ev.append(kw)
 E(k="lower3", t0="b:c1+1.0", t1="b:c1+7", name="Manoel Gonçalves", role="culto de domingo", x=1430, y=860)
 E(k="c_statement", t0="f:construção@c1-0.2", t1="f:então@c1-0.2", lines=[["Do altar de adoração", "f:altar@c1"], ["*à videira verdadeira.*", "f:videira@c1"]])
@@ -135,8 +134,8 @@ E(k="c_list", t0="f:jejum@s53+8", t1="B:s54+0.3", title="o jejum não é", numbe
 E(k="c_statement", t0="b:s55-0.1", t1="B:s55+0.2", lines=[["Gerar um ambiente", "f:ambiente@s55"], ["*onde o Espírito Santo", "f:espírito@s55"], ["*se sinta à vontade.*", "f:vontade@s55"]])
 E(k="f_word", t0="f:onde@s56+3", t1="B:s56+0.6", lines=["Onde a gente chega,", "*Jesus chega.*"], size=130)
 E(k="endcard", t0="b:fim", t1="B:fim", lines=["O altar", "*antes dos muros.*"], sub="Inscreva-se e comente o que essa palavra falou com você.")
-plan = dict(id="culto1801v", proj="/home/user/editar_videos/brutos/culto_1801", src="/home/user/editar_videos/brutos/culto_1801/dl/sermao.mp4",
-            audio_only=False, segs={"7": -2040.0}, stage_crop=720, zoom_mult=1.5, tfile={"7": "culto.json"}, tag="Estudo bíblico · Zorobabel", cold_title="Abertura",
+plan = dict(id="culto1801s", proj="/home/user/editar_videos/brutos/culto_1801", src="/home/user/editar_videos/brutos/culto_1801/dl/sermao.mp4",
+            audio_only=False, segs={"7": -2040.0}, layout="stage", fps=600 / 23, speed=1.15, gap=999.0, fade_in=1.0, fade_out=2.5, tfile={"7": "culto.json"}, tag="Estudo bíblico · Zorobabel", cold_title="Abertura",
             fix={"Zoropabel": "Zorobabel", "Chorou": "Zorobabel", "Emias": "Neemias", "Estras.": "Esdras.", "sesbazar": "Sesbazar", "Cesbazar": "Sesbazar", "cisbazares.": "Sesbazares.", "Pagaço.": "bagaço.", "pagaço": "bagaço", "vidéis.": "videira.", "potado,": "podado,", "potado": "podado", "Sírio.": "Assírio."},
             punch=[], spans=spans, events=ev, music={"off": True})
 json.dump(plan, open('culto.json', 'w'), ensure_ascii=False, indent=1)
