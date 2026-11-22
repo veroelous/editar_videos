@@ -12,6 +12,10 @@ W, H = 1920, 1080
 BOX = {"center": (480, 80, 1400, 1000), "col": (110, 130, 930, 950), "full": (1590, 760, 1850, 1020), "card": (1590, 760, 1850, 1020)}
 CX0, CX1 = 1030, 1810            # coluna de texto
 CMID = (CX0 + CX1) / 2
+FX = 860                         # centro dos blocos de tela cheia (960 quando não há câmera)
+def set_audio_only():
+    global CX0, CX1, CMID, FX
+    CX0, CX1, FX = 360, 1560, 960; CMID = (CX0 + CX1) / 2
 
 def env(t, t0, t1, din=0.5, dout=0.4): return eo(pr(t, t0, din)) * (1 - eio(pr(t, t1 - dout, dout)))
 
@@ -244,24 +248,24 @@ def f_word(L, t, e):
     if not (e["t0"] <= t < e["t1"]): return
     size = e.get("size", 130); n = len(e["lines"]); y = 470 - n * size * 1.05 / 2
     a = env(t, e["t0"], e["t1"])
-    if e.get("kicker"): kicker(L, e["kicker"], 860, y - 70, a, "center")
+    if e.get("kicker"): kicker(L, e["kicker"], FX, y - 70, a, "center")
     for j, ln in enumerate(e["lines"]):
         k = eo(pr(t, e["t0"] + 0.25 * j, 0.7)) * (1 - eio(pr(t, e["t1"] - 0.35, 0.35)))
-        if k > 0: line_rich(L, ln, 860, y, size, k, align="center", maxw=1400, alpha=min(1, k * 1.3))
+        if k > 0: line_rich(L, ln, FX, y, size, k, align="center", maxw=1400, alpha=min(1, k * 1.3))
         y += size * 1.05
     kr = eo(pr(t, e["t0"] + 0.5, 0.8)) * (1 - eio(pr(t, e["t1"] - 0.35, 0.35)))
-    if kr > 0: ImageDraw.Draw(L).line([(860 - 120 * kr, y + 28), (860 + 120 * kr, y + 28)], fill=GOLD + (int(200 * kr),), width=2)
+    if kr > 0: ImageDraw.Draw(L).line([(FX - 120 * kr, y + 28), (FX + 120 * kr, y + 28)], fill=GOLD + (int(200 * kr),), width=2)
 
 def f_verse(L, t, e):
     a = env(t, e["t0"], e["t1"], 0.7, 0.5)
     if a <= 0: return
     f = font("serif_i", e.get("size", 64)); lines = wrap(e["text"], f, 1300)
     y = 470 - (len(lines) * f.size * 1.22 + 90) / 2
-    kicker(L, e["ref"], 860, y, a, "center"); ImageDraw.Draw(L).line([(860 - 50 * a, y + 46), (860 + 50 * a, y + 46)], fill=GOLD + (int(200 * a),), width=2)
+    kicker(L, e["ref"], FX, y, a, "center"); ImageDraw.Draw(L).line([(FX - 50 * a, y + 46), (FX + 50 * a, y + 46)], fill=GOLD + (int(200 * a),), width=2)
     y += 90
     for j, ln in enumerate(lines):
         k = eo(pr(t, e["t0"] + 0.3 + 0.22 * j, 0.7)) * (1 - eio(pr(t, e["t1"] - 0.5, 0.5)))
-        im, pad, b = sprite(ln, f, INK); L.alpha_composite(with_alpha(blur_reveal(im, k, 8), k), (int(860 - (b[2] - b[0]) / 2 - pad), int(y - pad + 18 * (1 - k)))); y += f.size * 1.22
+        im, pad, b = sprite(ln, f, INK); L.alpha_composite(with_alpha(blur_reveal(im, k, 8), k), (int(FX - (b[2] - b[0]) / 2 - pad), int(y - pad + 18 * (1 - k)))); y += f.size * 1.22
 
 def chapter(L, t, e):
     a = env(t, e["t0"], e["t1"], 0.5, 0.45)

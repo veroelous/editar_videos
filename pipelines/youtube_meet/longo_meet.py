@@ -13,7 +13,7 @@ import estilo16 as st
 from fx import eo, eio, pr
 
 PLAN = json.load(open(sys.argv[1])); MODE = sys.argv[2]
-D = PLAN.get("proj", "/home/user/editar_videos/brutos/reel4"); E = f"{D}/edit"; SRC = f"{D}/dl/bruto.mp4"; WK = f"{E}/work_{PLAN['id']}"
+D = PLAN.get("proj", "/home/user/editar_videos/brutos/reel4"); E = f"{D}/edit"; SRC = PLAN.get("src", f"{D}/dl/bruto.mp4"); WK = f"{E}/work_{PLAN['id']}"
 MODELS = "/tmp/claude-0/-home-user-editar-videos/0ca601e2-5ead-5526-97c2-0a2240f4e1d5/scratchpad/models"
 os.makedirs(WK, exist_ok=True)
 W, H, FPS, CS = 1920, 1080, 24, 624
@@ -22,9 +22,11 @@ GAP, PRE, POST = PLAN.get("gap", 0.35), 0.05, 0.12
 FIX = PLAN.get("fix", {})
 
 # ------------------------------------------------------------------ corte
-WSRC = {int(k): json.load(open(f"{E}/transcripts/seg{k}.json"))["words"] for k in PLAN["segs"]}
+WSRC = {int(k): json.load(open(f"{E}/transcripts/" + PLAN.get("tfile", {}).get(k, f"seg{k}.json")))["words"] for k in PLAN["segs"]}
+AUDIO_ONLY = PLAN.get("audio_only", False)
+if AUDIO_ONLY: st.set_audio_only()
 OFF = {int(k): float(v) for k, v in PLAN["segs"].items()}
-FT = json.load(open(f"{E}/faces_tile.json"))
+FT = json.load(open(f"{E}/faces_tile.json")) if os.path.exists(f"{E}/faces_tile.json") else []
 ranges = []
 for sp in PLAN["spans"]:
     if sp[0] == "card": ranges.append(dict(card=True, dur=float(sp[1]), blk=sp[2])); continue
@@ -99,14 +101,16 @@ def prep_range(k):
     r = ranges[k]; out = f"{WK}/cam_{rkey(r)}.mp4"; aud = f"{WK}/aud_{rkey(r)}.wav"
     if os.path.exists(out) and os.path.exists(aud): return k
     enc = ["-c:v", "libx264", "-preset", "fast", "-crf", "15", "-pix_fmt", "yuv420p", "-r", str(FPS)]
-    if r.get("card"):
+    if r.get("card") or AUDIO_ONLY:
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", f"color=c=black:s={CS}x{CS}:r={FPS}", "-frames:v", str(r["nf"])] + enc + [out], check=True)
+    if r.get("card"):
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo", "-t", f"{r['d']:.6f}", "-c:a", "pcm_s16le", aud], check=True)
         return k
     d = r["d"]
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{r['s']:.3f}", "-t", f"{d + 0.2:.3f}", "-i", SRC, "-vn",
                     "-af", f"aresample=48000,apad,atrim=0:{d:.6f},afade=t=in:st=0:d=0.03,afade=t=out:st={max(0, d - 0.03):.4f}:d=0.03",
                     "-c:a", "pcm_s16le", "-ac", "2", aud], check=True)
+    if AUDIO_ONLY: return k
     if r["mode"] == "full":
         cx, cy = face_full(r); S = 600; x = int(min(max(cx - S / 2, 0), 1280 - S)); y = int(min(max(cy - S * 0.42, 0), 720 - S))
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{r['s']:.3f}", "-t", f"{d + 0.2:.3f}", "-i", SRC, "-frames:v", str(r["nf"]),
@@ -163,7 +167,12 @@ if MODE == "prep":
     ln = (f"loudnorm=I=-16:TP=-1.5:LRA=7:measured_I={js['input_i']}:measured_TP={js['input_tp']}:measured_LRA={js['input_lra']}:"
           f"measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", f"{WK}/aud_raw.wav", "-af", chain + "," + ln, "-ar", "48000", "-ac", "2", f"{WK}/voice.wav"], check=True)
-    fixmap(); print("prep ok", round(TOTAL, 1), "s", len(ranges), "trechos"); sys.exit()
+    if AUDIO_ONLY:   # envelope da voz por quadro (onda sonora) em vez de corrigir câmera
+        a_, sr_ = sf.read(f"{WK}/voice.wav", dtype="float32"); a_ = np.abs(a_).mean(1); hop = sr_ // FPS
+        envv = np.add.reduceat(a_, np.arange(0, len(a_), hop)) / hop; np.save(f"{WK}/env.npy", envv / (np.percentile(envv, 98) + 1e-9))
+        json.dump({}, open(f"{WK}/fix.json", "w"))
+    else: fixmap()
+    print("prep ok", round(TOTAL, 1), "s", len(ranges), "trechos"); sys.exit()
 
 # ------------------------------------------------------------------ roteiro e layout
 EV = [dict(resolve(e)) for e in PLAN["events"]]
@@ -202,13 +211,49 @@ def zoom_at(t):
         if s0 - 0.2 <= t <= s1 + 0.8: z *= 1 + 0.08 * eio(pr(t, s0 - 0.2, 0.3)) * (1 - eio(pr(t, s1 + 0.35, 0.45)))
     return z
 
+ENV = np.load(f"{WK}/env.npy") if AUDIO_ONLY and os.path.exists(f"{WK}/env.npy") else None
+PHR = []
+if AUDIO_ONLY:
+    cur = []
+    for j, w in enumerate(WORDS):
+        cur.append(w); nxt = WORDS[j + 1] if j + 1 < len(WORDS) else None
+        if w["text"][-1] in ".?!" or sum(len(x["text"]) + 1 for x in cur) > 58 or (nxt and nxt["start"] - w["end"] > 0.45) or not nxt:
+            PHR.append(cur); cur = []
+PHT = [p[0]["start"] for p in PHR]
+def audio_layer(L, t, state, chap, alpha):
+    """Sem câmera: título do capítulo ao centro quando não há bloco, onda sonora dourada e legenda."""
+    import bisect
+    from estilo import font
+    from fx import tw as tw_
+    d = ImageDraw.Draw(L); fi = int(t * FPS); a = 0.0 if state == "card" else 1.0
+    if a > 0 and ENV is not None:      # onda: 120 barras finas, espelhadas, com o envelope recente
+        n = 120; cy = 1010 if state != "center" else 640; x0 = W / 2 - n * 7
+        for k in range(n):
+            j = fi - abs(k - n // 2) // 2; v = float(ENV[j]) if 0 <= j < len(ENV) else 0
+            h = 3 + min(1.0, v) * (60 if state == "center" else 26) * (0.6 + 0.4 * math.sin(k * 0.7 + t * 3))
+            d.line([(x0 + k * 14, cy - h / 2), (x0 + k * 14, cy + h / 2)], fill=st.GOLD + (int((150 if state == "center" else 90) * a),), width=4)
+    if state == "center" and chap:     # título do capítulo como "capa" do trecho
+        st.kicker(L, "estudo · Zorobabel e a videira", W / 2, 330, 1.0, "center", col=st.MUTED)
+        st.line_rich(L, chap, W / 2, 380, 110, 1.0, align="center", maxw=1500)
+    if state not in ("card", "full"):   # legenda: frase atual, palavras acendem ao serem ditas
+        k = bisect.bisect_right(PHT, t + 0.1) - 1
+        if 0 <= k < len(PHR) and t < PHR[k][-1]["end"] + 0.6:
+            ws = PHR[k]; f = font("sans", 44); sp = f.getlength(" ")
+            tot = sum(tw_(w["text"], f) for w in ws) + sp * (len(ws) - 1); x = W / 2 - tot / 2; y = 905 if state == "center" else 940
+            for w in ws:
+                on = t >= w["start"] - 0.05
+                d.text((x, y), w["text"], font=f, fill=(st.INK if on else st.MUTED) + (255 if on else 120,)); x += tw_(w["text"], f) + sp
+
 def render(cam_img, t):
     out = st.background(t)
     box, alpha, s1 = layout(t)
-    lay, pos = st.cam(cam_img, box, zoom_at(t), alpha)
-    if lay is not None: out.alpha_composite(lay, pos)
     ui = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     chap = next((c for tc, c in reversed(CHAPS) if t >= tc), "")
+    if AUDIO_ONLY:
+        audio_layer(ui, t, s1, chap, alpha)
+    else:
+        lay, pos = st.cam(cam_img, box, zoom_at(t), alpha)
+        if lay is not None: out.alpha_composite(lay, pos)
     st.topbar(ui, t, TOTAL, PLAN.get("tag", ""), chap, a=0 if s1 == "card" else 1)
     for e in EV:
         if e["t0"] - 0.05 <= t < e["t1"] + 0.05: st.BLOCKS[e["k"]](ui, t, e)
