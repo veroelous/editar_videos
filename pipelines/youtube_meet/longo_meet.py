@@ -229,10 +229,25 @@ CHG = []; prev = None
 for i in range(int(TOTAL * 20) + 1):
     s_ = state_at(i / 20)
     if s_ != prev: CHG.append((i / 20, s_)); prev = s_
+# palco aberto ("wide"): 1 a cada N trechos sem gráfico vira tela cheia com o palco inteiro (corte seco)
+WIDE = []
+if PLAN.get("wide_every") and not AUDIO_ONLY:
+    ivs = [(CHG[j][0], CHG[j + 1][0] if j + 1 < len(CHG) else TOTAL) for j in range(len(CHG)) if CHG[j][1] == "center"]
+    ivs = [(a, b) for a, b in ivs if b - a >= PLAN.get("wide_min", 6.0)]
+    for n_, (a, b) in enumerate(ivs):
+        if n_ % PLAN["wide_every"] == PLAN.get("wide_phase", 1) % PLAN["wide_every"]: WIDE.append((a + 0.8, min(b - 0.3, a + 0.8 + PLAN.get("wide_max", 10.0))))
+    CHG2 = []
+    for t_, s_ in CHG:
+        CHG2.append((t_, s_))
+    for a, b in WIDE:
+        CHG2 += [(a, "wide"), (b, "center")]
+    CHG = sorted(CHG2)
 CHT = [c[0] for c in CHG]
 def layout(t):
     import bisect
     j = max(0, bisect.bisect_right(CHT, t) - 1); t0, s1 = CHG[j]; s0 = CHG[j - 1][1] if j > 0 else s1
+    if s1 == "wide": return st.BOX["center"], 1.0, "wide"
+    if s0 == "wide": return st.BOX[s1], 1.0, s1
     k = eio(pr(t, t0, 0.7)); b0, b1 = st.BOX[s0], st.BOX[s1]
     a0 = 0.0 if s0 == "card" else 1.0; a1 = 0.0 if s1 == "card" else 1.0
     return tuple(b0[i] + (b1[i] - b0[i]) * k for i in range(4)), a0 + (a1 - a0) * k, s1
@@ -276,17 +291,33 @@ def audio_layer(L, t, state, chap, alpha):
                 on = t >= w["start"] - 0.05
                 d.text((x, y), w["text"], font=f, fill=(st.INK if on else st.MUTED) + (255 if on else 120,)); x += tw_(w["text"], f) + sp
 
+_wd = {"p": None, "k": None, "f": None}
+def wide_frame(t):
+    """Quadro do palco inteiro direto da fonte (decodificador sequencial por trecho), com aproximação lenta."""
+    k = next((j for j, r in enumerate(ranges) if r["o"] <= t < r["o"] + r["d"]), len(ranges) - 1); r = ranges[k]
+    fi = int(round((t - r["o"]) * FPS))
+    if _wd["k"] != k or _wd["f"] != fi:
+        if _wd["p"]: _wd["p"].kill()
+        _wd["p"] = subprocess.Popen(["ffmpeg", "-v", "error", "-ss", f"{r['s'] + fi / FPS:.3f}", "-i", SRC, "-vf", f"fps={FPS},scale={W}:{H}",
+                                     "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE); _wd["k"] = k
+    b = _wd["p"].stdout.read(W * H * 3); _wd["f"] = fi + 1
+    im = Image.frombytes("RGB", (W, H), b) if len(b) == W * H * 3 else Image.new("RGB", (W, H))
+    a = next((a for a, b_ in WIDE if a <= t < b_), t); z = 1 + 0.06 * min(1.0, (t - a) / 10.0)
+    if z > 1.001:
+        cw, ch = W / z, H / z; x0, y0 = (W - cw) / 2, (H - ch) * 0.4
+        im = im.resize((W, H), Image.BICUBIC, box=(x0, y0, x0 + cw, y0 + ch))
+    return im.convert("RGBA")
 def render(cam_img, t):
-    out = st.background(t)
     box, alpha, s1 = layout(t)
+    out = wide_frame(t) if s1 == "wide" else st.background(t)
     ui = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     chap = next((c for tc, c in reversed(CHAPS) if t >= tc), "")
     if AUDIO_ONLY:
         audio_layer(ui, t, s1, chap, alpha)
-    else:
+    elif s1 != "wide":
         lay, pos = st.cam(cam_img, box, zoom_at(t), alpha)
         if lay is not None: out.alpha_composite(lay, pos)
-    st.topbar(ui, t, TOTAL, PLAN.get("tag", ""), chap, a=0 if s1 == "card" else 1)
+    if s1 != "wide": st.topbar(ui, t, TOTAL, PLAN.get("tag", ""), chap, a=0 if s1 == "card" else 1)
     lastc = max((e["t0"] for e in EV if e["k"].startswith("c_") and e["t0"] <= t < e["t1"]), default=None)
     for e in EV:   # tela cheia/vinheta esconde os blocos de coluna; com dois blocos de coluna, só o mais recente
         if e["k"].startswith("c_") and (s1 in ("full", "card") or (lastc is not None and e["t0"] < lastc and e["t0"] <= t < e["t1"])): continue
@@ -300,6 +331,7 @@ if MODE == "events":
     print("TOTAL", round(TOTAL, 1), "s; fala até", round(T_SPEECH, 1))
     for b, (a, z) in BLK.items(): print(f"  {b:6s} {a:7.1f} – {z:7.1f}  " + " ".join(w["text"] for w in WORDS if w["blk"] == b)[:120])
     for e in EV: print(f"{e['t0']:7.1f} {e['t1']:7.1f} {e['k']}")
+    for a, b in WIDE: print(f"{a:7.1f} {b:7.1f} WIDE")
     sys.exit()
 def read_cam_frames(f0):
     return subprocess.Popen(["ffmpeg", "-v", "error", "-i", f"{WK}/cam.mp4", "-vf", f"select=gte(n\\,{f0})", "-fps_mode", "passthrough", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
@@ -310,6 +342,14 @@ if MODE == "frames":
         b = subprocess.run(["ffmpeg", "-v", "error", "-i", f"{WK}/cam.mp4", "-vf", f"select=eq(n\\,{fi2})", "-fps_mode", "passthrough", "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
         render(Image.frombytes("RGB", (CS, CS), b[:RAWC]), t).save(f"{WK}/prev/p_{t:07.1f}.jpg", quality=86)
     sys.exit()
+if MODE == "clip":   # prévia: clip t0 t1 saida.mp4 (vídeo + mix.wav do trecho, sem reposição de quadros)
+    a_, b_, outp = float(sys.argv[3]), float(sys.argv[4]), sys.argv[5]; f0, f1 = int(a_ * FPS), int(b_ * FPS); dec = read_cam_frames(f0)
+    enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
+                            "-ss", f"{a_:.3f}", "-t", f"{b_ - a_:.3f}", "-i", f"{WK}/mix.wav", "-map", "0:v", "-map", "1:a",
+                            "-c:v", "libx264", "-preset", "fast", "-crf", "21", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "128k", "-shortest", outp], stdin=subprocess.PIPE)
+    for fi in range(f0, f1):
+        b = dec.stdout.read(RAWC); enc.stdin.write(render(Image.frombytes("RGB", (CS, CS), b if len(b) == RAWC else bytes(RAWC)), fi / FPS).tobytes())
+    enc.stdin.close(); enc.wait(); dec.terminate(); print("clip ok"); sys.exit()
 if MODE == "render":
     k, n = int(sys.argv[3]), int(sys.argv[4]); NF = int(round(TOTAL * FPS)); per = math.ceil(NF / n); f0, f1 = k * per, min(NF, (k + 1) * per)
     FX = fixes(); need = {v for i, v in FX.items() if f0 <= i < f1}; store = {}
