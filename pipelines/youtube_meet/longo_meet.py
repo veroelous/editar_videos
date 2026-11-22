@@ -236,12 +236,11 @@ if PLAN.get("wide_every") and not AUDIO_ONLY:
     ivs = [(a, b) for a, b in ivs if b - a >= PLAN.get("wide_min", 6.0)]
     for n_, (a, b) in enumerate(ivs):
         if n_ % PLAN["wide_every"] == PLAN.get("wide_phase", 1) % PLAN["wide_every"]: WIDE.append((a + 0.8, min(b - 0.3, a + 0.8 + PLAN.get("wide_max", 10.0))))
-    CHG2 = []
-    for t_, s_ in CHG:
-        CHG2.append((t_, s_))
+WF = PLAN.get("wide_fade", 0.9)   # duração da fusão (fade) na entrada e na saída do palco aberto
+def wide_alpha(t):
     for a, b in WIDE:
-        CHG2 += [(a, "wide"), (b, "center")]
-    CHG = sorted(CHG2)
+        if a - WF / 2 <= t <= b + WF / 2: return eio(pr(t, a - WF / 2, WF)) * (1 - eio(pr(t, b - WF / 2, WF)))
+    return 0.0
 CHT = [c[0] for c in CHG]
 def layout(t):
     import bisect
@@ -251,9 +250,17 @@ def layout(t):
     k = eio(pr(t, t0, 0.7)); b0, b1 = st.BOX[s0], st.BOX[s1]
     a0 = 0.0 if s0 == "card" else 1.0; a1 = 0.0 if s1 == "card" else 1.0
     return tuple(b0[i] + (b1[i] - b0[i]) * k for i in range(4)), a0 + (a1 - a0) * k, s1
+ZS = PLAN.get("zoom_smooth", 0)   # >0: zoom aproxima/afasta suavemente entre trechos (sem salto no corte)
 def zoom_at(t):
     k = next((j for j, r in enumerate(ranges) if r["o"] <= t < r["o"] + r["d"]), len(ranges) - 1)
-    r = ranges[k]; z = PLAN.get("zoom_mult", 1.0) * (1.10 if k % 2 == 0 else 1.26) * (1 + 0.04 * pr(t, r["o"], r["d"]))
+    r = ranges[k]; zb = lambda j: (1.10 if j % 2 == 0 else 1.26)
+    if ZS:   # alvo muda a cada ~ZS s de fala; transição de 1,6 s com easing
+        tb = int(t // ZS); u = eio(pr(t, tb * ZS, 1.6)); base = zb(tb - 1) + (zb(tb) - zb(tb - 1)) * u
+        z = PLAN.get("zoom_mult", 1.0) * base
+        for s0, s1 in PUNCH:
+            if s0 - 0.8 <= t <= s1 + 1.6: z *= 1 + 0.06 * eio(pr(t, s0 - 0.8, 0.9)) * (1 - eio(pr(t, s1 + 0.4, 1.2)))
+        return z
+    z = PLAN.get("zoom_mult", 1.0) * zb(k) * (1 + 0.04 * pr(t, r["o"], r["d"]))
     for s0, s1 in PUNCH:
         if s0 - 0.2 <= t <= s1 + 0.8: z *= 1 + 0.08 * eio(pr(t, s0 - 0.2, 0.3)) * (1 - eio(pr(t, s1 + 0.35, 0.45)))
     return z
@@ -302,14 +309,22 @@ def wide_frame(t):
                                      "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE); _wd["k"] = k
     b = _wd["p"].stdout.read(W * H * 3); _wd["f"] = fi + 1
     im = Image.frombytes("RGB", (W, H), b) if len(b) == W * H * 3 else Image.new("RGB", (W, H))
-    a = next((a for a, b_ in WIDE if a <= t < b_), t); z = 1 + 0.06 * min(1.0, (t - a) / 10.0)
+    a = next((a - WF / 2 for a, b_ in WIDE if a - WF / 2 <= t <= b_ + WF / 2), t); z = 1 + 0.06 * eio(min(1.0, (t - a) / 11.0))
     if z > 1.001:
         cw, ch = W / z, H / z; x0, y0 = (W - cw) / 2, (H - ch) * 0.4
         im = im.resize((W, H), Image.BICUBIC, box=(x0, y0, x0 + cw, y0 + ch))
     return im.convert("RGBA")
 def render(cam_img, t):
+    wa = wide_alpha(t)
+    out = wide_frame(t) if wa >= 0.999 else render_main(cam_img, t)
+    if 0.001 < wa < 0.999: out = Image.blend(out, wide_frame(t).convert("RGB"), wa)
+    fi_ = PLAN.get("fade_in", 0.0); fo_ = PLAN.get("fade_out", 0.0)   # abre do preto e fecha no preto
+    k = min(1.0, t / fi_ if fi_ else 1.0, (TOTAL - t) / fo_ if fo_ else 1.0)
+    if k < 1: out = Image.blend(Image.new("RGB", out.size), out.convert("RGB"), max(0.0, eio(k)))
+    return out.convert("RGB")
+def render_main(cam_img, t):
     box, alpha, s1 = layout(t)
-    out = wide_frame(t) if s1 == "wide" else st.background(t)
+    out = st.background(t)
     ui = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     chap = next((c for tc, c in reversed(CHAPS) if t >= tc), "")
     if AUDIO_ONLY:
