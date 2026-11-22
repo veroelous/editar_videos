@@ -235,6 +235,16 @@ if MODE == "prep":
 # ------------------------------------------------------------------ roteiro e layout
 EV = [dict(resolve(e)) for e in PLAN["events"]]
 for e in EV: e.setdefault("t0", 0.0)
+CAP = PLAN.get("max_dur", {})   # duração máxima por tipo de bloco (o palco volta a aparecer)
+for e in EV:
+    c = CAP.get(e["k"], CAP.get(e["k"][:2]))
+    if e["k"] == "f_verse" and c: c = max(c, 4 + len(e.get("text", "")) / 14)
+    if c and "t1" in e and e["t1"] - e["t0"] > c: e["t1"] = e["t0"] + c
+CHW = [(e["t0"], e["t1"]) for e in EV if e["k"] == "chapter"]
+for e in EV:   # nada começa por baixo de um título de capítulo: espera ele sair
+    if e["k"][:2] in ("c_", "f_"):
+        for a_, b_ in CHW:
+            if a_ - 0.3 <= e["t0"] < b_ and e["t1"] > b_ + 1.5: e["t0"] = b_ - 0.15
 FULLS = [(e["t0"], e["t1"]) for e in EV if st.STATE.get(e["k"]) in ("full", "card")]
 for e in EV:   # bloco de coluna não entra por cima de uma tela cheia: espera ela sair
     if e["k"].startswith("c_"):
@@ -364,8 +374,8 @@ if STAGE:
     def side_at(t):
         act = [e["t0"] for e in EV if e["k"].startswith("c_") and e["t0"] - 0.05 <= t < e["t1"] + 0.9]
         return SIDE[max(act)] if act else "R"
-    _g = np.clip((np.arange(W) - 760) / 520, 0, 1) ** 1.4
-    GR = Image.fromarray((np.tile(_g, (H, 1)) * 225).astype(np.uint8), "L"); GL = GR.transpose(Image.FLIP_LEFT_RIGHT)
+    _g = np.clip((np.arange(W) - 700) / 420, 0, 1) ** 1.2
+    GR = Image.fromarray((np.tile(_g, (H, 1)) * 255).astype(np.uint8), "L"); GL = GR.transpose(Image.FLIP_LEFT_RIGHT)
     _yy, _xx = np.mgrid[0:H, 0:W]; _v = np.clip(((_xx - W / 2) / (W * 0.62)) ** 2 + ((_yy - H / 2) / (H * 0.62)) ** 2, 0, 1) ** 1.6 * 150
     _v = np.maximum(_v, np.clip(1 - _yy / 150, 0, 1) * 150)   # vinheta + topo escuro (rótulos)
     VIG = Image.new("RGBA", (W, H)); VIG.putalpha(Image.fromarray(_v.astype(np.uint8), "L"))
@@ -412,7 +422,11 @@ if STAGE:
         out = im.convert("RGBA"); out.alpha_composite(VIG)
         if cf > 0.01:
             st.CX0, st.CX1 = (1030, 1810) if sd == "R" else (110, 890); st.CMID = (st.CX0 + st.CX1) / 2
-            g = (GR if sd == "R" else GL).point(lambda v: int(v * cf)); sh = Image.new("RGBA", (W, H), (8, 8, 10, 0)); sh.putalpha(g); out.alpha_composite(sh)
+            from PIL import ImageFilter   # vidro: desfoque + sombra do lado do painel
+            g0 = GR if sd == "R" else GL; g = g0.point(lambda v: int(v * cf))
+            bl = out.resize((320, 180), Image.BILINEAR).filter(ImageFilter.GaussianBlur(3)).resize((W, H), Image.BILINEAR)
+            out = Image.composite(bl, out, g)
+            sh = Image.new("RGBA", (W, H), (8, 8, 10, 0)); sh.putalpha(g.point(lambda v: int(v * 0.78))); out.alpha_composite(sh)
         ui = Image.new("RGBA", (W, H), (0, 0, 0, 0)); chap = next((c for tc, c in reversed(CHAPS) if t >= tc), "")
         st.topbar(ui, t, TOTAL, PLAN.get("tag", ""), chap, a=0 if s1 == "card" else 1)
         lastc = max((e["t0"] for e in EV if e["k"].startswith("c_") and e["t0"] <= t < e["t1"]), default=None)

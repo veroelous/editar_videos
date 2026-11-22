@@ -135,7 +135,7 @@ E(k="c_statement", t0="b:s55-0.1", t1="B:s55+0.2", lines=[["Gerar um ambiente", 
 E(k="f_word", t0="f:onde@s56+3", t1="B:s56+0.6", lines=["Onde a gente chega,", "*Jesus chega.*"], size=130)
 E(k="endcard", t0="b:fim", t1="B:fim", lines=["O altar", "*antes dos muros.*"], sub="Inscreva-se e comente o que essa palavra falou com você.")
 plan = dict(id="culto1801s", proj="/home/user/editar_videos/brutos/culto_1801", src="/home/user/editar_videos/brutos/culto_1801/dl/sermao.mp4",
-            audio_only=False, segs={"7": -2040.0}, layout="stage", fps=600 / 23, speed=1.15, gap=999.0, fade_in=1.0, fade_out=2.5, tfile={"7": "culto.json"}, tag="Estudo bíblico · Zorobabel", cold_title="Abertura",
+            audio_only=False, segs={"7": -2040.0}, layout="stage", max_dur={"c_": 13.0, "c_flow": 30.0, "c_list": 26.0, "c_timeline": 30.0, "c_lanes": 26.0, "c_versus": 18.0, "c_verse": 18.0, "f_": 6.5, "f_verse": 8.0}, fps=600 / 23, speed=1.15, gap=999.0, fade_in=1.0, fade_out=2.5, tfile={"7": "culto.json"}, tag="Estudo bíblico · Zorobabel", cold_title="Abertura",
             fix={"Zoropabel": "Zorobabel", "Chorou": "Zorobabel", "Emias": "Neemias", "Estras.": "Esdras.", "sesbazar": "Sesbazar", "Cesbazar": "Sesbazar", "cisbazares.": "Sesbazares.", "Pagaço.": "bagaço.", "pagaço": "bagaço", "vidéis.": "videira.", "potado,": "podado,", "potado": "podado", "Sírio.": "Assírio."},
             punch=[], spans=spans, events=ev, music={"off": True})
 json.dump(plan, open('culto.json', 'w'), ensure_ascii=False, indent=1)
