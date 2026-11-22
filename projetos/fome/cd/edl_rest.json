@@ -1,0 +1,42 @@
+{
+ "segments": [
+  {
+   "label": "PONTE",
+   "file": "/home/user/editar_videos/projetos/fome/../ponte_fome/ponte_apresentador.mp4",
+   "gain": 1
+  },
+  {
+   "label": "PREGACAO",
+   "start": 266.05,
+   "end": 3002.6,
+   "blur_in": 0.8,
+   "blur_out": 0.6,
+   "logo": "/home/user/editar_videos/projetos/fome/../kit_canal/logo_chamados_por_deus.png",
+   "overlays": [
+    {
+     "file": "/home/user/editar_videos/projetos/fome/cd/anim/countdown.mov",
+     "at": 0.0
+    },
+    {
+     "file": "/home/user/editar_videos/projetos/fome/cd/anim/inscreva.mov",
+     "at": 40.0,
+     "x": 480,
+     "y": 335,
+     "sfx": "/home/user/editar_videos/projetos/fome/cd/anim/inscreva_sfx.wav"
+    },
+    {
+     "file": "/home/user/editar_videos/projetos/fome/cd/anim/inscreva.mov",
+     "at": 2474.5,
+     "x": 480,
+     "y": 335,
+     "sfx": "/home/user/editar_videos/projetos/fome/cd/anim/inscreva_sfx.wav"
+    }
+   ]
+  },
+  {
+   "label": "DESPEDIDA",
+   "file": "/home/user/editar_videos/projetos/fome/../kit_canal/despedida.mp4",
+   "gain": 5
+  }
+ ]
+}

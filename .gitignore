@@ -27,3 +27,8 @@ projetos/kit_canal/*.png
 projetos/ref_*/v/
 projetos/ponte_*/
 .claude/settings.local.json
+projetos/**/anim/
+projetos/**/seg_*/
+projetos/**/thumb/
+projetos/**/*.log
+projetos/**/*.jpg

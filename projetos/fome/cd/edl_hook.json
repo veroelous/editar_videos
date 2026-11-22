@@ -1,0 +1,111 @@
+{
+ "segments": [
+  {
+   "label": "H1 abertura",
+   "start": 725.08,
+   "end": 730.18,
+   "bw": true,
+   "zoom": [
+    1.0,
+    1.06
+   ],
+   "blur_in": 1.6,
+   "overlays": [
+    {
+     "file": "/home/user/editar_videos/projetos/fome/edit/animations/hearts/render.mov",
+     "at": 0
+    }
+   ],
+   "logo": "/home/user/editar_videos/projetos/fome/../kit_canal/logo_chamados_por_deus.png"
+  },
+  {
+   "label": "H2",
+   "start": 730.18,
+   "end": 734.72,
+   "bw": true,
+   "track": 1.6,
+   "head": 0.42,
+   "logo": "/home/user/editar_videos/projetos/fome/../kit_canal/logo_chamados_por_deus.png"
+  },
+  {
+   "label": "H3",
+   "start": 737.58,
+   "end": 742.9,
+   "bw": true,
+   "zoom": [
+    1.0,
+    1.06
+   ],
+   "logo": "/home/user/editar_videos/projetos/fome/../kit_canal/logo_chamados_por_deus.png"
+  },
+  {
+   "label": "H4",
+   "start": 743.56,
+   "end": 748.75,
+   "bw": true,
+   "track": 1.7,
+   "head": 0.42,
+   "blur_out": 0.3,
+   "logo": "/home/user/editar_videos/projetos/fome/../kit_canal/logo_chamados_por_deus.png"
+  },
+  {
+   "label": "H6",
+   "start": 753.12,
+   "end": 758.85,
+   "bw": true,
+   "track": 2.8,
+   "head": 0.4,
+   "blur_in": 0.3,
+   "logo": "/home/user/editar_videos/projetos/fome/../kit_canal/logo_chamados_por_deus.png"
+  },
+  {
+   "label": "H7",
+   "start": 758.85,
+   "end": 762.95,
+   "bw": true,
+   "track": 3.6,
+   "head": 0.4,
+   "blur_out": 0.3,
+   "logo": "/home/user/editar_videos/projetos/fome/../kit_canal/logo_chamados_por_deus.png"
+  },
+  {
+   "label": "H8",
+   "start": 782.56,
+   "end": 787.45,
+   "bw": true,
+   "track": 2.6,
+   "head": 0.4,
+   "blur_in": 0.3,
+   "logo": "/home/user/editar_videos/projetos/fome/../kit_canal/logo_chamados_por_deus.png"
+  },
+  {
+   "label": "H9",
+   "start": 787.45,
+   "end": 794.0,
+   "bw": true,
+   "track": 3.4,
+   "head": 0.4,
+   "logo": "/home/user/editar_videos/projetos/fome/../kit_canal/logo_chamados_por_deus.png"
+  },
+  {
+   "label": "H10",
+   "start": 819.55,
+   "end": 824.85,
+   "bw": true,
+   "zoom": [
+    1.0,
+    1.06
+   ],
+   "logo": "/home/user/editar_videos/projetos/fome/../kit_canal/logo_chamados_por_deus.png"
+  },
+  {
+   "label": "H11",
+   "start": 824.85,
+   "end": 829.35,
+   "bw": true,
+   "track": 1.6,
+   "head": 0.42,
+   "logo": "/home/user/editar_videos/projetos/fome/../kit_canal/logo_chamados_por_deus.png"
+  }
+ ]
+}
