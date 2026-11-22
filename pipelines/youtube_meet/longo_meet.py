@@ -491,7 +491,7 @@ if MODE == "render":
     FX = fixes(); need = {v for i, v in FX.items() if f0 <= i < f1}; store = {}
     dec = read_cam_frames(f0)
     enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
-                            "-c:v", "libx264", "-preset", "fast", "-crf", "19", "-pix_fmt", "yuv420p", f"{WK}/part{k}.mp4"], stdin=subprocess.PIPE)
+                            "-c:v", "libx264", "-preset", "fast", "-crf", str(PLAN.get("part_crf", 19)), "-pix_fmt", "yuv420p", f"{WK}/part{k}.mp4"], stdin=subprocess.PIPE)
     # quadros de reposição anteriores ao início da parte
     pre = sorted(v for v in need if v < f0)
     if pre:
