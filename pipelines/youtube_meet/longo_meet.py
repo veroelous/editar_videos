@@ -287,8 +287,9 @@ def render(cam_img, t):
         lay, pos = st.cam(cam_img, box, zoom_at(t), alpha)
         if lay is not None: out.alpha_composite(lay, pos)
     st.topbar(ui, t, TOTAL, PLAN.get("tag", ""), chap, a=0 if s1 == "card" else 1)
-    for e in EV:   # tela cheia/vinheta esconde os blocos de coluna (evita texto sobreposto)
-        if e["k"].startswith("c_") and s1 in ("full", "card"): continue
+    lastc = max((e["t0"] for e in EV if e["k"].startswith("c_") and e["t0"] <= t < e["t1"]), default=None)
+    for e in EV:   # tela cheia/vinheta esconde os blocos de coluna; com dois blocos de coluna, só o mais recente
+        if e["k"].startswith("c_") and (s1 in ("full", "card") or (lastc is not None and e["t0"] < lastc and e["t0"] <= t < e["t1"])): continue
         if e["t0"] - 0.05 <= t < e["t1"] + 0.05: st.BLOCKS[e["k"]](ui, t, e)
     out.alpha_composite(ui)
     return out.convert("RGB")
