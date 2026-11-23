@@ -24,6 +24,16 @@
   - versículos e demonstrações no layout `example_template` (16:9 adaptado);
   - etiqueta de seção persistente (`section_tag`).
 - **Vídeo-aula (YouTube, bruto já cortado):** pipeline `pipelines/youtube_aula/` — zoom por frase, painel de aula com ícones 3D, frases-chave, capítulos, inscreva-se/curtir animado, card final de 20 s.
+- **Pregações (culto no palco), padrão do vídeo "O altar antes dos muros" (culto 18/01/2026):**
+  - vídeo longo: `pipelines/youtube_meet/longo_meet.py` com `layout="stage"` (plano de exemplo: `pipelines/youtube_meet/exemplo_build_culto_audio.py`);
+  - **não cortar silêncios** (`gap=999`): cortar só conteúdo (conversas paralelas, falas de terceiros, palavrões);
+  - fala em **1,15x** (`speed=1.15`, `fps=600/23` → saída a 30 fps);
+  - palco em tela cheia como base, zoom suave acompanhando o pregador, painel de vidro do lado oposto, frases e versículos sobre o palco desfocado, capítulos sobreposto, sem trilha (só efeitos), mesma identidade (grafite, Inter + Instrument Serif com itálico dourado);
+  - **sincronia:** sempre transcrever o áudio do próprio vídeo-fonte. Se a transcrição veio de outro arquivo, realinhar com `pipelines/youtube_meet/alinha_transcricao.py`;
+  - **reels/shorts:** `pipelines/youtube_meet/reel_palco.py` (no máximo 90 s, 1,15x, capa no 1º quadro, legenda sincronizada, CTA "Comenta PALAVRA");
+    - escolher **só os trechos com mais potencial de engajamento**: gancho forte nos 3 primeiros segundos, ideia completa sozinha, frase de efeito, contraste, ilustração ou humor;
+    - descartar trechos explicativos ou históricos sem aplicação, mesmo que sobrem poucos reels;
+    - entregar também título de Shorts e descrição única (Reels e Shorts).
 - Paletas: `PAL_EBO` (creme/preto/azul #2B6BFB) para o EBO; `PAL_TECH` (azul-marinho, laranja, creme) para conteúdo de tecnologia.
 
 ## Onde ficam as coisas
