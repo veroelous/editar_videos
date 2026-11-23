@@ -68,12 +68,12 @@ def frame_at(ts, k):
     fi = int(round((ts - SEG[k][0]) * FPS))
     if _dec["k"] != k or _dec["f"] != fi:
         if _dec["p"]: _dec["p"].kill()
-        _dec["p"] = subprocess.Popen(["ffmpeg", "-v", "error", "-ss", f"{ts:.3f}", "-i", SRC, "-vf", f"fps={FPS}", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE); _dec["k"] = k
+        _dec["p"] = subprocess.Popen(["ffmpeg", "-v", "error", "-ss", f"{ts:.3f}", "-i", SRC, "-vf", f"fps={FPS},scale=1920:1080:flags=bicubic", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE); _dec["k"] = k
     b = _dec["p"].stdout.read(1920 * 1080 * 3); _dec["f"] = fi + 1
     if len(b) == 1920 * 1080 * 3: _dec["img"] = Image.frombytes("RGB", (1920, 1080), b)
     return _dec["img"] or Image.new("RGB", (1920, 1080))
 def still(ts):
-    b = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{ts:.3f}", "-i", SRC, "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
+    b = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{ts:.3f}", "-i", SRC, "-frames:v", "1", "-vf", "scale=1920:1080:flags=bicubic", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
     return Image.frombytes("RGB", (1920, 1080), b[:1920 * 1080 * 3])
 def auto_cover():
     """Quadro mais expressivo: maior abertura de braços (largura/altura da silhueta), pessoa longe das bordas."""

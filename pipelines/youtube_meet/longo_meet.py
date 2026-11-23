@@ -110,7 +110,7 @@ def stage_person(r):
             base_options=BaseOptions(model_asset_path=f"{MODELS}/selfie_multiclass.tflite"), output_category_mask=True))
     cas = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml"); xs, ys = [], []
     for tt in np.linspace(r["s"] + 0.2, max(r["s"] + 0.3, r["e"] - 0.2), 3):
-        b = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{tt:.2f}", "-i", SRC, "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
+        b = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{tt:.2f}", "-i", SRC, "-frames:v", "1", "-vf", "scale=1920:1080:flags=bicubic", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
         if len(b) < 1920 * 1080 * 3: continue
         im = np.frombuffer(b, np.uint8).reshape(1080, 1920, 3); sm = np.ascontiguousarray(cv2.resize(im, (960, 540)))
         m = (np.squeeze(_seg.segment(mp.Image(image_format=mp.ImageFormat.SRGB, data=sm)).category_mask.numpy_view()) > 0).astype(np.uint8)
@@ -387,14 +387,14 @@ if STAGE:
         if r.get("card"):
             ts = src_at(t)
             if k not in _sd["freeze"]:
-                b = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{ts:.2f}", "-i", SRC, "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
+                b = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{ts:.2f}", "-i", SRC, "-frames:v", "1", "-vf", "scale=1920:1080:flags=bicubic", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
                 _sd["freeze"][k] = Image.frombytes("RGB", (W, H), b[:W * H * 3]) if len(b) >= W * H * 3 else Image.new("RGB", (W, H))
             return _sd["freeze"][k]
         fi = int(round((t - r["o"]) * FPS))
         if _sd["k"] != k or _sd["f"] != fi:
             if _sd["p"]: _sd["p"].kill()
             if _sd["k"] is not None and _sd["k"] != k and _sd["img"] is not None: _sd["prev"] = (_sd["img"], r["o"])
-            _sd["p"] = subprocess.Popen(["ffmpeg", "-v", "error", "-ss", f"{r['s'] + fi / FPS:.3f}", "-i", SRC, "-vf", f"fps={FPS}",
+            _sd["p"] = subprocess.Popen(["ffmpeg", "-v", "error", "-ss", f"{r['s'] + fi / FPS:.3f}", "-i", SRC, "-vf", f"fps={FPS},scale=1920:1080:flags=bicubic",
                                          "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE); _sd["k"] = k
         b = _sd["p"].stdout.read(W * H * 3); _sd["f"] = fi + 1
         im = Image.frombytes("RGB", (W, H), b) if len(b) == W * H * 3 else (_sd["img"] or Image.new("RGB", (W, H)))
