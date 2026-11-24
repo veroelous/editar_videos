@@ -42,13 +42,19 @@ def scan():
         x0, y0 = (pts.min(0) * [w, h]).astype(int); x1, y1 = (pts.max(0) * [w, h]).astype(int)
         g = a[max(0, y0):y1, max(0, x0):x1].mean(2)
         sharp = float(np.var(np.diff(g, 2, 0)) + np.var(np.diff(g, 2, 1))) if g.size > 100 else 0
+        # boca encoberta (microfone/mão): pixels de pouca saturação (grade do microfone) ou escuros nos lábios
+        P = (pts * [w, h]).astype(int); mo = []
+        for i in (0, 17, 13, 14, 61, 291, 39, 269, 181, 405):
+            x, y = P[i]; mo.append(a[max(0, y - 3):y + 3, max(0, x - 3):x + 3].reshape(-1, 3))
+        mo = np.vstack(mo).astype(float); mx, mn = mo.max(1), mo.min(1)
+        sat = (mx - mn) / np.maximum(mx, 1); occ = float(((sat < 0.17) | (mx < 60)).mean())
         out.append(dict(t=round(t, 2), blink=max(bs["eyeBlinkLeft"], bs["eyeBlinkRight"]), jaw=bs["jawOpen"],
                         smile=(bs["mouthSmileLeft"] + bs["mouthSmileRight"]) / 2, tort=abs(bs["mouthSmileLeft"] - bs["mouthSmileRight"]) + abs(bs["mouthLeft"] - bs["mouthRight"]),
                         press=bs["mouthPressLeft"] + bs["mouthPressRight"], pucker=bs["mouthPucker"], funnel=bs["mouthFunnel"],
                         brow=bs["browInnerUp"], squint=max(bs["eyeSquintLeft"], bs["eyeSquintRight"]),
                         lookx=abs(bs["eyeLookOutLeft"] - bs["eyeLookInLeft"]) + abs(bs["eyeLookOutRight"] - bs["eyeLookInRight"]),
                         looky=max(bs["eyeLookUpLeft"], bs["eyeLookDownLeft"], bs["eyeLookUpRight"], bs["eyeLookDownRight"]),
-                        yaw=round(yaw, 1), pitch=round(pitch, 1), sharp=round(sharp, 1), cx=round(float(pts[:, 0].mean()), 3)))
+                        yaw=round(yaw, 1), pitch=round(pitch, 1), sharp=round(sharp, 1), occ=round(occ, 2), cx=round(float(pts[:, 0].mean()), 3)))
     json.dump(out, open(f"{E}/capa_scan.json", "w"))
     print("scan", len(out), "quadros com rosto")
 
@@ -56,7 +62,7 @@ def scan():
 def score(f, sharp_ref):
     """Menor = melhor: olhos bem abertos, boca fechada e reta, cabeça de frente, olhar na lente, imagem nítida."""
     return (4 * f["blink"] + 6 * f["jaw"] + 3 * f["smile"] + 4 * f["tort"] + 2 * f["pucker"] + 2 * f["funnel"] + 1.5 * f["squint"]
-            + 1.5 * f["lookx"] + 1.5 * f["looky"] + abs(f["yaw"]) / 12 + abs(f["pitch"] - 0) / 25 + 0.6 * max(0, 1 - f["sharp"] / sharp_ref))
+            + 1.5 * f["lookx"] + 1.5 * f["looky"] + abs(f["yaw"]) / 12 + abs(f["pitch"] - 0) / 25 + 0.6 * max(0, 1 - f["sharp"] / sharp_ref) + 5 * f.get("occ", 0))
 
 
 def ranked(sid, n):
