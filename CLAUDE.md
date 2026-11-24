@@ -19,6 +19,8 @@
   - listas com `number_badge`, seções com `example_template` + `shrink_to_card`;
   - CTA "Comenta PALAVRA" com `kinetic_title` + `comment_card`;
   - "plim" (`chime`) nas revelações.
+- **Capa = 1º quadro (todo vídeo curto, Reels/Shorts, qualquer canal):** o primeiro quadro precisa ser uma boa capa — ele olhando para a câmera, de preferência sério, olhos abertos (sem piscar), boca fechada e reta, imagem nítida, com o título já completo. Na Desenvolve Mais: `pipelines/shorts_desenvolve/capa.py` (`scan` → `sheet` para conferir a olho → `make <sid> <t>`).
+- **Desenvolve Mais ≠ Seu Missias:** Shorts da Desenvolve usam `pipelines/shorts_desenvolve/` (paleta azul #2B6BFB + amarelo, legenda `caption2` com mãos na frente, `kinetic_title`, card de vidro, CTA "assista o vídeo completo" + WhatsApp com palavra-chave). Pregações/Seu Missias usam o padrão grafite/Instrument Serif.
 - **YouTube longo:**
   - painéis laterais podem usar `glass_panel` (vidro) no lugar do painel creme opaco;
   - versículos e demonstrações no layout `example_template` (16:9 adaptado);
