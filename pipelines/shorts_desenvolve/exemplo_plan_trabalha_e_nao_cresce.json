@@ -1,0 +1,389 @@
+{
+ "s1": {
+  "slug": "ocupado_nao_e_avancar",
+  "kicker": "ocupado não é",
+  "hero": "AVANÇAR",
+  "tag": "carreira",
+  "spans": [
+   [
+    0,
+    11
+   ],
+   [
+    549,
+    642
+   ],
+   [
+    718,
+    727
+   ]
+  ],
+  "cards": [
+   {
+    "at": 718,
+    "dur": 6.0,
+    "linhas": [
+     [
+      "estar muito ocupado",
+      "small"
+     ],
+     [
+      "não é estar avançando",
+      "gold"
+     ]
+    ]
+   }
+  ],
+  "video_titulo": "Por que você trabalha tanto e não cresce?",
+  "fixes": {
+   "Doness": "dono",
+   "conseg": "consegue"
+  }
+ },
+ "s2": {
+  "slug": "o_cara_que_resolve_tudo",
+  "kicker": "o cara que resolve",
+  "hero": "TUDO",
+  "tag": "carreira",
+  "spans": [
+   [
+    728,
+    767
+   ],
+   [
+    772,
+    781
+   ],
+   [
+    799,
+    846
+   ],
+   [
+    895,
+    912
+   ],
+   [
+    923,
+    935
+   ]
+  ],
+  "cards": [
+   {
+    "at": 923,
+    "dur": 7.0,
+    "linhas": [
+     [
+      "ser reconhecido é criar",
+      "small"
+     ],
+     [
+      "resultados que continuam sem você",
+      "gold"
+     ]
+    ]
+   }
+  ],
+  "video_titulo": "Por que você trabalha tanto e não cresce?",
+  "fixes": {
+   "Doness": "dono",
+   "conseg": "consegue"
+  }
+ },
+ "s3": {
+  "slug": "a_historia_das_laranjas",
+  "kicker": "a história das",
+  "hero": "LARANJAS",
+  "tag": "cabeça de dono",
+  "spans": [
+   [
+    1092,
+    1108
+   ],
+   [
+    1125,
+    1137
+   ],
+   [
+    1175,
+    1208
+   ],
+   [
+    1235,
+    1260
+   ],
+   [
+    1458,
+    1502
+   ],
+   [
+    1570,
+    1591
+   ]
+  ],
+  "cards": [
+   {
+    "at": 1581,
+    "dur": 6.0,
+    "linhas": [
+     [
+      "o segundo enxergou",
+      "small"
+     ],
+     [
+      "além da tarefa",
+      "gold"
+     ]
+    ]
+   }
+  ],
+  "video_titulo": "Por que você trabalha tanto e não cresce?",
+  "fixes": {
+   "Doness": "dono",
+   "conseg": "consegue"
+  }
+ },
+ "s4": {
+  "slug": "proativo_nao_e_sem_limites",
+  "kicker": "proativo não é",
+  "hero": "SEM LIMITES",
+  "tag": "limites",
+  "spans": [
+   [
+    1719,
+    1743
+   ],
+   [
+    1763,
+    1839
+   ],
+   [
+    1848,
+    1851
+   ],
+   [
+    1881,
+    1893
+   ]
+  ],
+  "cards": [
+   {
+    "at": 1881,
+    "dur": 6.0,
+    "linhas": [
+     [
+      "não confunda proativo",
+      "small"
+     ],
+     [
+      "com trabalhar sem limites",
+      "gold"
+     ]
+    ]
+   }
+  ],
+  "video_titulo": "Por que você trabalha tanto e não cresce?",
+  "fixes": {
+   "Doness": "dono",
+   "conseg": "consegue"
+  }
+ },
+ "s5": {
+  "slug": "patrao_nao_adianta_cobrar",
+  "kicker": "patrão, não adianta",
+  "hero": "COBRAR",
+  "tag": "liderança",
+  "spans": [
+   [
+    1965,
+    2063
+   ]
+  ],
+  "cards": [
+   {
+    "at": 2015,
+    "dur": 7.0,
+    "linhas": [
+     [
+      "você pede pra pensarem",
+      "small"
+     ],
+     [
+      "mas só aceita se pensarem igual",
+      "gold"
+     ]
+    ]
+   },
+   {
+    "at": 2039,
+    "dur": 6.0,
+    "linhas": [
+     [
+      "desenvolver pessoas",
+      "small"
+     ],
+     [
+      "também é papel da empresa",
+      "gold"
+     ]
+    ]
+   }
+  ],
+  "video_titulo": "Por que você trabalha tanto e não cresce?",
+  "fixes": {
+   "Doness": "dono",
+   "conseg": "consegue"
+  }
+ },
+ "s6": {
+  "slug": "vender_mais_nao_te_faz_gerente",
+  "kicker": "vender mais não te faz",
+  "hero": "GERENTE",
+  "tag": "promoção",
+  "spans": [
+   [
+    2175,
+    2233
+   ],
+   [
+    2257,
+    2313
+   ],
+   [
+    2314,
+    2337
+   ]
+  ],
+  "cards": [
+   {
+    "at": 2263,
+    "dur": 9.0,
+    "linhas": [
+     [
+      "eu quero crescer aqui:",
+      "small"
+     ],
+     [
+      "o que eu preciso desenvolver?",
+      "gold"
+     ]
+    ]
+   }
+  ],
+  "video_titulo": "Por que você trabalha tanto e não cresce?",
+  "fixes": {
+   "Doness": "dono",
+   "conseg": "consegue"
+  }
+ },
+ "s7": {
+  "slug": "um_dia_a_oportunidade_chega",
+  "kicker": "um dia a oportunidade",
+  "hero": "CHEGA?",
+  "tag": "promoção",
+  "spans": [
+   [
+    2402,
+    2422
+   ],
+   [
+    2363,
+    2394
+   ],
+   [
+    2423,
+    2469
+   ]
+  ],
+  "cards": [
+   {
+    "at": 2440,
+    "dur": 8.0,
+    "linhas": [
+     [
+      "do ponto A ao ponto B:",
+      "small"
+     ],
+     [
+      "isso é planejamento",
+      "gold"
+     ]
+    ]
+   }
+  ],
+  "video_titulo": "Por que você trabalha tanto e não cresce?",
+  "fixes": {
+   "Doness": "dono",
+   "conseg": "consegue"
+  }
+ },
+ "s8": {
+  "slug": "crescer_pra_onde",
+  "kicker": "crescer",
+  "hero": "PRA ONDE?",
+  "tag": "direção",
+  "spans": [
+   [
+    3300,
+    3341
+   ],
+   [
+    3587,
+    3617
+   ]
+  ],
+  "cards": [
+   {
+    "at": 3587,
+    "dur": 8.0,
+    "linhas": [
+     [
+      "não é trabalhar mais",
+      "small"
+     ],
+     [
+      "é dar direção ao seu trabalho",
+      "gold"
+     ]
+    ]
+   }
+  ],
+  "video_titulo": "Por que você trabalha tanto e não cresce?",
+  "fixes": {
+   "Doness": "dono",
+   "conseg": "consegue"
+  }
+ },
+ "s9": {
+  "slug": "quer_liderar_mas_nao_delega",
+  "kicker": "quer liderar mas",
+  "hero": "NÃO DELEGA",
+  "tag": "liderança",
+  "spans": [
+   [
+    2592,
+    2700
+   ]
+  ],
+  "cards": [
+   {
+    "at": 2689,
+    "dur": 6.0,
+    "linhas": [
+     [
+      "não é só",
+      "small"
+     ],
+     [
+      "conhecimento técnico",
+      "gold"
+     ]
+    ]
+   }
+  ],
+  "video_titulo": "Por que você trabalha tanto e não cresce?",
+  "fixes": {
+   "Doness": "dono",
+   "conseg": "consegue"
+  }
+ }
+}
