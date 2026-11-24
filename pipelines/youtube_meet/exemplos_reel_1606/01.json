@@ -1,0 +1,21 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1606/edit/planos/culto.json",
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "Tem culto em que Deus diz:",
+  "*me pede, que hoje eu faço.*"
+ ],
+ "cover_at": "auto",
+ "cta": [
+  "O que você vai pedir?",
+  "Comenta *HOJE*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1606/entrega/reels/01_me_pede_que_hoje_eu_faco.mp4",
+ "blks": [
+  "c2",
+  "pede",
+  "tocou"
+ ],
+ "from": "Eu creio que nessos abre uma fenda",
+ "to": "Me pede que hoje eu vou fazer."
+}

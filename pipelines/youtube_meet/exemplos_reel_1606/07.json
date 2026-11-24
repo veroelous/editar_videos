@@ -1,0 +1,29 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1606/edit/planos/culto.json",
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "Trocar de igreja",
+  "*não resolve.*"
+ ],
+ "cover_at": "auto",
+ "cta": [
+  "Já tentou fugir assim?",
+  "Comenta *SOU EU*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1606/entrega/reels/07_o_problema_vai_com_voce.mp4",
+ "blks": [
+  "volta",
+  "comigo"
+ ],
+ "to": "Resolve aqui, bom.",
+ "skip": [
+  [
+   "E aquilo fica remoendo.",
+   "como que para isso."
+  ],
+  [
+   "Porque não adianta só falar",
+   "Vai para casa e tenha fé."
+  ]
+ ]
+}

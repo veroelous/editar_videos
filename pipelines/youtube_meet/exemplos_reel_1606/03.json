@@ -1,0 +1,33 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1606/edit/planos/culto.json",
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "Seu cérebro diz:",
+  "*vai dar errado.*"
+ ],
+ "cover_at": "auto",
+ "cta": [
+  "Já percebeu isso em você?",
+  "Comenta *EU PERCEBI*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1606/entrega/reels/03_seu_cerebro_diz_vai_dar_errado.mp4",
+ "blks": [
+  "automaticos",
+  "cerebro"
+ ],
+ "skip": [
+  [
+   "eu anotei aqui que eu não lembro",
+   "Pensamentos automáticos disfuncionais."
+  ],
+  [
+   "Resumindo, eu preciso economizar energia,",
+   "porque eu preciso economizar energia."
+  ],
+  [
+   "Tem gente que percebe isso",
+   "por que eu estou pensando isso?"
+  ]
+ ],
+ "from": "Você não consegue parar de pensar"
+}

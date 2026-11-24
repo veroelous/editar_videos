@@ -1,0 +1,27 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1606/edit/planos/culto.json",
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "Você não precisa",
+  "*estar pronto.*"
+ ],
+ "cover_at": 38.75,
+ "cta": [
+  "É pra você?",
+  "Comenta *EU VOU*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1606/entrega/reels/06_venha_como_esta.mp4",
+ "blks": [
+  "onde",
+  "coitado",
+  "venha"
+ ],
+ "from": "Eu só quero que você pense em você",
+ "to": "Venha como está. Aim? Venha como está.",
+ "skip": [
+  [
+   "Aim?",
+   "Aim?"
+  ]
+ ]
+}

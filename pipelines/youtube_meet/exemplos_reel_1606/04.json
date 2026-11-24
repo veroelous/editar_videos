@@ -1,0 +1,20 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1606/edit/planos/culto.json",
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "Não precisa nem ir.",
+  "*Só uma palavra.*"
+ ],
+ "cover_at": 56.5,
+ "cta": [
+  "Qual palavra você precisa?",
+  "Comenta *UMA PALAVRA*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1606/entrega/reels/04_so_uma_palavra.mp4",
+ "blks": [
+  "c5",
+  "palavra"
+ ],
+ "from": "Ah, esse centurião devia ter aquelas esposas chatas",
+ "to": "uma palavra. E aí, Deus."
+}

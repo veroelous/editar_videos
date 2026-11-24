@@ -1,0 +1,32 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1606/edit/planos/culto.json",
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "Quando o problema voltar:",
+  "*louva ou respira.*"
+ ],
+ "cover_at": 51.75,
+ "cta": [
+  "Respirou junto?",
+  "Comenta *RESPIREI*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1606/entrega/reels/09_louva_ou_respira.mp4",
+ "blks": [
+  "fogo",
+  "respira",
+  "mecanismo",
+  "volta2"
+ ],
+ "from": "Você não combate fogo com fogo",
+ "to": "Respira ou louva.",
+ "skip": [
+  [
+   "Outro problema agora.",
+   "Está pensando no problema?"
+  ],
+  [
+   "Você tem que ter coisa na sua vida",
+   "de paus para o voluntário."
+  ]
+ ]
+}

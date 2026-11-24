@@ -1,0 +1,30 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1606/edit/planos/culto.json",
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "Eu não te sirvo porque",
+  "*o Senhor resolve.*"
+ ],
+ "cover_at": "auto",
+ "cta": [
+  "Você serve por quê?",
+  "Comenta *PORQUE ELE É DEUS*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1606/entrega/reels/10_eu_te_sirvo_porque_es_deus.mp4",
+ "blks": [
+  "sirvo",
+  "estilo",
+  "posso"
+ ],
+ "to": "tocando o meu violão",
+ "skip": [
+  [
+   "Entregou de novo?",
+   "Então eu estou aqui de novo."
+  ],
+  [
+   "Eu estou insistindo, eu estou persistindo",
+   "eu estou seguindo a minha vida. É quando o apóstolo fala, o apóstolo Paulo fala,"
+  ]
+ ]
+}

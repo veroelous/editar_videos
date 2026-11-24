@@ -1,0 +1,36 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1606/edit/planos/culto.json",
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "Pare de pedir",
+  "*para quem não resolve.*"
+ ],
+ "cover_at": "auto",
+ "cta": [
+  "Já sabe pra quem pedir?",
+  "Comenta *JESUS*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1606/entrega/reels/05_peca_para_quem_resolve.mp4",
+ "blks": [
+  "c4",
+  "inimigo",
+  "pedir",
+  "onde"
+ ],
+ "to": "Peça para quem resolve. Amém?",
+ "skip": [
+  [
+   "Por que será? Será que se ele",
+   "não vai curar ninguém."
+  ],
+  [
+   "Ah, Manoel, mas acontece",
+   "e pediu para Jesus."
+  ],
+  [
+   "Você não sabe, nós estamos em junho",
+   "ainda não sabe onde Jesus está."
+  ]
+ ],
+ "from": "O centurião é o crente? Não."
+}

@@ -1,0 +1,25 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1606/edit/planos/culto.json",
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "Por que o leite só derrama",
+  "*quando você vira?*"
+ ],
+ "cover_at": "auto",
+ "cta": [
+  "Já aconteceu com você?",
+  "Comenta *O LEITE*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1606/entrega/reels/02_o_leite_que_derrama.mp4",
+ "blks": [
+  "leite",
+  "tiques"
+ ],
+ "to": "atrapalha ao invés de ajudar",
+ "skip": [
+  [
+   "Então, é uma experiência física",
+   "olhando, e o negócio não sobe."
+  ]
+ ]
+}

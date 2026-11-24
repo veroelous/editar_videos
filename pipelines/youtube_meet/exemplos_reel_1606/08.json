@@ -1,0 +1,20 @@
+{
+ "plan": "/home/user/editar_videos/brutos/culto_1606/edit/planos/culto.json",
+ "kicker": "Manoel Gonçalves · pregação",
+ "title": [
+  "Dá pra cantar e pensar",
+  "*no problema?*"
+ ],
+ "cover_at": "auto",
+ "cta": [
+  "Faz o teste aí.",
+  "Comenta *LOUVOR*."
+ ],
+ "out": "/home/user/editar_videos/brutos/culto_1606/entrega/reels/08_cantar_e_pensar_no_problema.mp4",
+ "blks": [
+  "pensa",
+  "canta",
+  "abre"
+ ],
+ "to": "De jeito nenhum."
+}
