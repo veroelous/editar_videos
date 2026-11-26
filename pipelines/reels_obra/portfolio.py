@@ -87,17 +87,8 @@ def feature_chips(L, t):
         L.alpha_composite(with_alpha(im, cl(k) * (1 - ko)), (int(x), int(560 + j * 150)))
 
 # ---------------------------------------------------------------- cartão final (CTA)
-_end_bg = None
-def end_card(t):
-    global _end_bg
-    if _end_bg is None:
-        f = grade_bottom(fit(src_frame(END_BG_SRC), 1.0)).filter(ImageFilter.GaussianBlur(14)).convert("RGBA")
-        f.alpha_composite(Image.new("RGBA", (W, H), (14, 23, 40, 175))); _end_bg = f
-    te = t - END0; bg = _end_bg.copy(); L = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    k = back(pr(te, 0.1, 0.55), 1.3); kb = eo(pr(te, 0.1, 0.4))
-    lw = max(10, 560 * k); lg = blur_reveal(logo_sz(lw), kb, 14)
-    glow = with_alpha(logo_sz(lw).filter(ImageFilter.GaussianBlur(26)), 0.4 * kb)
-    for im in (glow, lg): L.alpha_composite(im, (int(W / 2 - im.width / 2), int(560 - im.height / 2)))
+def cta_comment(L, t, te):
+    """CTA "comenta PALAVRA": título + comentário simulado sendo digitado."""
     kinetic_title(L, CTA_KICKER, CTA_TITLE, t, END0 + 0.8, W / 2, 1010, PAL, size=fit_font(CTA_TITLE, "InterDisplay-Black", 150, 960), per_letter=0.05, color=SKY)
     # comentário simulado com a palavra do CTA
     if te > 2.0:
@@ -118,6 +109,53 @@ def end_card(t):
     if te > 3.4:
         k3 = eo(pr(te, 3.4, 0.35)); spr, pad = text_sprite(CTA_SUB, F("Inter-SemiBold", 36), (225, 232, 245, 255)); spr = blur_reveal(spr, k3)
         L.alpha_composite(spr, (int(W / 2 - spr.width / 2), int(1500 - pad + 14 * (1 - k3))))
+
+def contact_block(L, t, te):
+    """CTA com contatos: título, frase de orçamento, telefones (WhatsApp) e região de atendimento."""
+    kinetic_title(L, CTA_KICKER, CTA_TITLE, t, END0 + 0.6, W / 2, 790, PAL, size=fit_font(CTA_TITLE, "InterDisplay-Black", 130, 960), per_letter=0.04, color=SKY)
+    for j, (line, font, col) in enumerate([(CTA_SUB, F("InterDisplay-Bold", 44), (255, 255, 255, 255)), (CTA_SUB2, F("Inter-Medium", 32), PAL["muted"] + (255,))]):
+        kj = eo(pr(te, 1.5 + 0.2 * j, 0.35))
+        if kj <= 0: continue
+        spr, pad = text_sprite(line, font, col); spr = blur_reveal(spr, kj)
+        L.alpha_composite(spr, (int(W / 2 - spr.width / 2), int(960 + 66 * j - pad + 14 * (1 - kj))))
+    for j, num in enumerate(CONTACTS):  # cartões de telefone com ícone de WhatsApp/celular
+        kj = back(pr(te, 2.2 + 0.3 * j, 0.35), 1.6)
+        if kj <= 0: continue
+        w, h = 760, 112; im = Image.new("RGBA", (w + 40, h + 40), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+        d.rounded_rectangle([20, 28, w + 20, h + 28], radius=56, fill=(0, 0, 0, 120)); im = im.filter(ImageFilter.GaussianBlur(12)); d = ImageDraw.Draw(im)
+        d.rounded_rectangle([20, 20, w + 20, h + 20], radius=56, fill=(255, 255, 255, 250))
+        cx, cy = 20 + 62, 20 + h / 2
+        d.ellipse([cx - 40, cy - 40, cx + 40, cy + 40], fill=(37, 211, 102, 255))          # verde WhatsApp
+        d.rounded_rectangle([cx - 15, cy - 25, cx + 15, cy + 25], radius=6, outline=(255, 255, 255, 255), width=5)  # celular
+        d.line([(cx - 5, cy + 17), (cx + 5, cy + 17)], fill=(255, 255, 255, 255), width=4)
+        fn = F("InterDisplay-ExtraBold", 58); b = fn.getbbox(num)
+        d.text((20 + 128, cy - (b[3] - b[1]) / 2 - b[1]), num, font=fn, fill=NAVY + (255,))
+        L.alpha_composite(with_alpha(im, cl(kj)), (int(W / 2 - (w + 40) / 2), int(1110 + j * 140 + 30 * (1 - cl(kj)))))
+    kl = eo(pr(te, 3.0, 0.35))
+    if kl > 0:  # região de atendimento com pino
+        f = F("InterDisplay-SemiBold", 40); txt = LOCATION; wt = tw(txt, f) + 64
+        im = Image.new("RGBA", (wt + 20, 80), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+        d.ellipse([4, 14, 40, 50], fill=SKY + (255,)); d.polygon([(8, 40), (36, 40), (22, 66)], fill=SKY + (255,)); d.ellipse([15, 25, 29, 39], fill=PAL["bg"] + (255,))
+        d.text((60, 14), txt, font=f, fill=(240, 244, 252, 255))
+        L.alpha_composite(blur_reveal(im, kl), (int(W / 2 - im.width / 2), int(1420 + 14 * (1 - kl))))
+
+_end_bg = None
+def end_card(t):
+    global _end_bg
+    if _end_bg is None:
+        f = grade_bottom(fit(src_frame(END_BG_SRC), 1.0)).filter(ImageFilter.GaussianBlur(14)).convert("RGBA")
+        f.alpha_composite(Image.new("RGBA", (W, H), (14, 23, 40, 175))); _end_bg = f
+    te = t - END0; bg = _end_bg.copy(); L = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    contacts = globals().get("CONTACTS")
+    k = back(pr(te, 0.1, 0.55), 1.3); kb = eo(pr(te, 0.1, 0.4))
+    lw = max(10, (440 if contacts else 560) * k); ly = 400 if contacts else 560
+    lg = blur_reveal(logo_sz(lw), kb, 14)
+    glow = with_alpha(logo_sz(lw).filter(ImageFilter.GaussianBlur(26)), 0.4 * kb)
+    for im in (glow, lg): L.alpha_composite(im, (int(W / 2 - im.width / 2), int(ly - im.height / 2)))
+    if contacts:
+        contact_block(L, t, te)
+    else:
+        cta_comment(L, t, te)
     bg.alpha_composite(L)
     fo = pr(t, END1 - 0.5, 0.5)
     fr = bg.convert("RGB")

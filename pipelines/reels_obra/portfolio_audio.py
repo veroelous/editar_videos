@@ -3,7 +3,8 @@ Uso: PROJ=... JOB=... python3 portfolio_audio.py  ->  PROJ/audio_mix.wav (usa PR
 import os, sys
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from portfolio import SEGS, END0, END1, COVER, PHRASES, HOOK_TITLE, FEATURES, CTA_WORD
+import portfolio as P
+from portfolio import SEGS, END0, END1, COVER, PHRASES, HOOK_TITLE, FEATURES
 from synth import *  # noqa
 
 PROJ = os.environ.get("PROJ", "brutos/g2b_pergolado")
@@ -46,9 +47,14 @@ for ta, *_ in FEATURES: add(S, tick(2600, 0.14), ta); add(S, shimmer(0.4), ta + 
 for ws, _te in PHRASES: add(S, tick(1800, 0.09), ws[0][0])
 add(S, riser(1.6), END0 - 2.0, 0.8); add(S, whoosh(0.5), END0 - 0.45, 1.0); add(S, impact(0.9), END0)
 add(S, shimmer(1.0), END0 + 0.15, 1.2)
-for i in range(len(CTA_WORD.replace(" ", ""))): add(S, tick(2000 + 60 * i, 0.12), END0 + 0.8 + 0.15 + i * 0.05)
-for i in range(len(CTA_WORD)): add(S, tick(3200, 0.05), END0 + 2.3 + i * 0.6 / len(CTA_WORD))  # digitação do comentário
-add(S, ding(), END0 + 3.1)
+if getattr(P, "CONTACTS", None):  # CTA com contatos
+    for i in range(len(P.CTA_TITLE.replace(" ", ""))): add(S, tick(2000 + 40 * i, 0.10), END0 + 0.6 + 0.15 + i * 0.04)
+    for j in range(len(P.CONTACTS)): add(S, impact(0.25), END0 + 2.2 + 0.3 * j); add(S, tick(2600, 0.14), END0 + 2.2 + 0.3 * j)
+    add(S, ding(), END0 + 3.0)
+else:  # CTA "comenta PALAVRA"
+    for i in range(len(P.CTA_WORD.replace(" ", ""))): add(S, tick(2000 + 60 * i, 0.12), END0 + 0.8 + 0.15 + i * 0.05)
+    for i in range(len(P.CTA_WORD)): add(S, tick(3200, 0.05), END0 + 2.3 + i * 0.6 / len(P.CTA_WORD))  # digitação do comentário
+    add(S, ding(), END0 + 3.1)
 
 amb = np.zeros(N)
 if os.path.exists(f"{PROJ}/amb.wav"):
