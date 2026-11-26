@@ -29,3 +29,10 @@ Cada episódio é só um roteiro; o compositor é o mesmo. Para um episódio nov
 ## Cuidados
 - Confira se o bruto mostra **marca de outra empresa** (no EP.01 havia uma placa "Vidraçaria Golfinho" logo depois do portão; o corte começa depois dela).
 - Nos próximos episódios, suba o `REFORMA x%` e troque o painel DEPOIS pelo progresso real; o episódio final usa o mesmo cartão com o "?" revelado.
+
+## Reels de portfólio (trabalho concluído) — `portfolio.py`
+Mesma identidade (paleta, logo, legenda, transições), outra estrutura: **capa → gancho → destaques do produto (cartões com ✓) → detalhe (zoom com foco) → CTA "comenta EU QUERO"** com comentário simulado sendo digitado. Trilha em tom maior (`portfolio_audio.py`, C G Am F + sino de "vidro").
+Roteiro em `trabalhos/<JOB>.py`. Rodar:
+`PROJ=brutos/g2b_pergolado JOB=g2b_pergolado MOD=portfolio AUD=portfolio_audio bash pipelines/reels_obra/render.sh`
+
+Módulos comuns: `visual.py` (paleta G2B, logo, enquadramento, transições, grade azul) e `synth.py` (instrumentos e SFX).

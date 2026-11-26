@@ -2,12 +2,13 @@
 # Render completo do reels "Diário da Reforma". Uso: PROJ=brutos/g2b EP=g2b_ep01 bash pipelines/reels_obra/render.sh
 set -euo pipefail
 PROJ=${PROJ:-brutos/g2b}; HERE=$(dirname "$0"); J=${J:-$(nproc)}
-EP=${EP:-g2b_ep01}; export PROJ EP
+EP=${EP:-g2b_ep01}; MOD=${MOD:-compose}; AUD=${AUD:-audio}; export PROJ EP MOD
+# MOD=portfolio AUD=portfolio_audio JOB=<trabalho> → reels de portfólio (trabalho concluído)
 # 1) ambiente do bruto remontado na linha do tempo (atempo por segmento)
 python3 - <<'PY'
 import os, subprocess, sys
 sys.path.insert(0, os.path.join(os.environ.get("HERE", "pipelines/reels_obra")))
-from compose import SEGS
+import importlib; SEGS = importlib.import_module(os.environ["MOD"]).SEGS
 P = os.environ["PROJ"]; parts = []
 for i, (o0, o1, s0, s1, *_ ) in enumerate(SEGS):
     sp = max(0.5, (s1 - s0) / (o1 - o0)); f = f"{P}/amb_{i}.wav"  # atempo aceita no mínimo 0,5
@@ -18,12 +19,12 @@ open(f"{P}/amb_list.txt", "w").write("".join(f"file '{os.path.abspath(p)}'\n" fo
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", f"{P}/amb_list.txt", f"{P}/amb.wav"], check=True)
 PY
 # 2) trilha + SFX
-python3 "$HERE/audio.py"
+python3 "$HERE/$AUD.py"
 # 3) frames em paralelo
-NF=$(python3 -c "import sys; sys.path.insert(0,'$HERE'); from compose import END1,FPS,COVER; print(int((END1+COVER)*FPS))")
+NF=$(python3 -c "import sys; sys.path.insert(0,'$HERE'); from $MOD import END1,FPS,COVER; print(int((END1+COVER)*FPS))")
 rm -rf "$PROJ/frames"; mkdir -p "$PROJ/frames"
 CH=$(( (NF + J - 1) / J ))
-for ((k=0; k<J; k++)); do python3 "$HERE/compose.py" $((k*CH)) $(((k+1)*CH)) "$PROJ/frames" & done; wait
+for ((k=0; k<J; k++)); do python3 "$HERE/$MOD.py" $((k*CH)) $(((k+1)*CH)) "$PROJ/frames" & done; wait
 # 4) encode + mux (loudnorm -14 LUFS)
 ffmpeg -v error -y -framerate 30 -i "$PROJ/frames/%05d.png" -i "$PROJ/audio_mix.wav" \
   -c:v libx264 -preset slow -crf 20 -pix_fmt yuv420p -movflags +faststart \
