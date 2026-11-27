@@ -13,7 +13,7 @@ import fx, estilo as st
 from fx import eo, eio, pr
 
 PLAN = json.load(open(sys.argv[1])); MODE = sys.argv[2]
-D = PLAN.get("proj", "/home/user/editar_videos/brutos/reel4"); E = f"{D}/edit"; SRC = f"{D}/dl/bruto.mp4"; WK = f"{E}/work_{PLAN['id']}"
+D = PLAN.get("proj", "/home/user/editar_videos/brutos/reel4"); E = f"{D}/edit"; SRC = PLAN.get("src", f"{D}/dl/bruto.mp4"); WK = f"{E}/work_{PLAN['id']}"
 MODELS = "/tmp/claude-0/-home-user-editar-videos/0ca601e2-5ead-5526-97c2-0a2240f4e1d5/scratchpad/models"
 os.makedirs(WK, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
@@ -108,7 +108,8 @@ if MODE == "prep":
     ln = (f"loudnorm=I=-15:TP=-1.5:LRA=6:measured_I={js['input_i']}:measured_TP={js['input_tp']}:measured_LRA={js['input_lra']}:"
           f"measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", f"{WK}/base.mkv", "-af", chain + "," + ln, "-ar", "48000", "-ac", "2", f"{WK}/voice.wav"], check=True)
-    fixmap(); print(PLAN["id"], "prep ok", round(TOTAL, 2), "s,", len(ranges), "cortes"); sys.exit()
+    if PLAN.get("fixmap", True): fixmap()
+    print(PLAN["id"], "prep ok", round(TOTAL, 2), "s,", len(ranges), "cortes"); sys.exit()
 
 # ------------------------------------------------------------------ roteiro
 EV = []
@@ -142,6 +143,8 @@ def zoom_at(t):
 _sr = None; _cache = {}
 def cam_big(raw):
     global _sr
+    if not PLAN.get("sr", True):   # câmera boa (celular): sem super-resolução, só redimensiona
+        return Image.frombytes("RGB", (TILE["s"], TILE["s"]), raw).resize((TILE.get("out", 900),) * 2, Image.LANCZOS)
     key = hashlib.md5(raw).hexdigest()
     if key not in _cache:
         if _sr is None:
@@ -178,6 +181,7 @@ def render(raw, t):
 
 RAW = TILE["s"] * TILE["s"] * 3
 def fixes():
+    if not os.path.exists(f"{WK}/fix.npz"): return {}
     FX_ = np.load(f"{WK}/fix.npz"); return {int(i): r.tobytes() for i, r in zip(FX_["idx"], FX_["raw"])}
 if MODE == "events":
     print(PLAN["id"], "TOTAL", round(TOTAL, 2), "fala", round(T_SPEECH, 2), "cortes", len(ranges))
