@@ -53,9 +53,10 @@ def base_frame(t):
     shift = (fx_amt * 2.2) * (1 if dt_out < TR else -1) if fx_amt else 0
     zz = z + zx
     # foco: desloca o recorte para o ponto de interesse quando há zoom
-    sc = max(W / 478, H / 850) * zz
-    dxf = -(foc[0] - 0.5) * 478 * sc; dyf = -(foc[1] - 0.5) * 850 * sc
-    fr = fit(src_frame(ts), zz, dx=dxf + (shift if axis == "x" else 0), dy=dyf + (shift if axis == "y" else 0))
+    im = src_frame(ts); sw, sh = im.size
+    sc = max(W / sw, H / sh) * zz
+    dxf = -(foc[0] - 0.5) * sw * sc; dyf = -(foc[1] - 0.5) * sh * sc
+    fr = fit(im, zz, dx=dxf + (shift if axis == "x" else 0), dy=dyf + (shift if axis == "y" else 0))
     if fx_amt: fr = motion_blur(fr, fx_amt, axis)
     if zx > 0.05: fr = fr.filter(ImageFilter.GaussianBlur(zx * 14))
     if split: fr = rgb_split(fr, split)
